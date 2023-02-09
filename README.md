@@ -11,3 +11,8 @@ Documenti da produrre</br>
   Analisi Orientata agli oggetti (Modello di Dominio, Diagramma di sequenza di sistema, contratti delle operazioni)</br>
   Progettazione (Diagrammi di sequenza, diagramma delle classi)</br>
   Testing</br>
+  
+<h4>giorno 1 09/02/2023</h4>
+modello dei casi d'uso (solo formato breve), analisi dei requisiti e regole di dominio
+<h4>giorno 2 10/02/2023</h4>
+diagramma casi d'uso (con 2 casi d'uso in formato dettagliato), diagramma casi d'uso e obiettivi
