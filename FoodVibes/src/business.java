@@ -4,7 +4,7 @@ public class business {
 	String surname;
 	String openingHours;
 	String image;
-	String prova3;
+	String prova8903;
 	public business(String name, String surname, String openingHours, String image) {
 		
 	}
