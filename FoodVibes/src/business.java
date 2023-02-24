@@ -4,10 +4,10 @@ public class business {
 	String surname;
 	String openingHours;
 	String image;
-	String prova2;
+	String prova3;
 	public business(String name, String surname, String openingHours, String image) {
 		
 	}
 	
-	//prova
+	//prova1243312
 }
