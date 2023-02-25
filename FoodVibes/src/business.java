@@ -3,6 +3,7 @@ public class business {
 	String address;
 	String openingHours;
 	String image;
+	
 	public business(String newName, String newAddress, String newOpeningHours, String newImage) {
 		name = newName;
 		address = newAddress;

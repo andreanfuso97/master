@@ -14,12 +14,13 @@ public class catalog {
 	
 	public void add(business newBusiness) {
 		businessList.add(newBusiness);
-		this.get();
+		this.getCatalog();
 	}
-	public void get() {
+	
+	public void getCatalog() {
 		for (int i =0; i<businessList.size(); i++) {
 			business aBusiness = businessList.get(i);
-			System.out.println(aBusiness.name + " " + aBusiness.address + " " + aBusiness.openingHours + " " +aBusiness.image);
+			System.out.println(aBusiness.name + " " + aBusiness.address + " " + aBusiness.openingHours + " " + aBusiness.image);
 		}
 	}
 }
