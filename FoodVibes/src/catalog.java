@@ -6,6 +6,9 @@ public class catalog {
     public static catalog getInstance() {
         if (instance == null) {
             instance = new catalog();
+            instance.add(new business("anavar","b","c","d"));
+            instance.add(new business("bdo","f","g","h"));
+            instance.add(new business("anal","b","c","d"));
         }
         return instance;
     }
@@ -14,13 +17,26 @@ public class catalog {
 	
 	public void add(business newBusiness) {
 		businessList.add(newBusiness);
-		this.getCatalog();
+		System.out.println("new business added (name: " + newBusiness.name + ", address: " + newBusiness.address +
+				   ", openingHours: " + newBusiness.openingHours + ", image: " + newBusiness.image);
 	}
 	
-	public void getCatalog() {
+	public void getCatalogEntries() {
 		for (int i =0; i<businessList.size(); i++) {
 			business aBusiness = businessList.get(i);
-			System.out.println(aBusiness.name + " " + aBusiness.address + " " + aBusiness.openingHours + " " + aBusiness.image);
+			System.out.println("new business added (name: " + aBusiness.name + ", address: " + aBusiness.address +
+							   ", openingHours: " + aBusiness.openingHours + ", image: " + aBusiness.image);
 		}
+	}
+	
+	public ArrayList<business> getBusinessList(String businessName) {
+		ArrayList<business> searchedBusinessList = new ArrayList<>();
+		for (int i =0; i<businessList.size(); i++) {
+			business aBusiness = businessList.get(i);
+			if (aBusiness.name.contains(businessName)) {
+				searchedBusinessList.add(aBusiness);
+			}
+		}
+		return searchedBusinessList;
 	}
 }

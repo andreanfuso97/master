@@ -11,10 +11,14 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLayeredPane;
+import java.awt.CardLayout;
+import javax.swing.JTextField;
 
 public class GUI_Frame extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField searchTextArea_searchBusiness;
 
 	/**
 	 * Launch the application.
@@ -36,81 +40,111 @@ public class GUI_Frame extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_Frame() {
-		setTitle("Nuova Attività");
+		setTitle("FoodVibes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new CardLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Registra la tua Attività");
-		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 20));
-		lblNewLabel.setBounds(10, 11, 414, 25);
-		contentPane.add(lblNewLabel);
+		//---------------------------------------------------------------//
+		//					search Business								 //
+		//---------------------------------------------------------------//
+		JPanel searchBusinessPanel = new JPanel();
+		contentPane.add(searchBusinessPanel, "name_95121904108400");
+		searchBusinessPanel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>Fornisci le informazioni necessarie per registrare la tua attività <br>  su FoodVibes</html>");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(10, 47, 414, 42);
-		contentPane.add(lblNewLabel_1);
+		JLabel title_searchBusiness = new JLabel("Cerca Attività");
+		title_searchBusiness.setFont(new Font("Calibri", Font.BOLD, 20));
+		title_searchBusiness.setBounds(10, 11, 198, 25);
+		searchBusinessPanel.add(title_searchBusiness);
+		
+		searchTextArea_searchBusiness = new JTextField();
+		searchTextArea_searchBusiness.setBounds(10, 47, 361, 25); 
+		searchBusinessPanel.add(searchTextArea_searchBusiness);
+		searchTextArea_searchBusiness.setColumns(10);
+		
+		JButton button_searchBusiness = new JButton("🔎︎");
+		button_searchBusiness.setBounds(371, 47, 43, 25);
+		searchBusinessPanel.add(button_searchBusiness);		
+		
+		button_searchBusiness.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				foodvibes.searchBusiness(searchTextArea_searchBusiness.getText());
+			}
+		});
+		
+		//---------------------------------------------------------------//
+		//					new Business								 //
+		//---------------------------------------------------------------//		
+		JPanel newBusinessPanel = new JPanel();
+		contentPane.add(newBusinessPanel, "name_94581570579500");
+		newBusinessPanel.setLayout(null);
+		
+		JLabel titleLabel_newBusiness = new JLabel("Registra la tua Attività");
+		titleLabel_newBusiness.setBounds(10, 11, 187, 25);
+		titleLabel_newBusiness.setFont(new Font("Calibri", Font.BOLD, 20));
+		newBusinessPanel.add(titleLabel_newBusiness);
+		
+		JLabel descriptionLabel_newBusiness = new JLabel("<html>Fornisci le informazioni necessarie per registrare la tua attività <br>  su FoodVibes</html>");
+		descriptionLabel_newBusiness.setBounds(10, 32, 347, 30);
+		descriptionLabel_newBusiness.setVerticalAlignment(SwingConstants.TOP);
+		descriptionLabel_newBusiness.setHorizontalAlignment(SwingConstants.LEFT);
+		descriptionLabel_newBusiness.setFont(new Font("Calibri", Font.PLAIN, 12));
+		newBusinessPanel.add(descriptionLabel_newBusiness);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 80, 445, 2);
-		contentPane.add(separator);
+		separator.setBounds(10, 73, 404, 2);
+		newBusinessPanel.add(separator);
 		
-		JLabel lblNewLabel_name = new JLabel("Nome Attività");
-		lblNewLabel_name.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblNewLabel_name.setBounds(10, 100, 207, 14);
-		contentPane.add(lblNewLabel_name);
+		JLabel newNameLabel_newBusiness = new JLabel("Nome Attività");
+		newNameLabel_newBusiness.setBounds(10, 86, 65, 15);
+		newNameLabel_newBusiness.setFont(new Font("Calibri", Font.PLAIN, 11));
+		newBusinessPanel.add(newNameLabel_newBusiness);
 		
-		JTextArea textArea_name = new JTextArea();
-		textArea_name.setBounds(217, 93, 207, 22);
-		contentPane.add(textArea_name);
+		JTextArea newNameTextArea_newBusiness = new JTextArea();
+		newNameTextArea_newBusiness.setBounds(214, 79, 200, 22);
+		newBusinessPanel.add(newNameTextArea_newBusiness);
 		
+		JLabel newAddressLabel_newBusiness = new JLabel("Indirizzo");
+		newAddressLabel_newBusiness.setBounds(10, 112, 39, 15);
+		newAddressLabel_newBusiness.setFont(new Font("Calibri", Font.PLAIN, 11));
+		newBusinessPanel.add(newAddressLabel_newBusiness);
 		
-		JLabel lblNewLabel_address = new JLabel("Indirizzo");
-		lblNewLabel_address.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblNewLabel_address.setBounds(10, 142, 207, 14);
-		contentPane.add(lblNewLabel_address);
+		JTextArea newAddressTextArea_newBusiness = new JTextArea();
+		newAddressTextArea_newBusiness.setBounds(214, 105, 200, 22);
+		newBusinessPanel.add(newAddressTextArea_newBusiness);
 		
-		JTextArea textArea_address = new JTextArea();
-		textArea_address.setBounds(217, 135, 207, 22);
-		contentPane.add(textArea_address);
+		JLabel newOpeningHoursLabel_newBusiness = new JLabel("Orari di apertura");
+		newOpeningHoursLabel_newBusiness.setBounds(10, 138, 79, 15);
+		newOpeningHoursLabel_newBusiness.setFont(new Font("Calibri", Font.PLAIN, 11));
+		newBusinessPanel.add(newOpeningHoursLabel_newBusiness);
 		
+		JTextArea newOpeningHoursTextArea_newBusiness = new JTextArea();
+		newOpeningHoursTextArea_newBusiness.setBounds(214, 131, 200, 22);
+		newBusinessPanel.add(newOpeningHoursTextArea_newBusiness);
 		
-		JLabel lblNewLabel_openingHours = new JLabel("Orari di apertura");
-		lblNewLabel_openingHours.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblNewLabel_openingHours.setBounds(10, 184, 207, 14);
-		contentPane.add(lblNewLabel_openingHours);
+		JLabel newImageLabel_newBusiness = new JLabel("Link immagini");
+		newImageLabel_newBusiness.setBounds(10, 164, 65, 15);
+		newImageLabel_newBusiness.setFont(new Font("Calibri", Font.PLAIN, 11));
+		newBusinessPanel.add(newImageLabel_newBusiness);
 		
-		JTextArea textArea_openingHours = new JTextArea();
-		textArea_openingHours.setBounds(217, 177, 207, 22);
-		contentPane.add(textArea_openingHours);
+		JTextArea newImageTextArea_newBusiness = new JTextArea();
+		newImageTextArea_newBusiness.setBounds(214, 157, 200, 22);
+		newBusinessPanel.add(newImageTextArea_newBusiness);
 		
+		JButton button_newBusiness = new JButton("Registra ora");
+		button_newBusiness.setBounds(145, 257, 133, 33);
+		button_newBusiness.setVerticalAlignment(SwingConstants.BOTTOM);
+		button_newBusiness.setFont(new Font("Calibri", Font.BOLD, 20));
+		newBusinessPanel.add(button_newBusiness);
 		
-		JLabel lblNewLabel_image = new JLabel("Link immagini");
-		lblNewLabel_image.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblNewLabel_image.setBounds(10, 226, 207, 14);
-		contentPane.add(lblNewLabel_image);
-		
-		JTextArea textArea_image = new JTextArea();
-		textArea_image.setBounds(217, 219, 207, 22);
-		contentPane.add(textArea_image);
-		
-		
-		JButton btnNewButton = new JButton("Registra ora");
-		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 20));
-		btnNewButton.setBounds(132, 265, 150, 35);
-		contentPane.add(btnNewButton);
-		
-		
-		btnNewButton.addActionListener(new ActionListener(){  
+		button_newBusiness.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				foodvibes.insertBusinessInfo(textArea_name.getText(), textArea_address.getText(), textArea_openingHours.getText(), textArea_image.getText());
+				foodvibes.insertBusinessInfo(newNameTextArea_newBusiness.getText(), newAddressTextArea_newBusiness.getText(),
+						newOpeningHoursTextArea_newBusiness.getText(), newImageTextArea_newBusiness.getText());
 			}
 		});
 	}
