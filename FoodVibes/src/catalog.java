@@ -6,9 +6,9 @@ public class catalog {
     public static catalog getInstance() {
         if (instance == null) {
             instance = new catalog();
-            instance.add(new business("anavar","b","c","d"));
-            instance.add(new business("bdo","f","g","h"));
-            instance.add(new business("anal","b","c","d"));
+            instance.add(new business("aaaaa","b","c","d"));
+            instance.add(new business("bbbbb","f","g","h"));
+            instance.add(new business("ccccc","b","c","d"));
         }
         return instance;
     }
