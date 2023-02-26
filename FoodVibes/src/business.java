@@ -15,4 +15,8 @@ public class business {
 		business newBusiness = new business("nome","cognome","orario","imaggine");
 		System.out.println(newBusiness.name+" "+newBusiness.address);
 	}
+	
+	public boolean getBusiness(String nameSearched) {
+		return this.name.contains(nameSearched);
+	}
 }

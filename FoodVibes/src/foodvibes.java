@@ -13,9 +13,9 @@ public class foodvibes{
 		ArrayList<business> searchedBusinessList = currentCatalog.getBusinessList(businessName);
 		for (int i =0; i<searchedBusinessList.size(); i++) {
 			business aBusiness = searchedBusinessList.get(i);
+			//GUI_Frame.getFrames().
 			System.out.println("matching business found (name: " + aBusiness.name + ", address: " + aBusiness.address + 
 							   ", openingHours: " + aBusiness.openingHours + ", image: " + aBusiness.image);
 		}
-	}
-	
+	}	
 }

@@ -33,7 +33,7 @@ public class catalog {
 		ArrayList<business> searchedBusinessList = new ArrayList<>();
 		for (int i =0; i<businessList.size(); i++) {
 			business aBusiness = businessList.get(i);
-			if (aBusiness.name.contains(businessName)) {
+			if (aBusiness.getBusiness(businessName)) {
 				searchedBusinessList.add(aBusiness);
 			}
 		}

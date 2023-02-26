@@ -1,33 +1,10 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLayeredPane;
-import java.awt.CardLayout;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class GUI_Frame extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField searchTextArea_searchBusiness;
+	public JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -54,14 +31,12 @@ public class GUI_Frame extends JFrame {
 		setBounds(100, 100, 850, 490);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 204, 204));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBackground(new Color(204, 255, 204));
-		layeredPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		layeredPane.setBounds(227, 5, 602, 441);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
@@ -77,6 +52,7 @@ public class GUI_Frame extends JFrame {
 		title_searchBusiness.setBounds(10, 11, 198, 25);
 		searchBusinessPanel.add(title_searchBusiness);
 		
+		JTextField searchTextArea_searchBusiness;
 		searchTextArea_searchBusiness = new JTextField();
 		searchTextArea_searchBusiness.setColumns(10);
 		searchTextArea_searchBusiness.setBounds(10, 47, 361, 25);
@@ -92,7 +68,20 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
-		//new business
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 83, 578, 2);
+		searchBusinessPanel.add(separator_1);
+		
+		JPanel foundBusinessPanel_searchBusiness = new JPanel();							//panel da prendere
+		foundBusinessPanel_searchBusiness.setBackground(new Color(204, 255, 204));
+		foundBusinessPanel_searchBusiness.setBounds(10, 96, 578, 330);
+		
+		JScrollPane scrollPane = new JScrollPane(foundBusinessPanel_searchBusiness);
+		foundBusinessPanel_searchBusiness.setLayout(new GridLayout(0, 1, 0, 0));
+		scrollPane.setBounds(10, 96, 578, 330);
+		searchBusinessPanel.add(BorderLayout.CENTER, scrollPane);
+		
+		//registerBusiness
 		JPanel registerBusinessPanel = new JPanel();
 		registerBusinessPanel.setBackground(new Color(204, 255, 204));
 		registerBusinessPanel.setLayout(null);
@@ -153,7 +142,7 @@ public class GUI_Frame extends JFrame {
 		JButton button_newBusiness = new JButton("Registra ora");
 		button_newBusiness.setVerticalAlignment(SwingConstants.BOTTOM);
 		button_newBusiness.setFont(new Font("Calibri", Font.BOLD, 20));
-		button_newBusiness.setBounds(145, 257, 133, 33);
+		button_newBusiness.setBounds(145, 257, 255, 33);
 		registerBusinessPanel.add(button_newBusiness);
 		
 		button_newBusiness.addActionListener(new ActionListener(){  
@@ -166,7 +155,6 @@ public class GUI_Frame extends JFrame {
 		//side bar
 		JPanel SideBar = new JPanel();
 		SideBar.setBackground(new Color(204, 255, 204));
-		SideBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		SideBar.setBounds(5, 5, 212, 441);
 		contentPane.add(SideBar);
 		SideBar.setLayout(null);
@@ -201,4 +189,8 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 	}
+	
+	/*public JPanel returnsearchpanel() {
+		//return this.get;
+	}*/
 }
