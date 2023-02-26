@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class catalog {
 	private static catalog instance = null;
 	private catalog() {}
+	
     public static catalog getInstance() {
         if (instance == null) {
             instance = new catalog();

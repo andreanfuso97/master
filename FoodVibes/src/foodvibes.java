@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class foodvibes{
 	
@@ -8,14 +9,21 @@ public class foodvibes{
 		currentCatalog.add(newBusiness);
 	}
 	
-	public static void searchBusiness(String businessName) {
+	public static ArrayList searchBusiness(String businessName) {
 		catalog currentCatalog = catalog.getInstance();
 		ArrayList<business> searchedBusinessList = currentCatalog.getBusinessList(businessName);
+		
+
 		for (int i =0; i<searchedBusinessList.size(); i++) {
 			business aBusiness = searchedBusinessList.get(i);
-			//GUI_Frame.getFrames().
 			System.out.println("matching business found (name: " + aBusiness.name + ", address: " + aBusiness.address + 
 							   ", openingHours: " + aBusiness.openingHours + ", image: " + aBusiness.image);
 		}
-	}	
+		
+		return searchedBusinessList;		
+	}
+	
+	
+	
+	
 }
