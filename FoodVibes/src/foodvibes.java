@@ -1,4 +1,5 @@
 import java.awt.CardLayout;
+import java.sql.Date;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -16,8 +17,14 @@ import javax.swing.JScrollPane;
 
 public class foodvibes{
 	private static GUI_Frame mainFrame;
+	private ArrayList<user> userList = new ArrayList<>();
+	
+	Date bDate = new Date(1997, 9, 30);
+	user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+	
 	
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
