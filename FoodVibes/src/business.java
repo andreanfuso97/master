@@ -5,11 +5,12 @@ public class business {
 	private String image;
 	private user owner;
 	
-	public business(String newName, String newAddress, String newOpeningHours, String newImage) {
+	public business(String newName, String newAddress, String newOpeningHours, String newImage, user newOwner) {
 		name = newName;
 		address = newAddress;
 		openingHours = newOpeningHours;
 		image = newImage;
+		owner = newOwner;
 	}
 	
 	public String getName() {
