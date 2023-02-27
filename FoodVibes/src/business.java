@@ -11,14 +11,12 @@ public class business {
 		image = newImage;
 	}
 	
-	
-	public static void main(String[] args) {
-		business newBusiness = new business("nome","cognome","orario","imaggine");
-		System.out.println(newBusiness.name+" "+newBusiness.address);
-	}
-	
 	public String getName() {
 		return this.name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public boolean getBusiness(String nameSearched) {
@@ -48,13 +46,4 @@ public class business {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
-	
-	
-	
 }

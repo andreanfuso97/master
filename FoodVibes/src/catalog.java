@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class catalog {
 	private static catalog instance = null;
+	ArrayList<business> businessList = new ArrayList<>();
+	
 	private catalog() {}
 	
     public static catalog getInstance() {
@@ -13,9 +15,7 @@ public class catalog {
         }
         return instance;
     }
-    
-	ArrayList<business> businessList = new ArrayList<>();
-	
+    	
 	public void add(business newBusiness) {
 		businessList.add(newBusiness);
 		System.out.println("new business added (name: " + newBusiness.name + ", address: " + newBusiness.address +
@@ -30,6 +30,7 @@ public class catalog {
 		}
 	}
 	
+	// ritorna una lista contenente le attività il cui nome contiene la string cercata
 	public ArrayList<business> getBusinessList(String businessName) {
 		ArrayList<business> searchedBusinessList = new ArrayList<>();
 		for (int i =0; i<businessList.size(); i++) {
