@@ -1,8 +1,8 @@
 public class business {
-	String name;
-	String address;
-	String openingHours;
-	String image;
+	private String name;
+	private String address;
+	private String openingHours;
+	private String image;
 	
 	public business(String newName, String newAddress, String newOpeningHours, String newImage) {
 		name = newName;

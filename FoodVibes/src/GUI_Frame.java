@@ -4,9 +4,15 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class GUI_Frame extends JFrame {
-
+	
+	private JLayeredPane layeredPane;
 	private JPanel foundBusinessPanel_searchBusiness;
 	private JScrollPane foundBusinessScrollPane_searchBusiness;
+	private JPanel businessPanel;
+	
+	public JLayeredPane getLayeredPane() {
+		return layeredPane;
+	}
 	
 	public JPanel getFoundBusinessPanel() {
 		return foundBusinessPanel_searchBusiness;
@@ -14,6 +20,10 @@ public class GUI_Frame extends JFrame {
 	
 	public JScrollPane getFoundBusinessScrollPane() {
 		return foundBusinessScrollPane_searchBusiness;
+	}
+	
+	public JPanel getBusinessPanel() {
+		return businessPanel;
 	}
 	
 	public GUI_Frame() {
@@ -26,7 +36,7 @@ public class GUI_Frame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane = new JLayeredPane();
 		layeredPane.setBackground(new Color(204, 255, 204));
 		layeredPane.setBounds(227, 5, 602, 441);
 		contentPane.add(layeredPane);
@@ -181,6 +191,10 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
-		
+		//business panel
+		businessPanel = new JPanel();
+		businessPanel.setBackground(new Color(204, 255, 204));
+		layeredPane.add(businessPanel, "businessPanel");
+		businessPanel.setLayout(null);
 	}
 }
