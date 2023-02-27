@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.Date;
 public class user {
 	private String Name;
 	private String Surname;

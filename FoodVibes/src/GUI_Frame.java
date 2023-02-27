@@ -49,8 +49,9 @@ public class GUI_Frame extends JFrame {
 		contentPane.add(SideBar);
 		SideBar.setLayout(null);
 		
-		JLabel titleLabel_sidebar = new JLabel("Benvenuto");
-		titleLabel_sidebar.setHorizontalAlignment(SwingConstants.CENTER);
+		String userName = foodvibes.getUser().getUsername();
+		JLabel titleLabel_sidebar = new JLabel("<html>Benvenuto<br>" + userName + "</html>");
+		titleLabel_sidebar.setHorizontalAlignment(SwingConstants.LEFT);
 		titleLabel_sidebar.setBounds(10, 11, 192, 50);
 		titleLabel_sidebar.setFont(new Font("Calibri", Font.BOLD, 25));
 		SideBar.add(titleLabel_sidebar);

@@ -1,5 +1,6 @@
 import java.awt.CardLayout;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Calendar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -7,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,13 +19,21 @@ import javax.swing.JScrollPane;
 
 public class foodvibes{
 	private static GUI_Frame mainFrame;
-	private ArrayList<user> userList = new ArrayList<>();
-	
-	Date bDate = new Date(1997, 9, 30);
-	user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+	private static List<user> userList = new ArrayList<>();
+	private static user currentUser;
 	
 	
 	public static void main(String[] args) {
+		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 1997);
+		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
+		Date bDate = dateInfo.getTime();
+		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		
+		userList.add(nUser);
+		
+		currentUser = userList.get(0);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -35,6 +45,10 @@ public class foodvibes{
 				}
 			}
 		});
+	}
+	
+	public static user getUser() {
+		return currentUser;
 	}
 	
 	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
