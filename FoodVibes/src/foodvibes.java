@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -30,7 +31,6 @@ public class foodvibes{
 		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
 		Date bDate = dateInfo.getTime();
 		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
-		
 		userList.add(nUser);
 		
 		currentUser = userList.get(0);
@@ -52,10 +52,19 @@ public class foodvibes{
 	}
 	
 	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
-		catalog.getInstance().add(new business(name, address, openingHours, image));
+		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
+			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
+		}else {
+			catalog.getInstance().add(new business(name, address, openingHours, image));
+			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
+		}
 	}
 	
 	public static void searchBusiness(String businessName) {
+		if(businessName.isBlank()) {
+			JOptionPane.showMessageDialog(mainFrame, "Compila il campo di ricerca.");
+			return;
+		}
 		ArrayList<business> searchedBusinessList = catalog.getInstance().getBusinessList(businessName);
 		JPanel businessPanel = mainFrame.getFoundBusinessPanel();
 		JScrollPane businessScrollPane = mainFrame.getFoundBusinessScrollPane();
