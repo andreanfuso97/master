@@ -47,4 +47,12 @@ public class business {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public user getOwner() {
+		return owner;
+	}
+
+	public void setOwner(user owner) {
+		this.owner = owner;
+	}
 }
