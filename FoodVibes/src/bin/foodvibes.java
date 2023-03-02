@@ -1,3 +1,4 @@
+package bin;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.EventQueue;
@@ -49,6 +50,6 @@ public class foodvibes{
 	}
 	
 	public static ArrayList<business> searchBusiness(String businessName) {
-		return catalog.getInstance().getBusinessList(businessName);		
+		return catalog.getInstance().getBusinessesByName(businessName);		
 	}
 }

@@ -1,10 +1,13 @@
+package bin;
 import java.util.ArrayList;
 
 public class catalog {
 	private static catalog instance = null;
-	ArrayList<business> businessList = new ArrayList<>();
+	private ArrayList<business> businessList;
 	
-	private catalog() {}
+	private catalog() {
+		businessList = new ArrayList<>();
+	}
 	
     public static catalog getInstance() {
         if (instance == null) {
@@ -12,23 +15,21 @@ public class catalog {
         }
         return instance;
     }
-    	
+    
+    //get
+    public ArrayList<business> getBusinessList(){
+    	return businessList;
+    }
+    
+    //add to list
 	public void add(business newBusiness) {
 		businessList.add(newBusiness);
 		System.out.println("new business added (name: " + newBusiness.getName() + ", address: " + newBusiness.getAddress() +
-				   ", openingHours: " + newBusiness.getOpeningHours() + ", image: " + newBusiness.getImage());
-	}
-	
-	public void getCatalogEntries() {
-		for (int i =0; i<businessList.size(); i++) {
-			business aBusiness = businessList.get(i);
-			System.out.println("new business added (name: " + aBusiness.getName() + ", address: " + aBusiness.getAddress() +
-							   ", openingHours: " + aBusiness.getOpeningHours() + ", image: " + aBusiness.getImage());
-		}
+				   ", openingHours: " + newBusiness.getOpeningHours() + ", image: " + newBusiness.getImage() + ", owner: " + newBusiness.getOwner().getName());
 	}
 	
 	//returns a list which contains the found businesses
-	public ArrayList<business> getBusinessList(String businessName) {
+	public ArrayList<business> getBusinessesByName(String businessName) {
 		ArrayList<business> searchedBusinessList = new ArrayList<>();
 		for (int i =0; i<businessList.size(); i++) {
 			business aBusiness = businessList.get(i);
