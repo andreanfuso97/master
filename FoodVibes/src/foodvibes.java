@@ -12,6 +12,7 @@ public class foodvibes{
 	
 	
 	public static void main(String[] args) {
+		
 		Calendar dateInfo = Calendar.getInstance();
 		dateInfo.set(Calendar.YEAR, 1997);
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
@@ -42,7 +43,7 @@ public class foodvibes{
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
 		}else {
-			catalog.getInstance().add(new business(name, address, openingHours, image));
+			catalog.getInstance().add(new business(name, address, openingHours, image, currentUser));
 			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
 		}
 	}
