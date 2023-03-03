@@ -48,12 +48,4 @@ public class business {
 		this.owner = owner;
 	}
 	
-	//find business
-	public boolean matchName(String nameSearched) {
-		if(nameSearched.isBlank()) {
-			return false;
-		}else {
-			return this.name.toLowerCase().contains(nameSearched.toLowerCase());
-		}
-	}
 }

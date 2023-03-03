@@ -57,10 +57,5 @@ class businessTest {
 		assertEquals(aUser2,aBusiness.getOwner());
 	}
 	
-	@Test
-	@DisplayName("test ricerca business con il nome")
-	void getBusinessTest() {
-		assertTrue(aBusiness.matchName("N"));
-	}
 
 }
