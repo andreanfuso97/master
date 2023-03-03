@@ -60,7 +60,7 @@ class businessTest {
 	@Test
 	@DisplayName("test ricerca business con il nome")
 	void getBusinessTest() {
-		assertTrue(aBusiness.getBusiness("N"));
+		assertTrue(aBusiness.matchName("N"));
 	}
 
 }

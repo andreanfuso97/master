@@ -49,7 +49,7 @@ public class business {
 	}
 	
 	//find business
-	public boolean getBusiness(String nameSearched) {
+	public boolean matchName(String nameSearched) {
 		if(nameSearched.isBlank()) {
 			return false;
 		}else {
