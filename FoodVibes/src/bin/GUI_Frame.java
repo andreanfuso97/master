@@ -2,6 +2,7 @@ package bin;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.*;
 
@@ -11,6 +12,8 @@ public class GUI_Frame extends JFrame {
 	private JPanel foundBusinessPanel_searchBusiness;
 	private JScrollPane foundBusinessScrollPane_searchBusiness;
 	private JPanel businessPanel;
+	private JPanel reviewsPanel_businessPanel;
+	
 	
 	public JLayeredPane getLayeredPane() {
 		return layeredPane;
@@ -43,6 +46,8 @@ public class GUI_Frame extends JFrame {
 		layeredPane.setBounds(227, 5, 602, 441);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
+		
+		
 		
 		//side bar panel
 		JPanel SideBar = new JPanel();
@@ -84,6 +89,8 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
+		
+		
 		//search business panel
 		JPanel searchBusinessPanel = new JPanel();
 		searchBusinessPanel.setBackground(new Color(204, 255, 204));
@@ -122,12 +129,14 @@ public class GUI_Frame extends JFrame {
 		foundBusinessPanel_searchBusiness = new JPanel();
 		foundBusinessPanel_searchBusiness.setBackground(new Color(204, 255, 204));
 		foundBusinessPanel_searchBusiness.setBounds(10, 96, 578, 330);
-		
+
 		foundBusinessScrollPane_searchBusiness = new JScrollPane(foundBusinessPanel_searchBusiness);
 		foundBusinessPanel_searchBusiness.setLayout(new BoxLayout(foundBusinessPanel_searchBusiness, BoxLayout.Y_AXIS));
 		foundBusinessScrollPane_searchBusiness.setEnabled(false);
 		foundBusinessScrollPane_searchBusiness.setBounds(10, 96, 578, 330);
 		searchBusinessPanel.add(BorderLayout.CENTER, foundBusinessScrollPane_searchBusiness);
+		
+		
 		
 		//registerBusiness panel
 		JPanel registerBusinessPanel = new JPanel();
@@ -199,11 +208,16 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
+		
 		//business panel
 		businessPanel = new JPanel();
 		businessPanel.setBackground(new Color(204, 255, 204));
 		layeredPane.add(businessPanel, "businessPanel");
 		businessPanel.setLayout(null);
+		
+		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
+		cardLayout.show(layeredPane, "businessPanel");
+		
 	}
 	
 	public void newSearchResult(business foundBusiness) {
@@ -232,27 +246,97 @@ public class GUI_Frame extends JFrame {
 	public void newBusinessPanel(business aBusiness) {
 		businessPanel.removeAll();
 		
-		JLabel nameLabel_businessPanel1 = new JLabel(aBusiness.getName());
-		nameLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 30));
-		nameLabel_businessPanel1.setBounds(10, 11, 582, 43);
-		businessPanel.add(nameLabel_businessPanel1);
+		JLabel nameLabel_businessPanel = new JLabel(aBusiness.getName());
+		nameLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 30));
+		nameLabel_businessPanel.setBounds(10, 11, 291, 43);
+		businessPanel.add(nameLabel_businessPanel);
 		
-		JLabel addressLabel_businessPanel1 = new JLabel("Indirizzo: " + aBusiness.getAddress());
-		addressLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
-		addressLabel_businessPanel1.setBounds(10, 65, 291, 43);
-		businessPanel.add(addressLabel_businessPanel1);
+		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
+		addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		addressLabel_businessPanel.setBounds(10, 65, 291, 43);
+		businessPanel.add(addressLabel_businessPanel);
 		
-		JLabel openingHours_businessPanel1 = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
-		openingHours_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
-		openingHours_businessPanel1.setBounds(311, 65, 291, 43);
-		businessPanel.add(openingHours_businessPanel1);
+		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
+		openingHours_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		openingHours_businessPanel.setBounds(10, 119, 291, 43);
+		businessPanel.add(openingHours_businessPanel);
 		
-		JLabel imageLabel_businessPanel1 = new JLabel("Immagine attività");
-		imageLabel_businessPanel1.setIcon(new ImageIcon(aBusiness.getImage()));
-		imageLabel_businessPanel1.setBounds(10, 119, 582, 311);
-		businessPanel.add(imageLabel_businessPanel1);
+		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
+		imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
+		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
+		businessPanel.add(imageLabel_businessPanel);
+		
+		JScrollPane reviewsScrollPane_businessPanel = new JScrollPane();
+		reviewsScrollPane_businessPanel.setBounds(10, 196, 582, 234);
+		businessPanel.add(reviewsScrollPane_businessPanel);
+		
+		reviewsPanel_businessPanel = new JPanel();
+		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
+		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
+		
+		JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
+		newReviewButton_businessPanel.setBounds(439, 162, 153, 23);
+		businessPanel.add(newReviewButton_businessPanel);
+		newReviewButton_businessPanel.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				reviewsPanel_businessPanel.removeAll();
+				inputReviewDataPanel(aBusiness);
+				reviewsPanel_businessPanel.validate();
+				reviewsPanel_businessPanel.repaint();
+				reviewsScrollPane_businessPanel.validate();
+				reviewsScrollPane_businessPanel.repaint();
+			}
+		});
+		foodvibes.showReviews(aBusiness);
 		
 		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
 		cardLayout.show(layeredPane, "businessPanel");
+	}
+	
+	public void newReviewPanel(review aReview) {
+		
+		JPanel foundReviewPanel_businessPanel = new JPanel();
+		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 100));
+		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 100));
+		foundReviewPanel_businessPanel.setBounds(30, 40, 300, 50);
+		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
+		foundReviewPanel_businessPanel.setLayout(null);
+		
+		JLabel reviewTitleLabel_businessPanel = new JLabel(aReview.getTitle());
+		reviewTitleLabel_businessPanel.setBounds(10, 5, 46, 14);
+		foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
+		
+		JLabel voteReviewLabel_businessPanel = new JLabel(Float.toString(aReview.getVote()));
+		voteReviewLabel_businessPanel.setBounds(10, 30, 560, 65);
+		foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
+		
+		JLabel descriptionReviewLabel_businessPanel = new JLabel(aReview.getDescription());
+		descriptionReviewLabel_businessPanel.setBounds(524, 5, 46, 14);
+		foundReviewPanel_businessPanel.add(descriptionReviewLabel_businessPanel);		
+	}
+	
+	public void inputReviewDataPanel(business aBusiness) {
+		JPanel newReviewPanel = new JPanel();
+		
+		JTextField title = new JTextField(5);
+		newReviewPanel.add(new JLabel("titolo:"));
+		newReviewPanel.add(title);
+		newReviewPanel.add(Box.createHorizontalStrut(15));
+		
+		JTextField vote = new JTextField(5);
+		newReviewPanel.add(new JLabel("voto:"));
+		newReviewPanel.add(vote);
+		newReviewPanel.add(Box.createHorizontalStrut(15));
+		
+		JTextField description = new JTextField(5);
+		newReviewPanel.add(new JLabel("descrizione:"));
+		newReviewPanel.add(description);
+		newReviewPanel.add(Box.createHorizontalStrut(15));
+			
+		int result = JOptionPane.showConfirmDialog(null, newReviewPanel, "Nuova recensione", JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION) {
+			foodvibes.insertNewReview(aBusiness,title.getText(),Float.parseFloat(vote.getText()),description.getText());
+		}
 	}
 }

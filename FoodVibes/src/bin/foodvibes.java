@@ -14,6 +14,8 @@ public class foodvibes{
 	
 	public static void main(String[] args) {
 		
+		
+		//utente iniziale
 		Calendar dateInfo = Calendar.getInstance();
 		dateInfo.set(Calendar.YEAR, 1997);
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
@@ -21,8 +23,9 @@ public class foodvibes{
 		Date bDate = dateInfo.getTime();
 		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
-		
 		currentUser = userList.get(0);
+		
+		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -70,6 +73,18 @@ public class foodvibes{
 			mainFrame.newSearchResult(foundBusiness);
 		}
 		
+	}
+	
+	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
+		aBusiness.addNewReview(reviewTitle,reviewVote,reviewDescription);
+		showReviews(aBusiness);
+	}
+	
+	public static void showReviews(business aBusiness) {
+		ArrayList<review> businessReviews = aBusiness.getBusinessReviews();
+		for(int i = 0; i<businessReviews.size(); i++) {
+			mainFrame.newReviewPanel(businessReviews.get(i));
+		}
 	}
 	
 }
