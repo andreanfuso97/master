@@ -215,9 +215,85 @@ public class GUI_Frame extends JFrame {
 		layeredPane.add(businessPanel, "businessPanel");
 		businessPanel.setLayout(null);
 		
+		//modifica per gui
+		
+		/*
+		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 1997);
+		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
+		user aUser = new user("Sebastiano", "Brischetto", "Italiano", dateInfo.getTime(), "seby@gmail.com", "sebrisch", "nonna");
+		business aBusiness = new business ("nome","indirizzo","orari","immagine",aUser);
+		
+		JLabel nameLabel_businessPanel = new JLabel(aBusiness.getName());
+		nameLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 30));
+		nameLabel_businessPanel.setBounds(10, 11, 291, 43);
+		businessPanel.add(nameLabel_businessPanel);
+		
+		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
+		addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		addressLabel_businessPanel.setBounds(10, 65, 291, 43);
+		businessPanel.add(addressLabel_businessPanel);
+		
+		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
+		openingHours_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		openingHours_businessPanel.setBounds(10, 119, 291, 43);
+		businessPanel.add(openingHours_businessPanel);
+		
+		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
+		imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
+		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
+		businessPanel.add(imageLabel_businessPanel);
+		
+		JScrollPane reviewsScrollPane_businessPanel = new JScrollPane();
+		reviewsScrollPane_businessPanel.setBounds(10, 196, 582, 234);
+		businessPanel.add(reviewsScrollPane_businessPanel);
+		
+		reviewsPanel_businessPanel = new JPanel();
+		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
+		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
+		
+		JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
+		newReviewButton_businessPanel.setBounds(439, 162, 153, 23);
+		businessPanel.add(newReviewButton_businessPanel);
+		newReviewButton_businessPanel.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				reviewsPanel_businessPanel.removeAll();
+				inputReviewDataPanel(aBusiness);
+				reviewsPanel_businessPanel.validate();
+				reviewsPanel_businessPanel.repaint();
+				reviewsScrollPane_businessPanel.validate();
+				reviewsScrollPane_businessPanel.repaint();
+			}
+		});
+		foodvibes.showReviews(aBusiness);
+		
+		//gui recensione
+		
+		JPanel foundReviewPanel_businessPanel = new JPanel();
+		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 150));
+		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 150));
+		foundReviewPanel_businessPanel.setBounds(30, 40, 300, 50);
+		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
+		foundReviewPanel_businessPanel.setLayout(null);
+		
+		JLabel reviewTitleLabel_businessPanel = new JLabel("titolo recens");
+		reviewTitleLabel_businessPanel.setBounds(109, 11, 46, 14);
+		foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
+		
+		JLabel voteReviewLabel_businessPanel = new JLabel("5");
+		voteReviewLabel_businessPanel.setBounds(10, 11, 89, 14);
+		foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
+		
+		JLabel descriptionReviewLabel_businessPanel = new JLabel("descrizione");
+		descriptionReviewLabel_businessPanel.setBounds(10, 36, 560, 103);
+		foundReviewPanel_businessPanel.add(descriptionReviewLabel_businessPanel);	*/
+		
+		//fine modifica
+		
 		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
 		cardLayout.show(layeredPane, "businessPanel");
-		
 	}
 	
 	public void newSearchResult(business foundBusiness) {
@@ -293,50 +369,65 @@ public class GUI_Frame extends JFrame {
 		cardLayout.show(layeredPane, "businessPanel");
 	}
 	
-	public void newReviewPanel(review aReview) {
+	public void newReviewPanel(review aReview) {	
 		
 		JPanel foundReviewPanel_businessPanel = new JPanel();
 		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 100));
-		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 100));
+		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 150));
+		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 150));
 		foundReviewPanel_businessPanel.setBounds(30, 40, 300, 50);
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
 		JLabel reviewTitleLabel_businessPanel = new JLabel(aReview.getTitle());
-		reviewTitleLabel_businessPanel.setBounds(10, 5, 46, 14);
+		reviewTitleLabel_businessPanel.setBounds(109, 11, 46, 14);
 		foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
 		
 		JLabel voteReviewLabel_businessPanel = new JLabel(Float.toString(aReview.getVote()));
-		voteReviewLabel_businessPanel.setBounds(10, 30, 560, 65);
+		voteReviewLabel_businessPanel.setBounds(10, 11, 89, 14);
 		foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
 		
 		JLabel descriptionReviewLabel_businessPanel = new JLabel(aReview.getDescription());
-		descriptionReviewLabel_businessPanel.setBounds(524, 5, 46, 14);
-		foundReviewPanel_businessPanel.add(descriptionReviewLabel_businessPanel);		
+		descriptionReviewLabel_businessPanel.setBounds(10, 36, 560, 103);
+		foundReviewPanel_businessPanel.add(descriptionReviewLabel_businessPanel);	
 	}
 	
 	public void inputReviewDataPanel(business aBusiness) {
 		JPanel newReviewPanel = new JPanel();
+		newReviewPanel.setPreferredSize(new Dimension(434,240));
+		newReviewPanel.setBounds(10, 10, 414, 240);
+		newReviewPanel.setLayout(null);
 		
-		JTextField title = new JTextField(5);
-		newReviewPanel.add(new JLabel("titolo:"));
-		newReviewPanel.add(title);
-		newReviewPanel.add(Box.createHorizontalStrut(15));
+		JLabel titleLabel = new JLabel("Titolo");
+		titleLabel.setBounds(10, 36, 96, 14);
+		newReviewPanel.add(titleLabel);
 		
-		JTextField vote = new JTextField(5);
-		newReviewPanel.add(new JLabel("voto:"));
-		newReviewPanel.add(vote);
-		newReviewPanel.add(Box.createHorizontalStrut(15));
+		JTextField titleTextField = new JTextField();
+		titleTextField.setBounds(116, 33, 288, 20);
+		newReviewPanel.add(titleTextField);
+		titleTextField.setColumns(10);
 		
-		JTextField description = new JTextField(5);
-		newReviewPanel.add(new JLabel("descrizione:"));
-		newReviewPanel.add(description);
-		newReviewPanel.add(Box.createHorizontalStrut(15));
-			
-		int result = JOptionPane.showConfirmDialog(null, newReviewPanel, "Nuova recensione", JOptionPane.OK_CANCEL_OPTION);
+		JLabel voteLabel = new JLabel("Voto");
+		voteLabel.setBounds(10, 11, 46, 14);
+		newReviewPanel.add(voteLabel);
+		
+		JTextField voteTextField = new JTextField();
+		voteTextField.setBounds(116, 8, 288, 20);
+		newReviewPanel.add(voteTextField);
+		voteTextField.setColumns(10);
+		
+		JLabel descriptionLabel = new JLabel("Descrizione");
+		descriptionLabel.setBounds(10, 61, 96, 14);
+		newReviewPanel.add(descriptionLabel);
+		
+		JTextField descriptionTextField = new JTextField();
+		descriptionTextField.setBounds(116, 58, 288, 171);
+		newReviewPanel.add(descriptionTextField);
+		descriptionTextField.setColumns(10);
+
+      int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, newReviewPanel, "Nuova recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			foodvibes.insertNewReview(aBusiness,title.getText(),Float.parseFloat(vote.getText()),description.getText());
+			foodvibes.insertNewReview(aBusiness,titleTextField.getText(),Float.parseFloat(voteTextField.getText()),descriptionTextField.getText());
 		}
 	}
 }

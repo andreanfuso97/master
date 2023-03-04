@@ -1,6 +1,7 @@
 package bin;
 
 public class review {
+	private user user;
 	private String title;
 	private float vote;
 	private String description;
