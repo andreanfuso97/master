@@ -16,19 +16,27 @@ public class catalog {
         return instance;
     }
     
-    //get
+	//-------------------------------------------------------------------------------------------------------------------
+    //		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
+    
     public ArrayList<business> getBusinessList(){
     	return businessList;
     }
     
-    //add to list
+	//-------------------------------------------------------------------------------------------------------------------
+    //		AGGIUNTA DI ATTIVITÀ AL CATALOGO
+	//-------------------------------------------------------------------------------------------------------------------
+    
 	public void add(business newBusiness) {
 		businessList.add(newBusiness);
 		System.out.println("new business added (name: " + newBusiness.getName() + ", address: " + newBusiness.getAddress() +
 				   ", openingHours: " + newBusiness.getOpeningHours() + ", image: " + newBusiness.getImage() + ", owner: " + newBusiness.getOwner().getName());
 	}
 	
-	//returns a list which contains the found businesses
+	//-------------------------------------------------------------------------------------------------------------------
+	//		RICERCA NELLA LISTA DELLE ATTIVITÀ ATTRAVERSO IL NOME
+	//-------------------------------------------------------------------------------------------------------------------
 	public ArrayList<business> getBusinessesByName(String businessName) {
 		ArrayList<business> searchedBusinessList = new ArrayList<>();
 		for (int i =0; i<businessList.size(); i++) {
@@ -39,4 +47,6 @@ public class catalog {
 		}
 		return searchedBusinessList;
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
 }

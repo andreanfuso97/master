@@ -10,6 +10,10 @@ public class business {
 	private user owner;
 	private ArrayList<review> reviewList = new ArrayList<>();;
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		COSTRUTTORE
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public business(String newName, String newAddress, String newOpeningHours, String newImage, user newOwner) {
 		name = newName;
 		address = newAddress;
@@ -18,7 +22,9 @@ public class business {
 		owner = newOwner;
 	}
 	
-	//get
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
 	public String getName() {
 		return this.name;
 	}
@@ -38,7 +44,9 @@ public class business {
 		return reviewList;
 	}
 	
-	//set
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI SET
+	//-------------------------------------------------------------------------------------------------------------------
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -55,8 +63,11 @@ public class business {
 		this.owner = owner;
 	}
 	
-	public void addNewReview(String title, Float vote, String description) {
-		reviewList.add(new review(title,vote,description));
+	//-------------------------------------------------------------------------------------------------------------------
+	//		AGGIUNGI NUOVA RECENSIONE ALLA LISTA 
+	//-------------------------------------------------------------------------------------------------------------------
+	public void addNewReview(user user,String title, Float vote, String description) {
+		reviewList.add(new review(user,title,vote,description));
 		System.out.println("aggiunta nuova recensione (titolo: " + title + ", voto: " + vote + ", descrizione: " + description + ")");
 	}
 	

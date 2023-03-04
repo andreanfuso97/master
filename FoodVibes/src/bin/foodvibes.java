@@ -13,9 +13,6 @@ public class foodvibes{
 	
 	
 	public static void main(String[] args) {
-		
-		
-		//utente iniziale
 		Calendar dateInfo = Calendar.getInstance();
 		dateInfo.set(Calendar.YEAR, 1997);
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
@@ -43,6 +40,11 @@ public class foodvibes{
 		return currentUser;
 	}
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		REGISTRAZIONE NUOVA ATTIVITÀ
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	
 	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
@@ -52,15 +54,14 @@ public class foodvibes{
 		}
 	}
 	
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		RICERCA ATTIVITÀ
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public static ArrayList<business> searchBusiness(String businessName) {
 		return catalog.getInstance().getBusinessesByName(businessName);		
 	}
-	
-	
-	public static void showBusinessInfo(business aBusiness) {
-		mainFrame.newBusinessPanel(aBusiness);
-	}
-	
 	
 	public static void showSearchResult(String aBusinessName) {
 		if(aBusinessName.isBlank()) {
@@ -75,16 +76,40 @@ public class foodvibes{
 		
 	}
 	
-	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
-		aBusiness.addNewReview(reviewTitle,reviewVote,reviewDescription);
-		showReviews(aBusiness);
+	public static void showBusinessInfo(business aBusiness) {
+		mainFrame.newBusinessPanel(aBusiness);
 	}
+
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE RECENSIONI
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void showReviews(business aBusiness) {
 		ArrayList<review> businessReviews = aBusiness.getBusinessReviews();
 		for(int i = 0; i<businessReviews.size(); i++) {
-			mainFrame.newReviewPanel(businessReviews.get(i));
+			if(businessReviews.get(i).getUser()==currentUser) {
+				mainFrame.newReviewPanel(businessReviews.get(i), true, aBusiness);
+			}else {
+				mainFrame.newReviewPanel(businessReviews.get(i), false, aBusiness);
+			}
 		}
 	}
+	
+	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
+		aBusiness.addNewReview(currentUser, reviewTitle, reviewVote, reviewDescription);
+		showReviews(aBusiness);
+	}	
+	
+	public static void editReview(String title, float vote, String description, review aReview, business aBusiness) {
+		aReview.setTitle(title);
+		aReview.setVote(vote);
+		aReview.setDescription(description);
+		showReviews(aBusiness);
+	}
+	public static void removeReview(business aBusiness, review aReview) {
+		aBusiness.getBusinessReviews().remove(aReview);
+		showReviews(aBusiness);
+	}
+	//-------------------------------------------------------------------------------------------------------------------
 	
 }
