@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import javax.swing.*;
 
 public class GUI_Frame extends JFrame {
@@ -419,12 +418,14 @@ public class GUI_Frame extends JFrame {
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
-					reviewsPanel_businessPanel.removeAll();
-					foodvibes.removeReview(aBusiness, aReview);
-					reviewsPanel_businessPanel.validate();
-					reviewsPanel_businessPanel.repaint();
-					reviewsScrollPane_businessPanel.validate();
-					reviewsScrollPane_businessPanel.repaint();
+					if (JOptionPane.showConfirmDialog(foundReviewPanel_businessPanel, "Vuoi eliminare la recensione?", "Elimina recensione", JOptionPane.YES_NO_OPTION) == 0) {
+						reviewsPanel_businessPanel.removeAll();
+						foodvibes.removeReview(aBusiness, aReview);
+						reviewsPanel_businessPanel.validate();
+						reviewsPanel_businessPanel.repaint();
+						reviewsScrollPane_businessPanel.validate();
+						reviewsScrollPane_businessPanel.repaint();
+					}
 				}
 			});
 		}
