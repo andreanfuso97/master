@@ -106,37 +106,8 @@ public class GUI_Frame extends JFrame {
 		searchBusinessPanel.add(button_searchBusiness);
 		button_searchBusiness.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(searchTextArea_searchBusiness.getText().isBlank()) {
-					JOptionPane.showMessageDialog(contentPane, "Compila il campo di ricerca.");
-					return;
-				}
-				ArrayList<business> searchedBusinessList = foodvibes.searchBusiness(searchTextArea_searchBusiness.getText());
 				foundBusinessPanel_searchBusiness.removeAll();
-				for (int i = 0; i<searchedBusinessList.size(); i++) {
-					business foundBusiness = searchedBusinessList.get(i);
-					
-					
-					JPanel searchResultPanel = new JPanel();
-					searchResultPanel.setBounds(30, 40, 300, 50);
-					foundBusinessPanel_searchBusiness.add(searchResultPanel);
-					searchResultPanel.setMaximumSize(new Dimension(1000, 30));
-					searchResultPanel.setBackground(new Color(204, 255, 204));
-					
-					JLabel searchedBusinessLabel_searchResultPanel = new JLabel(foundBusiness.getName());
-					searchedBusinessLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-					searchedBusinessLabel_searchResultPanel.setBounds(10, 11, 198, 25);
-					searchResultPanel.add(searchedBusinessLabel_searchResultPanel);
-					
-					JButton searchedBusinessButton_searchResultPanel = new JButton("seleziona");
-					searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.PLAIN, 12));
-					searchResultPanel.add(searchedBusinessButton_searchResultPanel);
-					searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
-						public void actionPerformed(ActionEvent e){ 
-							foodvibes.showBusinessInfo(foundBusiness);
-							newBusinessPanel(foundBusiness);
-						}
-					});
-				}
+				foodvibes.showSearchResult(searchTextArea_searchBusiness.getText());
 				foundBusinessPanel_searchBusiness.validate();
 				foundBusinessPanel_searchBusiness.repaint();
 				foundBusinessScrollPane_searchBusiness.validate();
@@ -233,6 +204,29 @@ public class GUI_Frame extends JFrame {
 		businessPanel.setBackground(new Color(204, 255, 204));
 		layeredPane.add(businessPanel, "businessPanel");
 		businessPanel.setLayout(null);
+	}
+	
+	public void newSearchResult(business foundBusiness) {
+		JPanel searchResultPanel = new JPanel();
+		searchResultPanel.setBounds(30, 40, 300, 50);
+		foundBusinessPanel_searchBusiness.add(searchResultPanel);
+		searchResultPanel.setMaximumSize(new Dimension(1000, 30));
+		searchResultPanel.setBackground(new Color(204, 255, 204));
+		
+		JLabel searchedBusinessLabel_searchResultPanel = new JLabel(foundBusiness.getName());
+		searchedBusinessLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
+		searchedBusinessLabel_searchResultPanel.setBounds(10, 11, 198, 25);
+		searchResultPanel.add(searchedBusinessLabel_searchResultPanel);
+		
+		JButton searchedBusinessButton_searchResultPanel = new JButton("seleziona");
+		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.PLAIN, 12));
+		searchResultPanel.add(searchedBusinessButton_searchResultPanel);
+		searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
+			public void actionPerformed(ActionEvent e){ 
+				foodvibes.showBusinessInfo(foundBusiness);
+				newBusinessPanel(foundBusiness);
+			}
+		});
 	}
 	
 	public void newBusinessPanel(business aBusiness) {

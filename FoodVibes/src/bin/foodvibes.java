@@ -53,7 +53,23 @@ public class foodvibes{
 		return catalog.getInstance().getBusinessesByName(businessName);		
 	}
 	
+	
 	public static void showBusinessInfo(business aBusiness) {
 		mainFrame.newBusinessPanel(aBusiness);
 	}
+	
+	
+	public static void showSearchResult(String aBusinessName) {
+		if(aBusinessName.isBlank()) {
+			JOptionPane.showMessageDialog(mainFrame, "Compila il campo di ricerca.");
+			return;
+		}
+		ArrayList<business> searchedBusinessList = foodvibes.searchBusiness(aBusinessName);
+		for (int i = 0; i<searchedBusinessList.size(); i++) {
+			business foundBusiness = searchedBusinessList.get(i);
+			mainFrame.newSearchResult(foundBusiness);
+		}
+		
+	}
+	
 }
