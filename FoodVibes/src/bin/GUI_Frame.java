@@ -130,39 +130,17 @@ public class GUI_Frame extends JFrame {
 					JButton searchedBusinessButton_searchResultPanel = new JButton("seleziona");
 					searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.PLAIN, 12));
 					searchResultPanel.add(searchedBusinessButton_searchResultPanel);
-					searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){  
-						public void actionPerformed(ActionEvent e){
-							businessPanel.removeAll();
-							
-							JLabel nameLabel_businessPanel1 = new JLabel(foundBusiness.getName());
-							nameLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 30));
-							nameLabel_businessPanel1.setBounds(10, 11, 582, 43);
-							businessPanel.add(nameLabel_businessPanel1);
-							
-							JLabel addressLabel_businessPanel1 = new JLabel("Indirizzo: " + foundBusiness.getAddress());
-							addressLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
-							addressLabel_businessPanel1.setBounds(10, 65, 291, 43);
-							businessPanel.add(addressLabel_businessPanel1);
-							
-							JLabel openingHours_businessPanel1 = new JLabel("Orari di apertura: " + foundBusiness.getOpeningHours());
-							openingHours_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
-							openingHours_businessPanel1.setBounds(311, 65, 291, 43);
-							businessPanel.add(openingHours_businessPanel1);
-							
-							JLabel imageLabel_businessPanel1 = new JLabel("Immagine attività");
-							imageLabel_businessPanel1.setIcon(new ImageIcon(foundBusiness.getImage()));
-							imageLabel_businessPanel1.setBounds(10, 119, 582, 311);
-							businessPanel.add(imageLabel_businessPanel1);
-							
-							CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
-							cardLayout.show(layeredPane, "businessPanel");
+					searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
+						public void actionPerformed(ActionEvent e){ 
+							foodvibes.showBusinessInfo(foundBusiness);
+							newBusinessPanel(foundBusiness);
 						}
 					});
-					foundBusinessPanel_searchBusiness.validate();
-					foundBusinessPanel_searchBusiness.repaint();
-					foundBusinessScrollPane_searchBusiness.validate();
-					foundBusinessScrollPane_searchBusiness.repaint();
 				}
+				foundBusinessPanel_searchBusiness.validate();
+				foundBusinessPanel_searchBusiness.repaint();
+				foundBusinessScrollPane_searchBusiness.validate();
+				foundBusinessScrollPane_searchBusiness.repaint();
 			}
 		});
 		
@@ -255,5 +233,32 @@ public class GUI_Frame extends JFrame {
 		businessPanel.setBackground(new Color(204, 255, 204));
 		layeredPane.add(businessPanel, "businessPanel");
 		businessPanel.setLayout(null);
+	}
+	
+	public void newBusinessPanel(business aBusiness) {
+		businessPanel.removeAll();
+		
+		JLabel nameLabel_businessPanel1 = new JLabel(aBusiness.getName());
+		nameLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 30));
+		nameLabel_businessPanel1.setBounds(10, 11, 582, 43);
+		businessPanel.add(nameLabel_businessPanel1);
+		
+		JLabel addressLabel_businessPanel1 = new JLabel("Indirizzo: " + aBusiness.getAddress());
+		addressLabel_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
+		addressLabel_businessPanel1.setBounds(10, 65, 291, 43);
+		businessPanel.add(addressLabel_businessPanel1);
+		
+		JLabel openingHours_businessPanel1 = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
+		openingHours_businessPanel1.setFont(new Font("Calibri", Font.PLAIN, 15));
+		openingHours_businessPanel1.setBounds(311, 65, 291, 43);
+		businessPanel.add(openingHours_businessPanel1);
+		
+		JLabel imageLabel_businessPanel1 = new JLabel("Immagine attività");
+		imageLabel_businessPanel1.setIcon(new ImageIcon(aBusiness.getImage()));
+		imageLabel_businessPanel1.setBounds(10, 119, 582, 311);
+		businessPanel.add(imageLabel_businessPanel1);
+		
+		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
+		cardLayout.show(layeredPane, "businessPanel");
 	}
 }

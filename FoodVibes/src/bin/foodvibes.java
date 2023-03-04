@@ -52,4 +52,8 @@ public class foodvibes{
 	public static ArrayList<business> searchBusiness(String businessName) {
 		return catalog.getInstance().getBusinessesByName(businessName);		
 	}
+	
+	public static void showBusinessInfo(business aBusiness) {
+		mainFrame.newBusinessPanel(aBusiness);
+	}
 }
