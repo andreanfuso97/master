@@ -71,4 +71,9 @@ public class business {
 		System.out.println("aggiunta nuova recensione (titolo: " + title + ", voto: " + vote + ", descrizione: " + description + ")");
 	}
 	
+	public void addNewReview(review newReview) {
+		reviewList.add(newReview);
+		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
+	}
+	
 }

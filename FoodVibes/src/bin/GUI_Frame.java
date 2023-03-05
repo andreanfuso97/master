@@ -428,6 +428,37 @@ public class GUI_Frame extends JFrame {
 					}
 				}
 			});
+		} else {
+			JButton upVoteButton = new JButton("👍 " + aReview.getLikes());
+			upVoteButton.setBounds(454, 4, 65, 29);
+			foundReviewPanel_businessPanel.add(upVoteButton);
+			upVoteButton.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){
+					reviewsPanel_businessPanel.removeAll();
+					foodvibes.upVoteReview(aBusiness, aReview);
+					reviewsPanel_businessPanel.validate();
+					reviewsPanel_businessPanel.repaint();
+					reviewsScrollPane_businessPanel.validate();
+					reviewsScrollPane_businessPanel.repaint();
+				}
+				
+			});
+			
+			JButton removeButton = new JButton("!");
+			removeButton.setBounds(519, 4, 51, 29);
+			foundReviewPanel_businessPanel.add(removeButton);
+			removeButton.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){
+					if (JOptionPane.showConfirmDialog(foundReviewPanel_businessPanel, "Vuoi eliminare la recensione?", "Elimina recensione", JOptionPane.YES_NO_OPTION) == 0) {
+						reviewsPanel_businessPanel.removeAll();
+						foodvibes.removeReview(aBusiness, aReview);
+						reviewsPanel_businessPanel.validate();
+						reviewsPanel_businessPanel.repaint();
+						reviewsScrollPane_businessPanel.validate();
+						reviewsScrollPane_businessPanel.repaint();
+					}
+				}
+			});
 		}
 	}
 	
@@ -525,6 +556,15 @@ public class GUI_Frame extends JFrame {
 			foodvibes.showReviews(aBusiness);
 		}
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		FINESTRA POP-UP SEGNALAZIONE
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public void reportReviewPanel(business aBusiness, review aReview) {
+			
+	}
+	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 }
