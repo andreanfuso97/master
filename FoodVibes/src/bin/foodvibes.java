@@ -58,6 +58,7 @@ public class foodvibes{
 		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", nUser);
 		review R = new review(nUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
 		B.addNewReview(R);
+		B.updateAvgVote();
 		catalog.getInstance().add(B);
 	}
 	
@@ -119,19 +120,22 @@ public class foodvibes{
 	}
 	
 	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
-		aBusiness.addNewReview(currentUser, reviewTitle, reviewVote, reviewDescription);
-		showReviews(aBusiness);
+		aBusiness.addNewReview(new review(currentUser, reviewTitle, reviewVote, reviewDescription));
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
 	}	
 	
 	public static void editReview(String title, float vote, String description, review aReview, business aBusiness) {
 		aReview.setTitle(title);
 		aReview.setVote(vote);
 		aReview.setDescription(description);
-		showReviews(aBusiness);
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
 	}
 	public static void removeReview(business aBusiness, review aReview) {
 		aBusiness.getBusinessReviews().remove(aReview);
-		showReviews(aBusiness);
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
 	}
 	//-------------------------------------------------------------------------------------------------------------------
 	

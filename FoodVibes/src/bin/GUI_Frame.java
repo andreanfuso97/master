@@ -328,15 +328,22 @@ public class GUI_Frame extends JFrame {
 		
 		JLabel nameLabel_businessPanel = new JLabel(aBusiness.getName());
 		nameLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 30));
-		nameLabel_businessPanel.setBounds(10, 11, 291, 43);
+		nameLabel_businessPanel.setBounds(10, 10, 290, 43);
 		businessPanel.add(nameLabel_businessPanel);
 		
-		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
+		JLabel businessAvgVote = new JLabel("Voto: " + aBusiness.getAvgVote());
+		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 15));
+		businessAvgVote.setBounds(400, 10, 290, 43);
+		businessPanel.add(businessAvgVote);
+		
+		Icon gps_icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\bin\\icons\\gps_icon.png");
+		JLabel addressLabel_businessPanel = new JLabel(gps_icon + " " + aBusiness.getAddress());
 		addressLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		addressLabel_businessPanel.setBounds(10, 65, 291, 43);
 		businessPanel.add(addressLabel_businessPanel);
 		
-		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
+		
+		JLabel openingHours_businessPanel = new JLabel("⏱ " + aBusiness.getOpeningHours());
 		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		openingHours_businessPanel.setBounds(10, 119, 291, 43);
 		businessPanel.add(openingHours_businessPanel);
@@ -347,7 +354,8 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(imageLabel_businessPanel);
 		
 		reviewsScrollPane_businessPanel = new JScrollPane();
-		reviewsScrollPane_businessPanel.setBounds(10, 196, 585, 234);
+		reviewsScrollPane_businessPanel.setBounds(10, 196, 580, 234);
+		reviewsScrollPane_businessPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 		businessPanel.add(reviewsScrollPane_businessPanel);
 		
 		reviewsPanel_businessPanel = new JPanel();
@@ -371,6 +379,9 @@ public class GUI_Frame extends JFrame {
 		
 		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
 		cardLayout.show(layeredPane, "businessPanel");
+		
+		businessPanel.validate();
+		businessPanel.repaint();
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -380,9 +391,9 @@ public class GUI_Frame extends JFrame {
 	public void newReviewPanel(review aReview, Boolean isCreator, business aBusiness) {	
 		JPanel foundReviewPanel_businessPanel = new JPanel();
 		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 150));
-		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 150));
-		foundReviewPanel_businessPanel.setBounds(30, 40, 300, 50);
+		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(570, 150));
+		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(570, 150));
+		foundReviewPanel_businessPanel.setBounds(30, 40, 280, 50);
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
@@ -401,7 +412,7 @@ public class GUI_Frame extends JFrame {
 		
 		if(isCreator) {
 			JButton modifyButton = new JButton("✎");
-			modifyButton.setBounds(468, 4, 51, 29);
+			modifyButton.setBounds(460, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(modifyButton);
 			modifyButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
@@ -415,7 +426,7 @@ public class GUI_Frame extends JFrame {
 			});
 			
 			JButton removeButton = new JButton("🗑");
-			removeButton.setBounds(519, 4, 51, 29);
+			removeButton.setBounds(511, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
@@ -431,7 +442,7 @@ public class GUI_Frame extends JFrame {
 			});
 		} else {
 			JButton upVoteButton = new JButton("👍 " + aReview.getLikes());
-			upVoteButton.setBounds(454, 4, 65, 29);
+			upVoteButton.setBounds(446, 4, 65, 29);
 			foundReviewPanel_businessPanel.add(upVoteButton);
 			upVoteButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
@@ -446,7 +457,7 @@ public class GUI_Frame extends JFrame {
 			});
 			
 			JButton removeButton = new JButton("!");
-			removeButton.setBounds(519, 4, 51, 29);
+			removeButton.setBounds(511, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
