@@ -31,17 +31,16 @@ public class reportedReviews {
     
 	public void add(review reportedReview, String reportType) {
 		reportedReviewsList.put(reportedReview, reportType);
+		this.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "reportedReviews [reportedReviewsList=" + reportedReviewsList + "]";
 	}
 	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	
-	public String toString() {
-		String output = "";
-		for(int i = 0; i < reportedReviewsList.size(); i++) {
-			//output = output + reportedReviewsList.get(out);
-		}
-		
-		return output;
-	}
+	
 }

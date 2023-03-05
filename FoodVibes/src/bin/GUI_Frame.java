@@ -327,17 +327,17 @@ public class GUI_Frame extends JFrame {
 		businessPanel.removeAll();
 		
 		JLabel nameLabel_businessPanel = new JLabel(aBusiness.getName());
-		nameLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 30));
+		nameLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 30));
 		nameLabel_businessPanel.setBounds(10, 11, 291, 43);
 		businessPanel.add(nameLabel_businessPanel);
 		
 		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
-		addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		addressLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		addressLabel_businessPanel.setBounds(10, 65, 291, 43);
 		businessPanel.add(addressLabel_businessPanel);
 		
 		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
-		openingHours_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		openingHours_businessPanel.setBounds(10, 119, 291, 43);
 		businessPanel.add(openingHours_businessPanel);
 		
@@ -347,7 +347,7 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(imageLabel_businessPanel);
 		
 		reviewsScrollPane_businessPanel = new JScrollPane();
-		reviewsScrollPane_businessPanel.setBounds(10, 196, 582, 234);
+		reviewsScrollPane_businessPanel.setBounds(10, 196, 585, 234);
 		businessPanel.add(reviewsScrollPane_businessPanel);
 		
 		reviewsPanel_businessPanel = new JPanel();
@@ -355,7 +355,7 @@ public class GUI_Frame extends JFrame {
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
 		JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
-		newReviewButton_businessPanel.setBounds(439, 162, 153, 23);
+		newReviewButton_businessPanel.setBounds(10, 162, 153, 23);
 		businessPanel.add(newReviewButton_businessPanel);
 		newReviewButton_businessPanel.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
@@ -386,13 +386,14 @@ public class GUI_Frame extends JFrame {
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
-		JLabel reviewTitleLabel_businessPanel = new JLabel(aReview.getTitle());
-		reviewTitleLabel_businessPanel.setBounds(109, 11, 46, 14);
-		foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
-		
 		JLabel voteReviewLabel_businessPanel = new JLabel(Float.toString(aReview.getVote()));
-		voteReviewLabel_businessPanel.setBounds(10, 11, 89, 14);
+		voteReviewLabel_businessPanel.setBounds(10, 10, 89, 14);
 		foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
+		
+		JLabel reviewTitleLabel_businessPanel = new JLabel(aReview.getTitle());
+		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 17));
+		reviewTitleLabel_businessPanel.setBounds(10, 30, 100, 14);
+		foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
 		
 		JLabel descriptionReviewLabel_businessPanel = new JLabel(aReview.getDescription());
 		descriptionReviewLabel_businessPanel.setBounds(10, 36, 560, 103);
