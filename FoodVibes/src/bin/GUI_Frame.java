@@ -449,14 +449,7 @@ public class GUI_Frame extends JFrame {
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
 				public void actionPerformed(ActionEvent e){
-					if (JOptionPane.showConfirmDialog(foundReviewPanel_businessPanel, "Vuoi eliminare la recensione?", "Elimina recensione", JOptionPane.YES_NO_OPTION) == 0) {
-						reviewsPanel_businessPanel.removeAll();
-						foodvibes.removeReview(aBusiness, aReview);
-						reviewsPanel_businessPanel.validate();
-						reviewsPanel_businessPanel.repaint();
-						reviewsScrollPane_businessPanel.validate();
-						reviewsScrollPane_businessPanel.repaint();
-					}
+					reportReviewPanel(aBusiness, aReview);
 				}
 			});
 		}
@@ -562,9 +555,33 @@ public class GUI_Frame extends JFrame {
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void reportReviewPanel(business aBusiness, review aReview) {
-			
+		JPanel reportReviewPanel = new JPanel();
+        reportReviewPanel.setBounds(154, 53, 394, 215);
+        reportReviewPanel.setPreferredSize(new Dimension(350,200));
+        reportReviewPanel.setLayout(null);
+
+        JLabel titleLabel = new JLabel("Segnala recensione");
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Calibri", Font.BOLD, 25));
+        titleLabel.setBounds(70, 29, 203, 52);
+        reportReviewPanel.add(titleLabel);
+
+        JLabel descriptionLabel = new JLabel("Scegli il tipo di segnalazione:");
+        descriptionLabel.setBounds(92, 90, 180, 22);
+        reportReviewPanel.add(descriptionLabel);
+
+        JComboBox comboBox = new JComboBox();
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Volgarità", "Sabotaggio", "Molestie", "Razzismo"}));
+        comboBox.setBounds(92, 123, 160, 22);
+        reportReviewPanel.add(comboBox);
+
+
+      int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, reportReviewPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+      if (result == JOptionPane.OK_OPTION) {
+    	  foodvibes.addReportedReview(aReview, comboBox.getSelectedItem().toString());
+		}
+		
 	}
-	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 }
