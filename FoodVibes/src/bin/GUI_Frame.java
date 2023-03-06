@@ -309,15 +309,23 @@ public class GUI_Frame extends JFrame {
 		foundBusinessPanel_searchBusiness.add(searchResultPanel);
 		searchResultPanel.setMaximumSize(new Dimension(1000, 30));
 		searchResultPanel.setBackground(new Color(204, 255, 204));
+		searchResultPanel.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JLabel searchedBusinessLabel_searchResultPanel = new JLabel(foundBusiness.getName());
-		searchedBusinessLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		searchedBusinessLabel_searchResultPanel.setBounds(10, 11, 198, 25);
-		searchResultPanel.add(searchedBusinessLabel_searchResultPanel);
+		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel("Voto: " + Float.toString(foundBusiness.getAvgVote()));
+		searchedBusinessVoteLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
+		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 198, 25);
+		searchResultPanel.add(searchedBusinessVoteLabel_searchResultPanel);
+		
+		JLabel searchedBusinessNameLabel_searchResultPanel = new JLabel(foundBusiness.getName());
+		searchedBusinessNameLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
+		searchedBusinessNameLabel_searchResultPanel.setBounds(10, 11, 198, 25);
+		searchResultPanel.add(searchedBusinessNameLabel_searchResultPanel);
+		
 		
 		JButton searchedBusinessButton_searchResultPanel = new JButton("seleziona");
 		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.PLAIN, 12));
 		searchResultPanel.add(searchedBusinessButton_searchResultPanel);
+
 		searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
 			public void actionPerformed(ActionEvent e){ 
 				foodvibes.showBusinessInfo(foundBusiness);
@@ -349,7 +357,7 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(addressLabel_businessPanel);
 		
 		
-		JLabel openingHours_businessPanel = new JLabel("⏱ " + aBusiness.getOpeningHours());
+		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
 		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		openingHours_businessPanel.setBounds(10, 119, 291, 43);
 		businessPanel.add(openingHours_businessPanel);
