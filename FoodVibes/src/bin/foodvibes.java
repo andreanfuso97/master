@@ -73,8 +73,10 @@ public class foodvibes{
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
 		}else {
-			catalog.getInstance().add(new business(name, address, openingHours, image, currentUser));
+			business newBusiness = new business(name, address, openingHours, image, currentUser);
+			catalog.getInstance().add(newBusiness);
 			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
+			mainFrame.newBusinessPanel(newBusiness);
 		}
 	}
 	
@@ -93,11 +95,22 @@ public class foodvibes{
 			return;
 		}
 		ArrayList<business> searchedBusinessList = foodvibes.searchBusiness(aBusinessName);
+		if(searchedBusinessList.isEmpty()) {
+			JOptionPane.showMessageDialog(mainFrame, "Nessuna attività trovata con il nome corrispondente.");
+			return;
+		}
 		for (int i = 0; i<searchedBusinessList.size(); i++) {
 			business foundBusiness = searchedBusinessList.get(i);
 			mainFrame.newSearchResult(foundBusiness);
 		}
-		
+	}
+	
+	public static void showAllBusinesses() {
+		ArrayList<business> searchedBusinessList = catalog.getInstance().getBusinessList();
+		for (int i = 0; i<searchedBusinessList.size(); i++) {
+			business foundBusiness = searchedBusinessList.get(i);
+			mainFrame.newSearchResult(foundBusiness);
+		}
 	}
 	
 	public static void showBusinessInfo(business aBusiness) {
@@ -137,8 +150,6 @@ public class foodvibes{
 		aBusiness.updateAvgVote();
 		showBusinessInfo(aBusiness);
 	}
-	//-------------------------------------------------------------------------------------------------------------------
-	
 
 	//-------------------------------------------------------------------------------------------------------------------
 	//		UPVOTE RECENSIONI
@@ -149,10 +160,6 @@ public class foodvibes{
 		showReviews(aBusiness);
 	}
 	
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	
-
 	//-------------------------------------------------------------------------------------------------------------------
 	//		AGGIUNGI SEGNALAZIONE RECENSIONE
 	//-------------------------------------------------------------------------------------------------------------------
@@ -163,7 +170,5 @@ public class foodvibes{
 		
 	}
 	
-	
-	//-------------------------------------------------------------------------------------------------------------------
 	
 }

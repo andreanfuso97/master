@@ -39,6 +39,11 @@ public class review {
 		return likes;
 	}
 	
+	@Override
+	public String toString() {
+		return "review [user=" + user + ", title=" + title + ", vote=" + vote + ", description=" + description
+				+ ", likes=" + likes + "]";
+	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//	METODI SET
 	//-------------------------------------------------------------------------------------------------------------------
@@ -56,15 +61,13 @@ public class review {
 		this.user = newUser;
 	}
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		UPVOTE 
+	//-------------------------------------------------------------------------------------------------------------------
 	public void upVote() {
 		this.likes++;
 	}
 
-	@Override
-	public String toString() {
-		return "review [user=" + user + ", title=" + title + ", vote=" + vote + ", description=" + description
-				+ ", likes=" + likes + "]";
-	}
 	
 	
 }

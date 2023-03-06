@@ -45,6 +45,12 @@ public class business {
 	public ArrayList<review> getBusinessReviews(){
 		return reviewList;
 	}
+	public float getAvgVote() {
+		return avgVote;
+	}
+	public ArrayList<review> getReviewList() {
+		return reviewList;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI SET
@@ -64,19 +70,9 @@ public class business {
 	public void setOwner(user owner) {
 		this.owner = owner;
 	}
-	
-	public float getAvgVote() {
-		return avgVote;
-	}
-	
 	public void setAvgVote(float avgVote) {
 		this.avgVote = avgVote;
 	}
-	
-	public ArrayList<review> getReviewList() {
-		return reviewList;
-	}
-	
 	public void setReviewList(ArrayList<review> reviewList) {
 		this.reviewList = reviewList;
 	}
@@ -84,22 +80,21 @@ public class business {
 	//-------------------------------------------------------------------------------------------------------------------
 	//		AGGIUNGI NUOVA RECENSIONE ALLA LISTA 
 	//-------------------------------------------------------------------------------------------------------------------
-	
-	
+		
 	public void addNewReview(review newReview) {
 		reviewList.add(newReview);
 		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
+	//		UPDATE VOTO MEDIO
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void updateAvgVote() {
 		avgVote = 0;
-		
 		for(int i = 0; i < reviewList.size(); i++)  {
 			avgVote += reviewList.get(i).getVote();
 		}
-		
 		avgVote /= reviewList.size();
 	}
 	
