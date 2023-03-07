@@ -31,6 +31,10 @@ public class foodvibes{
 		return currentUser;
 	}
 	
+	public static void setUser(user newCurrentUser) {
+		currentUser = newCurrentUser;
+	}
+	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		INIZIALIZZAZIONE E TEST
 	//-------------------------------------------------------------------------------------------------------------------
@@ -43,7 +47,7 @@ public class foodvibes{
 		Date bDate = dateInfo.getTime();
 		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
-		currentUser = userList.get(0);
+		//currentUser = userList.get(0);
 		test();
 	}
 	
@@ -170,5 +174,42 @@ public class foodvibes{
 		
 	}
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		OPERAZIONI DI ACCESSO
+	//-------------------------------------------------------------------------------------------------------------------
 	
+	public static boolean login(String username, String password) {
+		for(int i = 0; i<userList.size(); i++) {
+			user aUser = userList.get(i);
+			if(aUser.getUsername().equals(username) && aUser.getPassword().equals(password)) {
+				setUser(aUser);
+				JOptionPane.showMessageDialog(mainFrame, "Login effettuato.");
+				return true;
+			}
+		}
+		JOptionPane.showMessageDialog(mainFrame, "Username e/o password errati.");
+		return false;
+	}
+	
+	public static void logout() {
+		currentUser = null;
+		JOptionPane.showMessageDialog(mainFrame, "Logout effettuato.");
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		REGISTRAZIONE NUOVO ACCOUNT
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static boolean registerNewUser(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return false;
+			}
+		}
+		userList.add(new user(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
+		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
+		login(newUsername, newPassword);
+		return true;
+	}
 }
