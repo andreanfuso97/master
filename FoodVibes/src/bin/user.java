@@ -65,4 +65,10 @@ public class user {
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
 	}
+
+	@Override
+	public String toString() {
+		return "user [Name=" + Name + ", Surname=" + Surname + ", Nationality=" + Nationality + ", birthDate="
+				+ birthDate + ", email=" + email + ", username=" + username + ", password=" + password + "]";
+	}
 }

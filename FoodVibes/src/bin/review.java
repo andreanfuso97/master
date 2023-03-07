@@ -5,12 +5,14 @@ public class review {
 	private String title;
 	private float vote;
 	private String description;
+	private int likes;
 	
 	public review(user newUser,String newTitle, float newVote, String newDescription) {
 		user = newUser;
 		title = newTitle;
 		vote = newVote;
 		description = newDescription;
+		likes = 0;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -33,6 +35,15 @@ public class review {
 		return description;
 	}
 	
+	public int getLikes() {
+		return likes;
+	}
+	
+	@Override
+	public String toString() {
+		return "review [user=" + user + ", title=" + title + ", vote=" + vote + ", description=" + description
+				+ ", likes=" + likes + "]";
+	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//	METODI SET
 	//-------------------------------------------------------------------------------------------------------------------
@@ -49,4 +60,14 @@ public class review {
 	public void setUser(user newUser) {
 		this.user = newUser;
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		UPVOTE 
+	//-------------------------------------------------------------------------------------------------------------------
+	public void upVote() {
+		this.likes++;
+	}
+
+	
+	
 }

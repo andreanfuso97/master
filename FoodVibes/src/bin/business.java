@@ -8,7 +8,8 @@ public class business {
 	private String openingHours;
 	private String image;
 	private user owner;
-	private ArrayList<review> reviewList = new ArrayList<>();;
+	private float avgVote;
+	private ArrayList<review> reviewList = new ArrayList<>();
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		COSTRUTTORE
@@ -20,6 +21,7 @@ public class business {
 		openingHours = newOpeningHours;
 		image = newImage;
 		owner = newOwner;
+		avgVote = 0;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -43,6 +45,12 @@ public class business {
 	public ArrayList<review> getBusinessReviews(){
 		return reviewList;
 	}
+	public float getAvgVote() {
+		return avgVote;
+	}
+	public ArrayList<review> getReviewList() {
+		return reviewList;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI SET
@@ -62,13 +70,32 @@ public class business {
 	public void setOwner(user owner) {
 		this.owner = owner;
 	}
+	public void setAvgVote(float avgVote) {
+		this.avgVote = avgVote;
+	}
+	public void setReviewList(ArrayList<review> reviewList) {
+		this.reviewList = reviewList;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		AGGIUNGI NUOVA RECENSIONE ALLA LISTA 
 	//-------------------------------------------------------------------------------------------------------------------
-	public void addNewReview(user user,String title, Float vote, String description) {
-		reviewList.add(new review(user,title,vote,description));
-		System.out.println("aggiunta nuova recensione (titolo: " + title + ", voto: " + vote + ", descrizione: " + description + ")");
+		
+	public void addNewReview(review newReview) {
+		reviewList.add(newReview);
+		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		UPDATE VOTO MEDIO
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public void updateAvgVote() {
+		avgVote = 0;
+		for(int i = 0; i < reviewList.size(); i++)  {
+			avgVote += reviewList.get(i).getVote();
+		}
+		avgVote /= reviewList.size();
 	}
 	
 }

@@ -13,16 +13,7 @@ public class foodvibes{
 	
 	
 	public static void main(String[] args) {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 1997);
-		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-		Date bDate = dateInfo.getTime();
-		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
-		userList.add(nUser);
-		currentUser = userList.get(0);
-		
-		
+		init();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,6 +32,39 @@ public class foodvibes{
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
+	//		INIZIALIZZAZIONE E TEST
+	//-------------------------------------------------------------------------------------------------------------------
+
+	public static void init() {
+		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 1997);
+		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
+		Date bDate = dateInfo.getTime();
+		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		userList.add(nUser);
+		currentUser = userList.get(0);
+		test();
+	}
+	
+	public static void test() {
+		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 1997);
+		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
+		Date bDate = dateInfo.getTime();
+		user nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "andreanfuso", "nonna");
+		userList.add(nUser);
+		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", nUser);
+		review R = new review(nUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
+		B.addNewReview(R);
+		B.updateAvgVote();
+		catalog.getInstance().add(B);
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------------------------------------------------------------------------------
 	//		REGISTRAZIONE NUOVA ATTIVITÀ
 	//-------------------------------------------------------------------------------------------------------------------
 	
@@ -49,8 +73,10 @@ public class foodvibes{
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
 		}else {
-			catalog.getInstance().add(new business(name, address, openingHours, image, currentUser));
+			business newBusiness = new business(name, address, openingHours, image, currentUser);
+			catalog.getInstance().add(newBusiness);
 			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
+			mainFrame.newBusinessPanel(newBusiness);
 		}
 	}
 	
@@ -69,11 +95,22 @@ public class foodvibes{
 			return;
 		}
 		ArrayList<business> searchedBusinessList = foodvibes.searchBusiness(aBusinessName);
+		if(searchedBusinessList.isEmpty()) {
+			JOptionPane.showMessageDialog(mainFrame, "Nessuna attività trovata con il nome corrispondente.");
+			return;
+		}
 		for (int i = 0; i<searchedBusinessList.size(); i++) {
 			business foundBusiness = searchedBusinessList.get(i);
 			mainFrame.newSearchResult(foundBusiness);
 		}
-		
+	}
+	
+	public static void showAllBusinesses() {
+		ArrayList<business> searchedBusinessList = catalog.getInstance().getBusinessList();
+		for (int i = 0; i<searchedBusinessList.size(); i++) {
+			business foundBusiness = searchedBusinessList.get(i);
+			mainFrame.newSearchResult(foundBusiness);
+		}
 	}
 	
 	public static void showBusinessInfo(business aBusiness) {
@@ -96,20 +133,42 @@ public class foodvibes{
 	}
 	
 	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
-		aBusiness.addNewReview(currentUser, reviewTitle, reviewVote, reviewDescription);
-		showReviews(aBusiness);
+		aBusiness.addNewReview(new review(currentUser, reviewTitle, reviewVote, reviewDescription));
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
 	}	
 	
 	public static void editReview(String title, float vote, String description, review aReview, business aBusiness) {
 		aReview.setTitle(title);
 		aReview.setVote(vote);
 		aReview.setDescription(description);
-		showReviews(aBusiness);
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
 	}
 	public static void removeReview(business aBusiness, review aReview) {
 		aBusiness.getBusinessReviews().remove(aReview);
+		aBusiness.updateAvgVote();
+		showBusinessInfo(aBusiness);
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------
+	//		UPVOTE RECENSIONI
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static void upVoteReview(business aBusiness, review aReview) {
+		aReview.upVote();
 		showReviews(aBusiness);
 	}
+	
 	//-------------------------------------------------------------------------------------------------------------------
+	//		AGGIUNGI SEGNALAZIONE RECENSIONE
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static void addReportedReview(review aReview, String type) {
+		reportedReviews.getInstance().add(aReview, type);
+		System.out.println("Segnalata: " + aReview + ", " + type);
+		
+	}
+	
 	
 }
