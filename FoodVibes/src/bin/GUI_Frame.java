@@ -90,6 +90,18 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
+
+		JButton registerButton = new JButton("Registrazione");
+		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
+		registerButton.setBackground(new Color(51, 204, 51));
+		registerButton.setBounds(0, 189, 212, 40);
+		SideBar.add(registerButton);
+		registerButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				cardLayout.show(layeredPane, "registerPanel");
+			}
+		});
+		
 		JButton logUserButton = new JButton("Login");
 		logUserButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		logUserButton.setBackground(new Color(51, 204, 51));
@@ -104,21 +116,12 @@ public class GUI_Frame extends JFrame {
 					logUserButton.setText("Login");
 					titleLabel_sidebar.setText("Benvenuto");
 					cardLayout.show(layeredPane, "searchBusinessPanel");
+					registerButton.setVisible(true);
 					
 				}
 			}
 		});
 		
-		JButton registerButton = new JButton("Registrazione");
-		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
-		registerButton.setBackground(new Color(51, 204, 51));
-		registerButton.setBounds(0, 189, 212, 40);
-		SideBar.add(registerButton);
-		registerButton.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){
-				cardLayout.show(layeredPane, "registerPanel");
-			}
-		});
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		FINESTRA DI RICERCA
@@ -292,6 +295,7 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
 					logUserButton.setText("Logout");
+					registerButton.setVisible(false);
 					
 				}
 			}
