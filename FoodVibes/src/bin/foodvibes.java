@@ -225,6 +225,6 @@ public class foodvibes{
 	}
 	
 	public static void removeBusiness(business aBusiness) {
-		catalog.getInstance().getBusinessList().remove(aBusiness);
+		catalog.getInstance().removeFromList(aBusiness);
 	}
 }

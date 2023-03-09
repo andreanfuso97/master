@@ -49,4 +49,9 @@ public class catalog {
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
+	
+	public void removeFromList(business aBusiness) {
+		businessList.remove(aBusiness);
+		
+	}
 }
