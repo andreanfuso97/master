@@ -45,7 +45,7 @@ public class foodvibes{
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
 		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
 		Date bDate = dateInfo.getTime();
-		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		admin nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
 		//currentUser = userList.get(0);
 		test();

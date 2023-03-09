@@ -19,6 +19,7 @@ public class GUI_Frame extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel searchBusinessPanel;
 	private JPanel reportsPanel;
+	private JButton reportList;
 	
 	public GUI_Frame() {
 		
@@ -115,6 +116,7 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "loginPanel");
 				}else {
 					foodvibes.logout();
+					reportList.setVisible(false);
 					logUserButton.setText("Login");
 					titleLabel_sidebar.setText("Benvenuto");
 					cardLayout.show(layeredPane, "searchBusinessPanel");
@@ -123,18 +125,19 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
-		JButton ReportList = new JButton("Segnalazioni");
-		ReportList.setFont(new Font("Calibri", Font.BOLD, 20));
-		ReportList.setBackground(new Color(51, 204, 51));
-		ReportList.setBounds(0, 151, 212, 40);
-		SideBar.add(ReportList);
-		ReportList.addActionListener(new ActionListener(){  
+		reportList = new JButton("Segnalazioni");
+		reportList.setFont(new Font("Calibri", Font.BOLD, 20));
+		reportList.setBackground(new Color(51, 204, 51));
+		reportList.setBounds(0, 151, 212, 40);
+		SideBar.add(reportList);
+		reportList.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
 				reportsPanel.removeAll();
 				cardLayout.show(layeredPane, "reportListPanel");
 				foodvibes.showAllReports();
 			}
 		});
+		reportList.setVisible(false);
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		FINESTRA DI RICERCA
@@ -309,6 +312,9 @@ public class GUI_Frame extends JFrame {
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
 					logUserButton.setText("Logout");
 					registerButton.setVisible(false);
+					if(foodvibes.getUser() instanceof admin) {
+						reportList.setVisible(true);
+					}
 					
 				}
 			}
