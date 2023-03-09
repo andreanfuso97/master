@@ -439,90 +439,7 @@ public class GUI_Frame extends JFrame {
 		reportsPanel.setBackground(new Color(204, 255, 204));
 		reportListScrollPane.setViewportView(reportsPanel);
 		reportsPanel.setLayout(new BoxLayout(reportsPanel, BoxLayout.Y_AXIS));
-	
-		
-		
-			//-------------------------------------------------------------------------------------------------------------------
-			//		MODIFICA GUI (RIMUOVI I COMMENTI PER POTER VEDERE IL RISULTATO)
-			//-------------------------------------------------------------------------------------------------------------------
-			/*
-			Calendar dateInfo = Calendar.getInstance();
-			dateInfo.set(Calendar.YEAR, 1997);
-			dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-			dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-			user aUser = new user("Sebastiano", "Brischetto", "Italiano", dateInfo.getTime(), "seby@gmail.com", "sebrisch", "nonna");
-			business aBusiness = new business ("nome","indirizzo","orari","immagine",aUser);
-			
-			JLabel nameLabel_businessPanel = new JLabel(aBusiness.getName());
-			nameLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 30));
-			nameLabel_businessPanel.setBounds(10, 11, 291, 43);
-			businessPanel.add(nameLabel_businessPanel);
-			
-			JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
-			addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
-			addressLabel_businessPanel.setBounds(10, 65, 291, 43);
-			businessPanel.add(addressLabel_businessPanel);
-			
-			JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
-			openingHours_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
-			openingHours_businessPanel.setBounds(10, 119, 291, 43);
-			businessPanel.add(openingHours_businessPanel);
-			
-			JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
-			imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
-			imageLabel_businessPanel.setBounds(311, 11, 281, 151);
-			businessPanel.add(imageLabel_businessPanel);
-			
-			JScrollPane reviewsScrollPane_businessPanel = new JScrollPane();
-			reviewsScrollPane_businessPanel.setBounds(10, 196, 582, 234);
-			businessPanel.add(reviewsScrollPane_businessPanel);
-			
-			reviewsPanel_businessPanel = new JPanel();
-			reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
-			reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
-			
-			JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
-			newReviewButton_businessPanel.setBounds(439, 162, 153, 23);
-			businessPanel.add(newReviewButton_businessPanel);
-			newReviewButton_businessPanel.addActionListener(new ActionListener(){  
-				public void actionPerformed(ActionEvent e){
-					reviewsPanel_businessPanel.removeAll();
-					inputReviewDataPanel(aBusiness);
-					reviewsPanel_businessPanel.validate();
-					reviewsPanel_businessPanel.repaint();
-					reviewsScrollPane_businessPanel.validate();
-					reviewsScrollPane_businessPanel.repaint();
-				}
-			});
-			foodvibes.showReviews(aBusiness);
-			
-			JPanel foundReviewPanel_businessPanel = new JPanel();
-			foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-			foundReviewPanel_businessPanel.setPreferredSize(new Dimension(580, 150));
-			foundReviewPanel_businessPanel.setMaximumSize(new Dimension(580, 150));
-			foundReviewPanel_businessPanel.setBounds(30, 40, 300, 50);
-			reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
-			foundReviewPanel_businessPanel.setLayout(null);
-			
-			JLabel reviewTitleLabel_businessPanel = new JLabel("titolo recens");
-			reviewTitleLabel_businessPanel.setBounds(109, 11, 214, 14);
-			foundReviewPanel_businessPanel.add(reviewTitleLabel_businessPanel);
-			
-			JLabel voteReviewLabel_businessPanel = new JLabel("5");
-			voteReviewLabel_businessPanel.setBounds(10, 11, 89, 14);
-			foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
-			
-			JLabel descriptionReviewLabel_businessPanel = new JLabel("descrizione");
-			descriptionReviewLabel_businessPanel.setBounds(10, 36, 560, 103);
-			foundReviewPanel_businessPanel.add(descriptionReviewLabel_businessPanel);
-			
-			JButton modifyButton = new JButton("✎");
-			modifyButton.setBounds(468, 4, 51, 29);
-			foundReviewPanel_businessPanel.add(modifyButton);
-			
-			JButton buttonRemova = new JButton("🗑");
-			buttonRemova.setBounds(519, 4, 51, 29);
-			foundReviewPanel_businessPanel.add(buttonRemova);*/
+
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -587,9 +504,10 @@ public class GUI_Frame extends JFrame {
 		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		openingHours_businessPanel.setBounds(10, 119, 291, 43);
 		businessPanel.add(openingHours_businessPanel);
-		
+
 		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
-		imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
+		//Image img = new ImageIcon(this.getClass().getResource("\\images\\placeholder.png")).getImage();
+		//imageLabel_businessPanel.setIcon(new ImageIcon(img));
 		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
 		businessPanel.add(imageLabel_businessPanel);
 		
@@ -599,6 +517,7 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(reviewsScrollPane_businessPanel);
 		
 		reviewsPanel_businessPanel = new JPanel();
+		reviewsPanel_businessPanel.setBackground(new Color(164, 215, 164));
 		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
@@ -667,6 +586,7 @@ public class GUI_Frame extends JFrame {
 		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setBounds(30, 40, 280, 50);
+		foundReviewPanel_businessPanel.setBackground(new Color(164, 215, 164));
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
@@ -940,14 +860,20 @@ public class GUI_Frame extends JFrame {
 		foundReport.setAlignmentX(Component.LEFT_ALIGNMENT);
 		foundReport.setPreferredSize(new Dimension(580, 150));
 		foundReport.setMaximumSize(new Dimension(580, 150));
+		foundReport.setBackground(new Color(164, 215, 164));
 		foundReport.setBounds(30, 40, 280, 50);
 		reportsPanel.add(foundReport);
 		foundReport.setLayout(null);
 		
 		JLabel reviewTitleLabel_businessPanel = new JLabel(aReport.getReview().getTitle());
 		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		reviewTitleLabel_businessPanel.setBounds(10, 11, 100, 20);
+		reviewTitleLabel_businessPanel.setBounds(10, 11, 130, 25);
 		foundReport.add(reviewTitleLabel_businessPanel);
+		
+		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
+		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
+		reportedBy.setBounds(167, 11, 393, 25);
+		foundReport.add(reportedBy);
 		
 		JLabel descriptionReviewLabel_businessPanel = new JLabel("<html><p>" + aReport.getReview().getDescription() + "</p></html>");
 		descriptionReviewLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -959,13 +885,9 @@ public class GUI_Frame extends JFrame {
 		reviewSeparator_businessPanel.setBounds(10, 148, 580, 2);
 		foundReport.add(reviewSeparator_businessPanel);
 		
-		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
-		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
-		reportedBy.setBounds(167, 13, 393, 14);
-		foundReport.add(reportedBy);
 		
 		JButton removeReportedReview = new JButton("Rimuovi recensione");
-		removeReportedReview.setBounds(419, 127, 141, 23);
+		removeReportedReview.setBounds(390, 123, 170, 25);
 		foundReport.add(removeReportedReview);
 		removeReportedReview.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){

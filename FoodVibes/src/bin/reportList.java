@@ -50,6 +50,7 @@ public class reportList {
 			}
 		}
 		aReport.getBusiness().removeReview(aReport.getReview());;
+		aReport.getBusiness().updateAvgVote();
 	}
 	//-------------------------------------------------------------------------------------------------------------------
 	

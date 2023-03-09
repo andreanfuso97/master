@@ -94,10 +94,15 @@ public class business {
 	
 	public void updateAvgVote() {
 		avgVote = 0;
-		for(int i = 0; i < reviewList.size(); i++)  {
-			avgVote += reviewList.get(i).getVote();
+
+		if(reviewList.size() > 0) {
+			
+			for(int i = 0; i < reviewList.size(); i++)  {
+				avgVote += reviewList.get(i).getVote();
+			}
+			
+			avgVote /= reviewList.size();
 		}
-		avgVote /= reviewList.size();
 	}
 	
 }
