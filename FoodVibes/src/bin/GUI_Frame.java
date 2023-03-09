@@ -506,8 +506,8 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(openingHours_businessPanel);
 
 		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
-		//Image img = new ImageIcon(this.getClass().getResource("\\images\\placeholder.png")).getImage();
-		//imageLabel_businessPanel.setIcon(new ImageIcon(img));
+		Image img = new ImageIcon(this.getClass().getResource("\\images\\placeholder.png")).getImage();
+		imageLabel_businessPanel.setIcon(new ImageIcon(img));
 		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
 		businessPanel.add(imageLabel_businessPanel);
 		
