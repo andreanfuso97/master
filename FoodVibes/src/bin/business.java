@@ -85,7 +85,9 @@ public class business {
 		reviewList.add(newReview);
 		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
 	}
-	
+	public void removeReview(review aReview) {
+		reviewList.remove(aReview);
+	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//		UPDATE VOTO MEDIO
 	//-------------------------------------------------------------------------------------------------------------------

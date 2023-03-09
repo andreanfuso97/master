@@ -150,7 +150,7 @@ public class foodvibes{
 		showBusinessInfo(aBusiness);
 	}
 	public static void removeReview(business aBusiness, review aReview) {
-		aBusiness.getBusinessReviews().remove(aReview);
+		aBusiness.removeReview(aReview);
 		aBusiness.updateAvgVote();
 		showBusinessInfo(aBusiness);
 	}
@@ -162,16 +162,6 @@ public class foodvibes{
 	public static void upVoteReview(business aBusiness, review aReview) {
 		aReview.upVote();
 		showReviews(aBusiness);
-	}
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	//		AGGIUNGI SEGNALAZIONE RECENSIONE
-	//-------------------------------------------------------------------------------------------------------------------
-	
-	public static void addReportedReview(review aReview, String type) {
-		reportedReviews.getInstance().add(aReview, type);
-		System.out.println("Segnalata: " + aReview + ", " + type);
-		
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -227,4 +217,25 @@ public class foodvibes{
 	public static void removeBusiness(business aBusiness) {
 		catalog.getInstance().removeFromList(aBusiness);
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE REPORT
+	//-------------------------------------------------------------------------------------------------------------------
+	public static void addReportedReview(review aReview, business aBusiness, String type) {
+		reportList.getInstance().addReport(aReview, aBusiness, type, currentUser);
+		System.out.println("Segnalata: " + aReview + ", " + type);
+		
+	}
+	
+	public static void removeReportedReview(report aReport) {
+		reportList.getInstance().removeReport(aReport);
+	}
+	
+	public static void showAllReports() {
+		List<report> reports = reportList.getInstance().getReportedReviewsList();
+		for(int i = 0; i < reports.size(); i++) {
+			mainFrame.foundReport(reports.get(i));
+		}
+	}
+	
 }

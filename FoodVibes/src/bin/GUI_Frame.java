@@ -17,14 +17,15 @@ public class GUI_Frame extends JFrame {
 	private JPanel reviewsPanel_businessPanel;
 	private JScrollPane reviewsScrollPane_businessPanel;
 	private CardLayout cardLayout;
-	JPanel searchBusinessPanel;
+	private JPanel searchBusinessPanel;
+	private JPanel reportsPanel;
 	
 	public GUI_Frame() {
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		INIZIALIZZAZIONE FRAME
 		//-------------------------------------------------------------------------------------------------------------------
-		
+		setResizable(false);
 		setTitle("FoodVibes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 490);
@@ -84,7 +85,11 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(registerBusinessButton_sidebar);
 		registerBusinessButton_sidebar.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				cardLayout.show(layeredPane, "registerBusinessPanel");
+				if(foodvibes.getUser() == null) {
+					JOptionPane.showMessageDialog(contentPane, "Effettua il login per poter registrare una attività.");
+				}else {
+					cardLayout.show(layeredPane, "registerBusinessPanel");					
+				}
 			}
 		});
 		
@@ -92,18 +97,17 @@ public class GUI_Frame extends JFrame {
 		JButton registerButton = new JButton("Registrazione");
 		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		registerButton.setBackground(new Color(51, 204, 51));
-		registerButton.setBounds(0, 189, 212, 40);
+		registerButton.setBounds(0, 360, 212, 40);
 		SideBar.add(registerButton);
 		registerButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
 				cardLayout.show(layeredPane, "registerPanel");
 			}
 		});
-		
 		JButton logUserButton = new JButton("Login");
 		logUserButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		logUserButton.setBackground(new Color(51, 204, 51));
-		logUserButton.setBounds(0, 150, 212, 40);
+		logUserButton.setBounds(0, 401, 212, 40);
 		SideBar.add(logUserButton);
 		logUserButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
@@ -119,6 +123,18 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
+		JButton ReportList = new JButton("Segnalazioni");
+		ReportList.setFont(new Font("Calibri", Font.BOLD, 20));
+		ReportList.setBackground(new Color(51, 204, 51));
+		ReportList.setBounds(0, 151, 212, 40);
+		SideBar.add(ReportList);
+		ReportList.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				reportsPanel.removeAll();
+				cardLayout.show(layeredPane, "reportListPanel");
+				foodvibes.showAllReports();
+			}
+		});
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		FINESTRA DI RICERCA
@@ -396,6 +412,29 @@ public class GUI_Frame extends JFrame {
 				}
 			}
 		});
+		
+		JPanel reportListPanel = new JPanel();
+		reportListPanel.setBackground(new Color(204, 255, 204));
+		layeredPane.add(reportListPanel, "reportListPanel");
+		reportListPanel.setLayout(null);
+		
+		JLabel titlereportList = new JLabel("Recensioni Segnalate");
+		titlereportList.setHorizontalAlignment(SwingConstants.CENTER);
+		titlereportList.setFont(new Font("Calibri", Font.BOLD, 25));
+		titlereportList.setBounds(10, 11, 582, 40);
+		reportListPanel.add(titlereportList);
+		
+		JScrollPane reportListScrollPane = new JScrollPane();
+		reportListScrollPane.setBounds(10, 50, 580, 380);
+		reportListScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+		reportListPanel.add(reportListScrollPane);
+		
+		reportsPanel = new JPanel();
+		reportsPanel.setBackground(new Color(204, 255, 204));
+		reportListScrollPane.setViewportView(reportsPanel);
+		reportsPanel.setLayout(new BoxLayout(reportsPanel, BoxLayout.Y_AXIS));
+	
+		
 		
 			//-------------------------------------------------------------------------------------------------------------------
 			//		MODIFICA GUI (RIMUOVI I COMMENTI PER POTER VEDERE IL RISULTATO)
@@ -828,7 +867,7 @@ public class GUI_Frame extends JFrame {
 
       int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, reportReviewPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
       if (result == JOptionPane.OK_OPTION) {
-    	  foodvibes.addReportedReview(aReview, comboBox.getSelectedItem().toString());
+    	  foodvibes.addReportedReview(aReview, aBusiness, comboBox.getSelectedItem().toString());
 		}
 		
 	}
@@ -888,5 +927,48 @@ public class GUI_Frame extends JFrame {
 		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Modifica informazioni attività", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
 			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageTextField.getText());
 		}
+	}
+	
+	public void foundReport(report aReport) {
+		JPanel foundReport = new JPanel();
+		foundReport.setAlignmentX(Component.LEFT_ALIGNMENT);
+		foundReport.setPreferredSize(new Dimension(580, 150));
+		foundReport.setMaximumSize(new Dimension(580, 150));
+		foundReport.setBounds(30, 40, 280, 50);
+		reportsPanel.add(foundReport);
+		foundReport.setLayout(null);
+		
+		JLabel reviewTitleLabel_businessPanel = new JLabel(aReport.getReview().getTitle());
+		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 20));
+		reviewTitleLabel_businessPanel.setBounds(10, 11, 100, 20);
+		foundReport.add(reviewTitleLabel_businessPanel);
+		
+		JLabel descriptionReviewLabel_businessPanel = new JLabel("<html><p>" + aReport.getReview().getDescription() + "</p></html>");
+		descriptionReviewLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 14));
+		descriptionReviewLabel_businessPanel.setBounds(10, 34, 560, 84);
+		foundReport.add(descriptionReviewLabel_businessPanel);
+		descriptionReviewLabel_businessPanel.setVerticalAlignment(JLabel.TOP);
+		
+		JSeparator reviewSeparator_businessPanel = new JSeparator();
+		reviewSeparator_businessPanel.setBounds(10, 148, 580, 2);
+		foundReport.add(reviewSeparator_businessPanel);
+		
+		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
+		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
+		reportedBy.setBounds(167, 13, 393, 14);
+		foundReport.add(reportedBy);
+		
+		JButton removeReportedReview = new JButton("Rimuovi recensione");
+		removeReportedReview.setBounds(419, 127, 141, 23);
+		foundReport.add(removeReportedReview);
+		removeReportedReview.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				reportsPanel.removeAll();
+				foodvibes.removeReportedReview(aReport);
+				foodvibes.showAllReports();
+				reportsPanel.validate();
+				reportsPanel.repaint();
+			}
+		});
 	}
 }
