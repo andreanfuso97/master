@@ -16,6 +16,8 @@ public class GUI_Frame extends JFrame {
 	private JPanel businessPanel;
 	private JPanel reviewsPanel_businessPanel;
 	private JScrollPane reviewsScrollPane_businessPanel;
+	private CardLayout cardLayout;
+	JPanel searchBusinessPanel;
 	
 	public GUI_Frame() {
 		
@@ -37,7 +39,7 @@ public class GUI_Frame extends JFrame {
 		layeredPane.setBounds(227, 5, 602, 441);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
-		CardLayout cardLayout = (CardLayout)(layeredPane.getLayout());
+		cardLayout = (CardLayout)(layeredPane.getLayout());
 		
 		
 		
@@ -122,7 +124,7 @@ public class GUI_Frame extends JFrame {
 		//		FINESTRA DI RICERCA
 		//-------------------------------------------------------------------------------------------------------------------
 		
-		JPanel searchBusinessPanel = new JPanel();
+		searchBusinessPanel = new JPanel();
 		searchBusinessPanel.setBackground(new Color(204, 255, 204));
 		searchBusinessPanel.setLayout(null);
 		layeredPane.add(searchBusinessPanel, "searchBusinessPanel");
@@ -556,20 +558,50 @@ public class GUI_Frame extends JFrame {
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
 		if(foodvibes.getUser() != null) {
-		
-			JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
-			newReviewButton_businessPanel.setBounds(10, 162, 153, 23);
-			businessPanel.add(newReviewButton_businessPanel);
-			newReviewButton_businessPanel.addActionListener(new ActionListener(){  
-				public void actionPerformed(ActionEvent e){
-					reviewsPanel_businessPanel.removeAll();
-					inputReviewDataPanel(aBusiness);
-					reviewsPanel_businessPanel.validate();
-					reviewsPanel_businessPanel.repaint();
-					reviewsScrollPane_businessPanel.validate();
-					reviewsScrollPane_businessPanel.repaint();
-				}
-			});
+			if(foodvibes.getUser() == aBusiness.getOwner()) {
+				JButton editBusinessButton_businessPanel = new JButton("Modifica informazioni");
+				editBusinessButton_businessPanel.setBounds(10, 162, 183, 23);
+				businessPanel.add(editBusinessButton_businessPanel);
+				editBusinessButton_businessPanel.addActionListener(new ActionListener(){  
+					public void actionPerformed(ActionEvent e){
+						editBusinessPanel(aBusiness);
+						newBusinessPanel(aBusiness);
+					}
+				});
+				
+				JButton removeBusinessButton_businessPanel = new JButton("Rimuovi Attività");
+				removeBusinessButton_businessPanel.setBounds(193, 162, 183, 23);
+				businessPanel.add(removeBusinessButton_businessPanel);
+				removeBusinessButton_businessPanel.addActionListener(new ActionListener(){  
+					public void actionPerformed(ActionEvent e){
+						if (JOptionPane.showConfirmDialog(businessPanel, "Vuoi eliminare l'attività?", "Elimina attività", JOptionPane.YES_NO_OPTION) == 0) {
+							foodvibes.removeBusiness(aBusiness);
+							foundBusinessPanel_searchBusiness.removeAll();
+							foodvibes.showAllBusinesses();
+							foundBusinessPanel_searchBusiness.validate();
+							foundBusinessPanel_searchBusiness.repaint();
+							foundBusinessScrollPane_searchBusiness.validate();
+							foundBusinessScrollPane_searchBusiness.repaint();
+							cardLayout.show(layeredPane, "searchBusinessPanel");
+						}
+					}
+				});
+				
+			} else {		
+				JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
+				newReviewButton_businessPanel.setBounds(10, 162, 153, 23);
+				businessPanel.add(newReviewButton_businessPanel);
+				newReviewButton_businessPanel.addActionListener(new ActionListener(){  
+					public void actionPerformed(ActionEvent e){
+						reviewsPanel_businessPanel.removeAll();
+						inputReviewDataPanel(aBusiness);
+						reviewsPanel_businessPanel.validate();
+						reviewsPanel_businessPanel.repaint();
+						reviewsScrollPane_businessPanel.validate();
+						reviewsScrollPane_businessPanel.repaint();
+					}
+				});
+			}
 		}
 		foodvibes.showReviews(aBusiness);
 		
@@ -799,5 +831,58 @@ public class GUI_Frame extends JFrame {
     	  foodvibes.addReportedReview(aReview, comboBox.getSelectedItem().toString());
 		}
 		
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		FINESTRA POP-UP MODIFICA ATTIVITÀ
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public void editBusinessPanel(business aBusiness) {
+		
+		JPanel editBusinessPanel = new JPanel();
+		editBusinessPanel.setPreferredSize(new Dimension(434,240));
+		editBusinessPanel.setBounds(10, 10, 414, 240);
+		editBusinessPanel.setLayout(null);
+		
+		JLabel nameLabel = new JLabel("Nome: ");
+		nameLabel.setBounds(10, 11, 96, 14);
+		editBusinessPanel.add(nameLabel);
+		
+		JTextField titleTextField = new JTextField();
+		titleTextField.setBounds(116, 8, 288, 20);
+		editBusinessPanel.add(titleTextField);
+		titleTextField.setColumns(10);
+		
+		JLabel addressLabel = new JLabel("Indirizzo: ");
+		addressLabel.setBounds(10, 42, 96, 14);
+		editBusinessPanel.add(addressLabel);
+		
+		JTextField addressTextField = new JTextField();
+		addressTextField.setBounds(116, 39, 288, 20);
+		editBusinessPanel.add(addressTextField);
+		addressTextField.setColumns(10);
+		
+		JLabel openingHoursLabel = new JLabel("Orari: ");
+		openingHoursLabel.setBounds(10, 73, 96, 14);
+		editBusinessPanel.add(openingHoursLabel);
+		
+		JTextField openingHoursTextField = new JTextField();
+		openingHoursTextField.setBounds(116, 70, 288, 20);
+		editBusinessPanel.add(openingHoursTextField);
+		openingHoursTextField.setColumns(10);
+		
+		JLabel imageLabel = new JLabel("Immagine: ");
+		imageLabel.setBounds(10, 104, 96, 14);
+		editBusinessPanel.add(imageLabel);
+		
+		JTextField imageTextField = new JTextField();
+		imageTextField.setBounds(116, 101, 288, 20);
+		editBusinessPanel.add(imageTextField);
+		imageTextField.setColumns(10);
+
+			
+		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Modifica informazioni attività", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
+			foodvibes.editBusinessInfo(aBusiness, titleTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageTextField.getText());
+		}
 	}
 }

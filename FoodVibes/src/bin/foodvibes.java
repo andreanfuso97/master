@@ -212,4 +212,19 @@ public class foodvibes{
 		login(newUsername, newPassword);
 		return true;
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE BUSINESS
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static void editBusinessInfo(business aBusiness, String name, String address, String openingHours, String image) {
+		aBusiness.setName(name);
+		aBusiness.setAddress(address);
+		aBusiness.setOpeningHours(openingHours);
+		aBusiness.setImage(image);
+	}
+	
+	public static void removeBusiness(business aBusiness) {
+		catalog.getInstance().getBusinessList().remove(aBusiness);
+	}
 }
