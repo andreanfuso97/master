@@ -848,10 +848,11 @@ public class GUI_Frame extends JFrame {
 		nameLabel.setBounds(10, 11, 96, 14);
 		editBusinessPanel.add(nameLabel);
 		
-		JTextField titleTextField = new JTextField();
-		titleTextField.setBounds(116, 8, 288, 20);
-		editBusinessPanel.add(titleTextField);
-		titleTextField.setColumns(10);
+		JTextField nameTextField = new JTextField();
+		nameTextField.setBounds(116, 8, 288, 20);
+		editBusinessPanel.add(nameTextField);
+		nameTextField.setColumns(10);
+		nameTextField.setText(aBusiness.getName());
 		
 		JLabel addressLabel = new JLabel("Indirizzo: ");
 		addressLabel.setBounds(10, 42, 96, 14);
@@ -861,6 +862,7 @@ public class GUI_Frame extends JFrame {
 		addressTextField.setBounds(116, 39, 288, 20);
 		editBusinessPanel.add(addressTextField);
 		addressTextField.setColumns(10);
+		addressTextField.setText(aBusiness.getAddress());
 		
 		JLabel openingHoursLabel = new JLabel("Orari: ");
 		openingHoursLabel.setBounds(10, 73, 96, 14);
@@ -870,6 +872,7 @@ public class GUI_Frame extends JFrame {
 		openingHoursTextField.setBounds(116, 70, 288, 20);
 		editBusinessPanel.add(openingHoursTextField);
 		openingHoursTextField.setColumns(10);
+		openingHoursTextField.setText(aBusiness.getOpeningHours());
 		
 		JLabel imageLabel = new JLabel("Immagine: ");
 		imageLabel.setBounds(10, 104, 96, 14);
@@ -879,10 +882,11 @@ public class GUI_Frame extends JFrame {
 		imageTextField.setBounds(116, 101, 288, 20);
 		editBusinessPanel.add(imageTextField);
 		imageTextField.setColumns(10);
+		imageTextField.setText(aBusiness.getImage());
 
 			
 		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Modifica informazioni attività", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
-			foodvibes.editBusinessInfo(aBusiness, titleTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageTextField.getText());
+			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageTextField.getText());
 		}
 	}
 }
