@@ -82,11 +82,7 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(registerBusinessButton_sidebar);
 		registerBusinessButton_sidebar.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				if(foodvibes.getUser()==null) {
-					JOptionPane.showMessageDialog(contentPane, "Effettua il login per poter registrare la tua attività.");
-				}else {
-					cardLayout.show(layeredPane, "registerBusinessPanel");
-				}
+				cardLayout.show(layeredPane, "registerBusinessPanel");
 			}
 		});
 		
@@ -117,7 +113,6 @@ public class GUI_Frame extends JFrame {
 					titleLabel_sidebar.setText("Benvenuto");
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					registerButton.setVisible(true);
-					
 				}
 			}
 		});
@@ -394,6 +389,7 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + usernameTextField_register.getText() + "</html>");
 					logUserButton.setText("Logout");
+					registerButton.setVisible(false);
 					
 				}
 			}
