@@ -439,7 +439,7 @@ public class GUI_Frame extends JFrame {
 		reportsPanel.setBackground(new Color(204, 255, 204));
 		reportListScrollPane.setViewportView(reportsPanel);
 		reportsPanel.setLayout(new BoxLayout(reportsPanel, BoxLayout.Y_AXIS));
-
+	
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -504,10 +504,9 @@ public class GUI_Frame extends JFrame {
 		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
 		openingHours_businessPanel.setBounds(10, 119, 291, 43);
 		businessPanel.add(openingHours_businessPanel);
-
+		
 		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
-		Image img = new ImageIcon(this.getClass().getResource("\\images\\placeholder.png")).getImage();
-		imageLabel_businessPanel.setIcon(new ImageIcon(img));
+		imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
 		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
 		businessPanel.add(imageLabel_businessPanel);
 		
@@ -517,7 +516,6 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(reviewsScrollPane_businessPanel);
 		
 		reviewsPanel_businessPanel = new JPanel();
-		reviewsPanel_businessPanel.setBackground(new Color(164, 215, 164));
 		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
@@ -586,7 +584,6 @@ public class GUI_Frame extends JFrame {
 		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setBounds(30, 40, 280, 50);
-		foundReviewPanel_businessPanel.setBackground(new Color(164, 215, 164));
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
@@ -860,20 +857,14 @@ public class GUI_Frame extends JFrame {
 		foundReport.setAlignmentX(Component.LEFT_ALIGNMENT);
 		foundReport.setPreferredSize(new Dimension(580, 150));
 		foundReport.setMaximumSize(new Dimension(580, 150));
-		foundReport.setBackground(new Color(164, 215, 164));
 		foundReport.setBounds(30, 40, 280, 50);
 		reportsPanel.add(foundReport);
 		foundReport.setLayout(null);
 		
 		JLabel reviewTitleLabel_businessPanel = new JLabel(aReport.getReview().getTitle());
 		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		reviewTitleLabel_businessPanel.setBounds(10, 11, 130, 25);
+		reviewTitleLabel_businessPanel.setBounds(10, 11, 100, 20);
 		foundReport.add(reviewTitleLabel_businessPanel);
-		
-		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
-		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
-		reportedBy.setBounds(167, 11, 393, 25);
-		foundReport.add(reportedBy);
 		
 		JLabel descriptionReviewLabel_businessPanel = new JLabel("<html><p>" + aReport.getReview().getDescription() + "</p></html>");
 		descriptionReviewLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -885,9 +876,13 @@ public class GUI_Frame extends JFrame {
 		reviewSeparator_businessPanel.setBounds(10, 148, 580, 2);
 		foundReport.add(reviewSeparator_businessPanel);
 		
+		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
+		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
+		reportedBy.setBounds(167, 13, 393, 14);
+		foundReport.add(reportedBy);
 		
 		JButton removeReportedReview = new JButton("Rimuovi recensione");
-		removeReportedReview.setBounds(390, 123, 170, 25);
+		removeReportedReview.setBounds(419, 127, 141, 23);
 		foundReport.add(removeReportedReview);
 		removeReportedReview.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){

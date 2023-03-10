@@ -1,8 +1,9 @@
 package bin;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class business {
+public class business extends Observable{
 	private String name;
 	private String address;
 	private String openingHours;
@@ -103,6 +104,8 @@ public class business {
 			
 			avgVote /= reviewList.size();
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }
