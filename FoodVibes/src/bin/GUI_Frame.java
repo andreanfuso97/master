@@ -21,6 +21,9 @@ public class GUI_Frame extends JFrame {
 	private JPanel reportsPanel;
 	private JButton reportList;
 	private JPanel userInfoPanel;
+	private JButton logUserButton;
+	private JLabel titleLabel_sidebar;
+	private JButton registerButton;
 	
 	public GUI_Frame() {
 		
@@ -55,7 +58,7 @@ public class GUI_Frame extends JFrame {
 		contentPane.add(SideBar);
 		SideBar.setLayout(null);
 		
-		JLabel titleLabel_sidebar = new JLabel("Benvenuto");
+		titleLabel_sidebar = new JLabel("Benvenuto");
 		titleLabel_sidebar.setHorizontalAlignment(SwingConstants.LEFT);
 		titleLabel_sidebar.setBounds(10, 11, 192, 50);
 		titleLabel_sidebar.setFont(new Font("Calibri", Font.BOLD, 25));
@@ -108,7 +111,7 @@ public class GUI_Frame extends JFrame {
 		});
 		reportList.setVisible(false);
 
-		JButton registerButton = new JButton("Registrazione");
+		registerButton = new JButton("Registrazione");
 		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		registerButton.setBackground(new Color(51, 204, 51));
 		registerButton.setBounds(0, 360, 212, 40);
@@ -124,7 +127,7 @@ public class GUI_Frame extends JFrame {
 				}
 			}
 		});
-		JButton logUserButton = new JButton("Login");
+		logUserButton = new JButton("Login");
 		logUserButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		logUserButton.setBackground(new Color(51, 204, 51));
 		logUserButton.setBounds(0, 401, 212, 40);
@@ -137,6 +140,7 @@ public class GUI_Frame extends JFrame {
 					foodvibes.logout();
 					reportList.setVisible(false);
 					logUserButton.setText("Login");
+					registerButton.setText("Registrazione");
 					titleLabel_sidebar.setText("Benvenuto");
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 				}
@@ -316,6 +320,7 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
 					logUserButton.setText("Logout");
+					registerButton.setText("Profilo");
 					if(foodvibes.getUser() instanceof admin) {
 						reportList.setVisible(true);
 					}
@@ -417,6 +422,7 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + usernameTextField_register.getText() + "</html>");
 					logUserButton.setText("Logout");
+					registerButton.setText("Profilo");
 					
 				}
 			}
@@ -988,12 +994,28 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(passwordTextField_userInfo);
 		passwordTextField_userInfo.setText(aUser.getPassword());
 		
-		JButton registerButton_userInfo = new JButton("Modifica informazioni");
-		registerButton_userInfo.setBounds(247, 400, 89, 23);
-		userInfoPanel.add(registerButton_userInfo);
-		registerButton_userInfo.addActionListener(new ActionListener(){  
+		JButton editUserInfoButton = new JButton("Modifica");
+		editUserInfoButton.setBounds(187, 400, 120, 23);
+		userInfoPanel.add(editUserInfoButton);
+		editUserInfoButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
 				editUserInfo(aUser);
+			}
+		});
+		
+		JButton removeUserButton = new JButton("Rimuovi");
+		removeUserButton.setBounds(307, 400, 120, 23);
+		userInfoPanel.add(removeUserButton);
+		removeUserButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(userInfoPanel, "Vuoi eliminare il tuo account", "Elimina account", JOptionPane.YES_NO_OPTION) == 0) {
+					foodvibes.removeUser(aUser);
+					reportList.setVisible(false);
+					logUserButton.setText("Login");
+					registerButton.setText("Registrazione");
+					titleLabel_sidebar.setText("Benvenuto");
+					cardLayout.show(layeredPane, "searchBusinessPanel");
+				}
 			}
 		});
 	}
@@ -1081,13 +1103,13 @@ public class GUI_Frame extends JFrame {
 		editBusinessPanel.add(passwordTextField_userInfo);
 		passwordTextField_userInfo.setText(aUser.getPassword());
 		
-	      int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-	      if (result == JOptionPane.OK_OPTION) {
-	    	    foodvibes.editUser(aUser, nameTextField_userInfo.getText(), surnameTextField_userInfo.getText(), nationalityTextField_userInfo.getText(), emailTextField_userInfo.getText(), usernameTextField_userInfo.getText(), passwordTextField_userInfo.getText());
-				userInfoPanel.removeAll();
-				showUserInfo(aUser);
-				cardLayout.show(layeredPane, "userInfoPanel");
-			}
+		int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			foodvibes.editUserInfo(aUser, nameTextField_userInfo.getText(), surnameTextField_userInfo.getText(), nationalityTextField_userInfo.getText(), emailTextField_userInfo.getText(), usernameTextField_userInfo.getText(), passwordTextField_userInfo.getText());
+			userInfoPanel.removeAll();
+			showUserInfo(aUser);
+			cardLayout.show(layeredPane, "userInfoPanel");
+		}
 	}
 	
 }
