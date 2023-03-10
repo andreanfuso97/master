@@ -224,7 +224,6 @@ public class foodvibes{
 	public static void addReportedReview(review aReview, business aBusiness, String type) {
 		reportList.getInstance().addReport(aReview, aBusiness, type, currentUser);
 		System.out.println("Segnalata: " + aReview + ", " + type);
-		
 	}
 	
 	public static void removeReportedReview(report aReport) {

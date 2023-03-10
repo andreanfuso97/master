@@ -107,5 +107,4 @@ public class business extends Observable{
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
 }
