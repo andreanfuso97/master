@@ -187,7 +187,7 @@ public class foodvibes{
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
-	//		REGISTRAZIONE NUOVO ACCOUNT
+	//		GESTIONE ACCOUNT
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static boolean registerNewUser(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
@@ -201,6 +201,22 @@ public class foodvibes{
 		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
 		login(newUsername, newPassword);
 		return true;
+	}
+	
+	public static void editUser(user aUser, String newName, String newSurname, String newNationality, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return;
+			}
+		}
+		aUser.setName(newName);
+		aUser.setSurname(newSurname);
+		aUser.setNationality(newNationality);
+		aUser.setEmail(newEmail);
+		aUser.setUsername(newUsername);
+		aUser.setPassword(newPassword);
+		return;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------

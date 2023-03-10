@@ -20,12 +20,14 @@ public class GUI_Frame extends JFrame {
 	private JPanel searchBusinessPanel;
 	private JPanel reportsPanel;
 	private JButton reportList;
+	private JPanel userInfoPanel;
 	
 	public GUI_Frame() {
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		INIZIALIZZAZIONE FRAME
 		//-------------------------------------------------------------------------------------------------------------------
+		
 		setResizable(false);
 		setTitle("FoodVibes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,8 +44,6 @@ public class GUI_Frame extends JFrame {
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		cardLayout = (CardLayout)(layeredPane.getLayout());
-		
-		
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		BARRA LATERALE
@@ -94,6 +94,19 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 		
+		reportList = new JButton("Segnalazioni");
+		reportList.setFont(new Font("Calibri", Font.BOLD, 20));
+		reportList.setBackground(new Color(51, 204, 51));
+		reportList.setBounds(0, 151, 212, 40);
+		SideBar.add(reportList);
+		reportList.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){
+				reportsPanel.removeAll();
+				cardLayout.show(layeredPane, "reportListPanel");
+				foodvibes.showAllReports();
+			}
+		});
+		reportList.setVisible(false);
 
 		JButton registerButton = new JButton("Registrazione");
 		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -102,7 +115,13 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(registerButton);
 		registerButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				cardLayout.show(layeredPane, "registerPanel");
+				if(foodvibes.getUser() == null) {
+					cardLayout.show(layeredPane, "registerPanel");
+				}else {
+					userInfoPanel.removeAll();
+					showUserInfo(foodvibes.getUser());
+					cardLayout.show(layeredPane, "userInfoPanel");
+				}
 			}
 		});
 		JButton logUserButton = new JButton("Login");
@@ -120,24 +139,9 @@ public class GUI_Frame extends JFrame {
 					logUserButton.setText("Login");
 					titleLabel_sidebar.setText("Benvenuto");
 					cardLayout.show(layeredPane, "searchBusinessPanel");
-					registerButton.setVisible(true);
 				}
 			}
 		});
-		
-		reportList = new JButton("Segnalazioni");
-		reportList.setFont(new Font("Calibri", Font.BOLD, 20));
-		reportList.setBackground(new Color(51, 204, 51));
-		reportList.setBounds(0, 151, 212, 40);
-		SideBar.add(reportList);
-		reportList.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){
-				reportsPanel.removeAll();
-				cardLayout.show(layeredPane, "reportListPanel");
-				foodvibes.showAllReports();
-			}
-		});
-		reportList.setVisible(false);
 		
 		//-------------------------------------------------------------------------------------------------------------------
 		//		FINESTRA DI RICERCA
@@ -263,6 +267,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		//		FINESTRA ATTIVITÀ
 		//-------------------------------------------------------------------------------------------------------------------
+		
 		businessPanel = new JPanel();
 		businessPanel.setBackground(new Color(204, 255, 204));
 		layeredPane.add(businessPanel, "businessPanel");
@@ -311,7 +316,6 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
 					logUserButton.setText("Logout");
-					registerButton.setVisible(false);
 					if(foodvibes.getUser() instanceof admin) {
 						reportList.setVisible(true);
 					}
@@ -413,11 +417,14 @@ public class GUI_Frame extends JFrame {
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + usernameTextField_register.getText() + "</html>");
 					logUserButton.setText("Logout");
-					registerButton.setVisible(false);
 					
 				}
 			}
 		});
+		
+		//-------------------------------------------------------------------------------------------------------------------
+		//		FINESTRA LISTA REPORTS
+		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel reportListPanel = new JPanel();
 		reportListPanel.setBackground(new Color(204, 255, 204));
@@ -439,6 +446,15 @@ public class GUI_Frame extends JFrame {
 		reportsPanel.setBackground(new Color(204, 255, 204));
 		reportListScrollPane.setViewportView(reportsPanel);
 		reportsPanel.setLayout(new BoxLayout(reportsPanel, BoxLayout.Y_AXIS));
+		
+		//-------------------------------------------------------------------------------------------------------------------
+		//		FINESTRA REGISTRAZIONE NUOVO ACCOUNT
+		//-------------------------------------------------------------------------------------------------------------------
+		
+		userInfoPanel = new JPanel();
+		userInfoPanel.setBackground(new Color(204, 255, 204));
+		layeredPane.add(userInfoPanel, "userInfoPanel");
+		userInfoPanel.setLayout(null);
 	
 	}
 	
@@ -894,4 +910,184 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 	}
+	
+	public void showUserInfo(user aUser) {
+		JLabel titleLabel_userInfo = new JLabel("Informazioni sull'account");
+		titleLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 25));
+		titleLabel_userInfo.setBounds(198, 11, 186, 43);
+		userInfoPanel.add(titleLabel_userInfo);
+		
+		JLabel userNameLabel_userInfo = new JLabel("Nome");
+		userNameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		userNameLabel_userInfo.setBounds(108, 73, 107, 24);
+		userInfoPanel.add(userNameLabel_userInfo);
+		
+		JLabel nameTextField_userInfo = new JLabel();
+		nameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nameTextField_userInfo.setBounds(272, 71, 241, 24);
+		userInfoPanel.add(nameTextField_userInfo);
+		nameTextField_userInfo.setText(aUser.getName());
+		
+		JLabel surnameLabel_userInfo = new JLabel("Cognome");
+		surnameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		surnameLabel_userInfo.setBounds(108, 108, 107, 24);
+		userInfoPanel.add(surnameLabel_userInfo);
+		
+		JLabel surnameTextField_userInfo = new JLabel();
+		surnameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		surnameTextField_userInfo.setBounds(272, 106, 241, 24);
+		userInfoPanel.add(surnameTextField_userInfo);
+		surnameTextField_userInfo.setText(aUser.getSurname());
+		
+		JLabel nationalityLabel_userInfo = new JLabel("Nazionalità");
+		nationalityLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nationalityLabel_userInfo.setBounds(108, 143, 107, 24);
+		userInfoPanel.add(nationalityLabel_userInfo);
+		
+		JLabel nationalityTextField_userInfo = new JLabel();
+		nationalityTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nationalityTextField_userInfo.setBounds(272, 141, 241, 24);
+		userInfoPanel.add(nationalityTextField_userInfo);
+		nationalityTextField_userInfo.setText(aUser.getNationality());
+		
+		JLabel birthdateLabel_userInfo = new JLabel("Data di nascità");
+		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthdateLabel_userInfo.setBounds(108, 178, 107, 24);
+		userInfoPanel.add(birthdateLabel_userInfo);
+		
+		JLabel emailLabel_userInfo = new JLabel("Email");
+		emailLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		emailLabel_userInfo.setBounds(108, 213, 107, 24);
+		userInfoPanel.add(emailLabel_userInfo);
+		
+		JLabel emailTextField_userInfo = new JLabel();
+		emailTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		emailTextField_userInfo.setBounds(272, 213, 241, 24);
+		userInfoPanel.add(emailTextField_userInfo);
+		emailTextField_userInfo.setText(aUser.getEmail());
+		
+		JLabel usernameLabel_userInfo = new JLabel("Username");
+		usernameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		usernameLabel_userInfo.setBounds(108, 248, 107, 24);
+		userInfoPanel.add(usernameLabel_userInfo);
+		
+		JLabel usernameTextField_userInfo = new JLabel();
+		usernameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		usernameTextField_userInfo.setBounds(272, 248, 241, 24);
+		userInfoPanel.add(usernameTextField_userInfo);
+		usernameTextField_userInfo.setText(aUser.getUsername());
+		
+		JLabel passwordLabel_userInfo = new JLabel("Password");
+		passwordLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		passwordLabel_userInfo.setBounds(108, 283, 107, 24);
+		userInfoPanel.add(passwordLabel_userInfo);
+		
+		JLabel passwordTextField_userInfo = new JLabel();
+		passwordTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		passwordTextField_userInfo.setBounds(272, 283, 241, 24);
+		userInfoPanel.add(passwordTextField_userInfo);
+		passwordTextField_userInfo.setText(aUser.getPassword());
+		
+		JButton registerButton_userInfo = new JButton("Modifica informazioni");
+		registerButton_userInfo.setBounds(247, 400, 89, 23);
+		userInfoPanel.add(registerButton_userInfo);
+		registerButton_userInfo.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e) {
+				editUserInfo(aUser);
+			}
+		});
+	}
+	
+	public void editUserInfo(user aUser) {
+		
+		JPanel editBusinessPanel = new JPanel();
+		editBusinessPanel.setPreferredSize(new Dimension(600, 400));
+		editBusinessPanel.setBounds(10, 10, 500, 400);
+		editBusinessPanel.setLayout(null);
+		
+		JLabel titleLabel_userInfo = new JLabel("Informazioni sull'account");
+		titleLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 25));
+		titleLabel_userInfo.setBounds(198, 11, 186, 43);
+		editBusinessPanel.add(titleLabel_userInfo);
+		
+		JLabel userNameLabel_userInfo = new JLabel("Nome");
+		userNameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		userNameLabel_userInfo.setBounds(108, 73, 107, 24);
+		editBusinessPanel.add(userNameLabel_userInfo);
+		
+		JTextField nameTextField_userInfo = new JTextField();
+		nameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nameTextField_userInfo.setBounds(272, 71, 241, 24);
+		editBusinessPanel.add(nameTextField_userInfo);
+		nameTextField_userInfo.setText(aUser.getName());
+		
+		JLabel surnameLabel_userInfo = new JLabel("Cognome");
+		surnameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		surnameLabel_userInfo.setBounds(108, 108, 107, 24);
+		editBusinessPanel.add(surnameLabel_userInfo);
+		
+		JTextField surnameTextField_userInfo = new JTextField();
+		surnameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		surnameTextField_userInfo.setBounds(272, 106, 241, 24);
+		editBusinessPanel.add(surnameTextField_userInfo);
+		surnameTextField_userInfo.setText(aUser.getSurname());
+		
+		JLabel nationalityLabel_userInfo = new JLabel("Nazionalità");
+		nationalityLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nationalityLabel_userInfo.setBounds(108, 143, 107, 24);
+		editBusinessPanel.add(nationalityLabel_userInfo);
+		
+		JTextField nationalityTextField_userInfo = new JTextField();
+		nationalityTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nationalityTextField_userInfo.setBounds(272, 141, 241, 24);
+		editBusinessPanel.add(nationalityTextField_userInfo);
+		nationalityTextField_userInfo.setText(aUser.getNationality());
+		
+		JLabel birthdateLabel_userInfo = new JLabel("Data di nascità");
+		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthdateLabel_userInfo.setBounds(108, 178, 107, 24);
+		editBusinessPanel.add(birthdateLabel_userInfo);
+		
+		JLabel emailLabel_userInfo = new JLabel("Email");
+		emailLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		emailLabel_userInfo.setBounds(108, 213, 107, 24);
+		editBusinessPanel.add(emailLabel_userInfo);
+		
+		JTextField emailTextField_userInfo = new JTextField();
+		emailTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		emailTextField_userInfo.setBounds(272, 213, 241, 24);
+		editBusinessPanel.add(emailTextField_userInfo);
+		emailTextField_userInfo.setText(aUser.getEmail());
+		
+		JLabel usernameLabel_userInfo = new JLabel("Username");
+		usernameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		usernameLabel_userInfo.setBounds(108, 248, 107, 24);
+		editBusinessPanel.add(usernameLabel_userInfo);
+		
+		JTextField usernameTextField_userInfo = new JTextField();
+		usernameTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		usernameTextField_userInfo.setBounds(272, 248, 241, 24);
+		editBusinessPanel.add(usernameTextField_userInfo);
+		usernameTextField_userInfo.setText(aUser.getUsername());
+		
+		JLabel passwordLabel_userInfo = new JLabel("Password");
+		passwordLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		passwordLabel_userInfo.setBounds(108, 283, 107, 24);
+		editBusinessPanel.add(passwordLabel_userInfo);
+		
+		JTextField passwordTextField_userInfo = new JTextField();
+		passwordTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		passwordTextField_userInfo.setBounds(272, 283, 241, 24);
+		editBusinessPanel.add(passwordTextField_userInfo);
+		passwordTextField_userInfo.setText(aUser.getPassword());
+		
+	      int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	      if (result == JOptionPane.OK_OPTION) {
+	    	    foodvibes.editUser(aUser, nameTextField_userInfo.getText(), surnameTextField_userInfo.getText(), nationalityTextField_userInfo.getText(), emailTextField_userInfo.getText(), usernameTextField_userInfo.getText(), passwordTextField_userInfo.getText());
+				userInfoPanel.removeAll();
+				showUserInfo(aUser);
+				cardLayout.show(layeredPane, "userInfoPanel");
+			}
+	}
+	
 }
