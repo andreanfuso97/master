@@ -1,8 +1,9 @@
 package bin;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class business {
+public class business extends Observable{
 	private String name;
 	private String address;
 	private String openingHours;
@@ -85,17 +86,25 @@ public class business {
 		reviewList.add(newReview);
 		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
 	}
-	
+	public void removeReview(review aReview) {
+		reviewList.remove(aReview);
+	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//		UPDATE VOTO MEDIO
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void updateAvgVote() {
 		avgVote = 0;
-		for(int i = 0; i < reviewList.size(); i++)  {
-			avgVote += reviewList.get(i).getVote();
+
+		if(reviewList.size() > 0) {
+			
+			for(int i = 0; i < reviewList.size(); i++)  {
+				avgVote += reviewList.get(i).getVote();
+			}
+			
+			avgVote /= reviewList.size();
 		}
-		avgVote /= reviewList.size();
+		this.setChanged();
+		this.notifyObservers();
 	}
-	
 }

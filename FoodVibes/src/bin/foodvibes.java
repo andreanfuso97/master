@@ -45,7 +45,7 @@ public class foodvibes{
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
 		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
 		Date bDate = dateInfo.getTime();
-		user nUser = new user("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		admin nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
 		//currentUser = userList.get(0);
 		test();
@@ -150,7 +150,7 @@ public class foodvibes{
 		showBusinessInfo(aBusiness);
 	}
 	public static void removeReview(business aBusiness, review aReview) {
-		aBusiness.getBusinessReviews().remove(aReview);
+		aBusiness.removeReview(aReview);
 		aBusiness.updateAvgVote();
 		showBusinessInfo(aBusiness);
 	}
@@ -162,16 +162,6 @@ public class foodvibes{
 	public static void upVoteReview(business aBusiness, review aReview) {
 		aReview.upVote();
 		showReviews(aBusiness);
-	}
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	//		AGGIUNGI SEGNALAZIONE RECENSIONE
-	//-------------------------------------------------------------------------------------------------------------------
-	
-	public static void addReportedReview(review aReview, String type) {
-		reportedReviews.getInstance().add(aReview, type);
-		System.out.println("Segnalata: " + aReview + ", " + type);
-		
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -212,4 +202,39 @@ public class foodvibes{
 		login(newUsername, newPassword);
 		return true;
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE BUSINESS
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static void editBusinessInfo(business aBusiness, String name, String address, String openingHours, String image) {
+		aBusiness.setName(name);
+		aBusiness.setAddress(address);
+		aBusiness.setOpeningHours(openingHours);
+		aBusiness.setImage(image);
+	}
+	
+	public static void removeBusiness(business aBusiness) {
+		catalog.getInstance().removeFromList(aBusiness);
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE REPORT
+	//-------------------------------------------------------------------------------------------------------------------
+	public static void addReportedReview(review aReview, business aBusiness, String type) {
+		reportList.getInstance().addReport(aReview, aBusiness, type, currentUser);
+		System.out.println("Segnalata: " + aReview + ", " + type);
+	}
+	
+	public static void removeReportedReview(report aReport) {
+		reportList.getInstance().removeReport(aReport);
+	}
+	
+	public static void showAllReports() {
+		List<report> reports = reportList.getInstance().getReportedReviewsList();
+		for(int i = 0; i < reports.size(); i++) {
+			mainFrame.foundReport(reports.get(i));
+		}
+	}
+	
 }
