@@ -1,12 +1,9 @@
 package bin;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class GUI_Frame extends JFrame {
 	
@@ -59,6 +56,7 @@ public class GUI_Frame extends JFrame {
 		SideBar.setLayout(null);
 		
 		titleLabel_sidebar = new JLabel("Benvenuto");
+		titleLabel_sidebar.setBackground(new Color(240, 248, 255));
 		titleLabel_sidebar.setHorizontalAlignment(SwingConstants.LEFT);
 		titleLabel_sidebar.setBounds(10, 11, 192, 50);
 		titleLabel_sidebar.setFont(new Font("Calibri", Font.BOLD, 25));
@@ -89,7 +87,7 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(registerBusinessButton_sidebar);
 		registerBusinessButton_sidebar.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				if(foodvibes.getUser() == null) {
+				if(foodvibes.getUser().getState() instanceof userLoggedOut) {
 					JOptionPane.showMessageDialog(contentPane, "Effettua il login per poter registrare una attività.");
 				}else {
 					cardLayout.show(layeredPane, "registerBusinessPanel");					
@@ -116,17 +114,12 @@ public class GUI_Frame extends JFrame {
 		registerButton.setBackground(new Color(51, 204, 51));
 		registerButton.setBounds(0, 360, 212, 40);
 		SideBar.add(registerButton);
-		registerButton.addActionListener(new ActionListener(){  
+		registerButton.addActionListener(new ActionListener(){ 
 			public void actionPerformed(ActionEvent e){
-				if(foodvibes.getUser() == null) {
-					cardLayout.show(layeredPane, "registerPanel");
-				}else {
-					userInfoPanel.removeAll();
-					showUserInfo(foodvibes.getUser());
-					cardLayout.show(layeredPane, "userInfoPanel");
+				foodvibes.getUser().getState().thirdSidebarButton();
 				}
 			}
-		});
+		);
 		logUserButton = new JButton("Login");
 		logUserButton.setFont(new Font("Calibri", Font.BOLD, 20));
 		logUserButton.setBackground(new Color(51, 204, 51));
@@ -134,16 +127,7 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(logUserButton);
 		logUserButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				if(foodvibes.getUser() == null) {
-					cardLayout.show(layeredPane, "loginPanel");
-				}else {
-					foodvibes.logout();
-					reportList.setVisible(false);
-					logUserButton.setText("Login");
-					registerButton.setText("Registrazione");
-					titleLabel_sidebar.setText("Benvenuto");
-					cardLayout.show(layeredPane, "searchBusinessPanel");
-				}
+				foodvibes.getUser().getState().logButton();
 			}
 		});
 		
@@ -157,6 +141,7 @@ public class GUI_Frame extends JFrame {
 		layeredPane.add(searchBusinessPanel, "searchBusinessPanel");
 		
 		JLabel title_searchBusiness = new JLabel("Cerca Attività");
+		title_searchBusiness.setBackground(SystemColor.inactiveCaptionBorder);
 		title_searchBusiness.setFont(new Font("Calibri", Font.BOLD, 20));
 		title_searchBusiness.setBounds(10, 11, 198, 25);
 		searchBusinessPanel.add(title_searchBusiness);
@@ -317,14 +302,17 @@ public class GUI_Frame extends JFrame {
 		loginButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
 				if(foodvibes.login(userNameTextField_login.getText(), passwordTextField_login.getText())) {
-					cardLayout.show(layeredPane, "searchBusinessPanel");
-					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
-					logUserButton.setText("Logout");
-					registerButton.setText("Profilo");
-					if(foodvibes.getUser() instanceof admin) {
-						reportList.setVisible(true);
+					user currentUser = foodvibes.getUser();
+					if(currentUser instanceof admin) {
+						currentUser.setUserState(new adminLogged(currentUser));
+						showReportListButton();
+					} else {
+						currentUser.setUserState(new userLogged(currentUser));
 					}
-					
+					setProfileButton();
+					setLogoutButton();
+					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
+					showSearchPanel();
 				}
 			}
 		});
@@ -377,6 +365,11 @@ public class GUI_Frame extends JFrame {
 		birthdateLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
 		birthdateLabel_register.setBounds(108, 178, 107, 24);
 		registerPanel.add(birthdateLabel_register);
+		
+		JTextField birthdate = new JTextField();
+		birthdate.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthdate.setBounds(272, 178, 241, 24);
+		registerPanel.add(birthdate);
 		
 		JLabel emailLabel_register = new JLabel("Email");
 		emailLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
@@ -472,14 +465,19 @@ public class GUI_Frame extends JFrame {
 		JPanel searchResultPanel = new JPanel();
 		searchResultPanel.setBounds(30, 40, 300, 50);
 		foundBusinessPanel_searchBusiness.add(searchResultPanel);
-		searchResultPanel.setMaximumSize(new Dimension(1000, 30));
+		searchResultPanel.setMaximumSize(new Dimension(578, 40));
 		searchResultPanel.setBackground(new Color(204, 255, 204));
-		searchResultPanel.setLayout(new GridLayout(0, 3, 0, 0));
+		searchResultPanel.setLayout(new GridLayout(0, 3));
+		//searchResultPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
 		
-		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel("Voto: " + Float.toString(foundBusiness.getAvgVote()));
+		
+		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel(Float.toString(foundBusiness.getAvgVote()));
+		searchedBusinessVoteLabel_searchResultPanel.setBackground(Color.green);
+		searchedBusinessVoteLabel_searchResultPanel.setOpaque(true);
 		searchedBusinessVoteLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 198, 25);
-		searchResultPanel.add(searchedBusinessVoteLabel_searchResultPanel);
+		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 30, 25);
+		searchResultPanel.add(searchedBusinessVoteLabel_searchResultPanel);				
+		
 		
 		JLabel searchedBusinessNameLabel_searchResultPanel = new JLabel(foundBusiness.getName());
 		searchedBusinessNameLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -497,6 +495,28 @@ public class GUI_Frame extends JFrame {
 				newBusinessPanel(foundBusiness);
 			}
 		});
+		
+		if(foundBusiness.getTier() != businessTiers.NONE) {
+			JPanel tierPanel = new JPanel();
+			tierPanel.setBounds(30, 40, 300, 50);
+			foundBusinessPanel_searchBusiness.add(tierPanel);
+			tierPanel.setMaximumSize(new Dimension(578, 20));
+			tierPanel.setBackground(new Color(204, 255, 204));
+			tierPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
+
+			if(foundBusiness == foodvibes.getBestBusiness()) {
+				JLabel bestLabel = new JLabel("Best");
+				bestLabel.setFont(new Font("Calibri", Font.BOLD, 14));
+				bestLabel.setForeground(Color.blue);
+				bestLabel.setBounds(20, 11, 198, 25);
+				tierPanel.add(bestLabel);
+			}
+			
+			JLabel tierLabel = new JLabel(foundBusiness.getTier().toString());
+			tierLabel.setFont(new Font("Calibri", Font.BOLD, 14));
+			tierLabel.setBounds(11, 11, 198, 25);
+			tierPanel.add(tierLabel);	
+		}
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -511,9 +531,11 @@ public class GUI_Frame extends JFrame {
 		nameLabel_businessPanel.setBounds(10, 10, 290, 43);
 		businessPanel.add(nameLabel_businessPanel);
 		
-		JLabel businessAvgVote = new JLabel("Voto: " + aBusiness.getAvgVote());
+		JLabel businessAvgVote = new JLabel("" + aBusiness.getAvgVote(), SwingConstants.CENTER);
+		businessAvgVote.setBackground(Color.green);
+		businessAvgVote.setOpaque(true);
 		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 15));
-		businessAvgVote.setBounds(400, 10, 290, 43);
+		businessAvgVote.setBounds(400, 10, 43, 43);
 		businessPanel.add(businessAvgVote);
 		
 		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
@@ -541,7 +563,7 @@ public class GUI_Frame extends JFrame {
 		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
-		if(foodvibes.getUser() != null) {
+		if(!(foodvibes.getUser().getState() instanceof userLoggedOut)) {
 			if(foodvibes.getUser() == aBusiness.getOwner()) {
 				JButton editBusinessButton_businessPanel = new JButton("Modifica informazioni");
 				editBusinessButton_businessPanel.setBounds(10, 162, 183, 23);
@@ -657,7 +679,7 @@ public class GUI_Frame extends JFrame {
 					}
 				}
 			});
-		} else if(foodvibes.getUser() != null){
+		} else if(!(foodvibes.getUser().getState() instanceof userLoggedOut)){
 			JButton upVoteButton = new JButton("👍 " + aReview.getLikes());
 			upVoteButton.setBounds(446, 4, 65, 29);
 			foundReviewPanel_businessPanel.add(upVoteButton);
@@ -920,7 +942,7 @@ public class GUI_Frame extends JFrame {
 	public void showUserInfo(user aUser) {
 		JLabel titleLabel_userInfo = new JLabel("Informazioni sull'account");
 		titleLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 25));
-		titleLabel_userInfo.setBounds(198, 11, 186, 43);
+		titleLabel_userInfo.setBounds(198, 11, 300, 50);
 		userInfoPanel.add(titleLabel_userInfo);
 		
 		JLabel userNameLabel_userInfo = new JLabel("Nome");
@@ -1112,4 +1134,51 @@ public class GUI_Frame extends JFrame {
 		}
 	}
 	
+	public void showReportListButton() {
+		reportList.setVisible(true);
+	}
+	
+	public void hideReportListButton() {
+		reportList.setVisible(false);
+	}
+	
+	public void setLogoutButton() {
+		logUserButton.setText("Logout");
+		cardLayout.show(layeredPane, "searchBusinessPanel");
+	}
+	
+	public void setLoginButton() {
+		logUserButton.setText("Login");
+		cardLayout.show(layeredPane, "searchBusinessPanel");
+	}
+	
+	public void setProfileButton() {
+		registerButton.setText("Profilo");
+	}
+	
+	public void setRegisterButton() {
+		registerButton.setText("Registrati");
+	}
+	
+	public void showRegisterPanel() {
+		cardLayout.show(layeredPane, "registerPanel");
+	}
+	
+	public void showLoginPanel() {
+		cardLayout.show(layeredPane, "loginPanel");
+	}
+	
+	public void showProfilePanel() {
+		cardLayout.show(layeredPane, "userInfoPanel");
+	}
+	
+	public void showSearchPanel() {
+		cardLayout.show(layeredPane, "searchBusinessPanel");
+	}
+	
+	public void showEditUserPanel() {
+		System.out.println("Show Profile");
+		showUserInfo(foodvibes.getUser());
+		cardLayout.show(layeredPane, "userInfoPanel");
+	}
 }

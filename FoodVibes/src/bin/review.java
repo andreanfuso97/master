@@ -67,6 +67,10 @@ public class review {
 	public void upVote() {
 		this.likes++;
 	}
+	
+	public void removeVote() {
+		this.likes--;
+	}
 
 	
 	

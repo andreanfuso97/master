@@ -1,5 +1,7 @@
 package bin;
+import java.util.ArrayList;
 import java.util.Date;
+
 public class user {
 	private String Name;
 	private String Surname;
@@ -8,6 +10,8 @@ public class user {
 	private String email;
 	private String username;
 	private String password;
+	private ArrayList<review> likedReviews;
+	private userState state;
 	
 	public user(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
 		super();
@@ -18,6 +22,8 @@ public class user {
 		email = newEmail;
 		username = newUsername;
 		password = newPassword;
+		likedReviews = new ArrayList<>();
+		state = new userLoggedOut(this);
 	}
 	
 	//get
@@ -42,6 +48,12 @@ public class user {
 	public String getPassword() {
 		return password;
 	}
+	public userState getState() {
+		return state;
+	}
+	public ArrayList getLikedReviews() {
+		return likedReviews;
+	}
 	
 	//set
 	public void setName(String newName) {
@@ -65,7 +77,13 @@ public class user {
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
 	}
-
+	public void setUserState(userState state) {
+		this.state = state;
+	}
+	public void addLikedReview(review aReview) {
+		likedReviews.add(aReview);
+	}
+	
 	@Override
 	public String toString() {
 		return "user [Name=" + Name + ", Surname=" + Surname + ", Nationality=" + Nationality + ", birthDate="

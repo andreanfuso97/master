@@ -11,6 +11,7 @@ public class business extends Observable{
 	private user owner;
 	private float avgVote;
 	private ArrayList<review> reviewList = new ArrayList<>();
+	private businessTiers tier;
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		COSTRUTTORE
@@ -22,12 +23,15 @@ public class business extends Observable{
 		openingHours = newOpeningHours;
 		image = newImage;
 		owner = newOwner;
-		avgVote = 0;
+		avgVote = 0; 
+		tier = businessTiers.NONE;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI GET
 	//-------------------------------------------------------------------------------------------------------------------
+	
+	
 	public String getName() {
 		return this.name;
 	}
@@ -51,6 +55,9 @@ public class business extends Observable{
 	}
 	public ArrayList<review> getReviewList() {
 		return reviewList;
+	}
+	public businessTiers getTier() {
+		return tier;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -76,6 +83,9 @@ public class business extends Observable{
 	}
 	public void setReviewList(ArrayList<review> reviewList) {
 		this.reviewList = reviewList;
+	}
+	public void setTier(businessTiers newTier) {
+		tier = newTier;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------

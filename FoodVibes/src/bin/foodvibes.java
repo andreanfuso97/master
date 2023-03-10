@@ -10,11 +10,15 @@ public class foodvibes{
 	private static GUI_Frame mainFrame;
 	private static List<user> userList = new ArrayList<>();
 	private static user currentUser;
+	private static List<business> bronzeList = new ArrayList<>();
+	private static List<business> silverList = new ArrayList<>();
+	private static List<business> goldList = new ArrayList<>();
+	private static List<business> platList = new ArrayList<>();
+	private static business bestBusiness;
 	
 	
 	public static void main(String[] args) {
 		init();
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -34,6 +38,15 @@ public class foodvibes{
 	public static void setUser(user newCurrentUser) {
 		currentUser = newCurrentUser;
 	}
+
+	
+	public static business getBestBusiness() {
+		return bestBusiness;
+	}
+	
+	public static GUI_Frame getMainFrame() {
+		return mainFrame;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		INIZIALIZZAZIONE E TEST
@@ -41,11 +54,19 @@ public class foodvibes{
 
 	public static void init() {
 		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 2000);
+		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 1);
+		Date bDate = dateInfo.getTime();
+		admin nUser = new admin("", "", "", bDate, "", "guest", "");
+		currentUser = nUser;
+		
+		dateInfo = Calendar.getInstance();
 		dateInfo.set(Calendar.YEAR, 1997);
 		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
 		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-		Date bDate = dateInfo.getTime();
-		admin nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		bDate = dateInfo.getTime();
+		nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
 		//currentUser = userList.get(0);
 		test();
@@ -58,12 +79,25 @@ public class foodvibes{
 		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
 		Date bDate = dateInfo.getTime();
 		user nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "andreanfuso", "nonna");
-		userList.add(nUser);
+		userList.add(nUser);dateInfo.set(Calendar.YEAR, 1997);
+		
 		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", nUser);
 		review R = new review(nUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
 		B.addNewReview(R);
 		B.updateAvgVote();
 		catalog.getInstance().add(B);
+		
+		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
+		bDate = dateInfo.getTime();
+		nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "a", "a");
+		userList.add(nUser);
+		
+		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
+		bDate = dateInfo.getTime();
+		nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "b", "b");
+		userList.add(nUser);
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -139,6 +173,7 @@ public class foodvibes{
 	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
 		aBusiness.addNewReview(new review(currentUser, reviewTitle, reviewVote, reviewDescription));
 		aBusiness.updateAvgVote();
+		checkBusinessTier(aBusiness);
 		showBusinessInfo(aBusiness);
 	}	
 	
@@ -160,8 +195,14 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void upVoteReview(business aBusiness, review aReview) {
-		aReview.upVote();
-		showReviews(aBusiness);
+		if(!(currentUser.getLikedReviews().contains(aReview))) {
+			aReview.upVote();
+			currentUser.addLikedReview(aReview);
+		} else {
+			aReview.removeVote();
+			currentUser.getLikedReviews().remove(aReview);
+		}
+		showReviews(aBusiness);	
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -182,7 +223,13 @@ public class foodvibes{
 	}
 	
 	public static void logout() {
-		currentUser = null;
+		Calendar dateInfo = Calendar.getInstance();
+		dateInfo.set(Calendar.YEAR, 2000);
+		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
+		dateInfo.set(Calendar.DAY_OF_MONTH, 1);
+		Date bDate = dateInfo.getTime();
+		admin nUser = new admin("", "", "", bDate, "", "guest", "");
+		currentUser = nUser;
 		JOptionPane.showMessageDialog(mainFrame, "Logout effettuato.");
 	}
 	
@@ -238,6 +285,45 @@ public class foodvibes{
 	public static void removeBusiness(business aBusiness) {
 		catalog.getInstance().removeFromList(aBusiness);
 	}
+
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE BEST BUSINESSES
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	
+	
+	public static void checkBusinessTier(business aBusiness) {
+		int reviewsNumber = aBusiness.getReviewList().size();
+		
+		//if(reviewsNumber >= 50 && reviewsNumber < 100) {
+		if(reviewsNumber >= 0 && reviewsNumber < 5) {
+			aBusiness.setTier(businessTiers.BRONZE);
+			System.out.println("BRONZE");
+		//} else if(reviewsNumber >= 100 && reviewsNumber < 250) {
+		} else if(reviewsNumber >= 5 && reviewsNumber < 10) {
+			aBusiness.setTier(businessTiers.SILVER);
+			System.out.println("SILVER");
+		} else if(reviewsNumber >= 250 && reviewsNumber < 500) {
+			aBusiness.setTier(businessTiers.GOLD);
+			System.out.println("GOLD");
+		} else if(reviewsNumber >= 500) {
+			aBusiness.setTier(businessTiers.PLAT);
+			System.out.println("PLAT");
+		} else {
+			aBusiness.setTier(businessTiers.NONE);
+			System.out.println("NONE");
+		}
+		
+		if(bestBusiness == null || reviewsNumber > bestBusiness.getReviewList().size()) {
+			bestBusiness = aBusiness;
+		}
+	}
+	
+	public static void setBestBusiness(business aBusiness) {
+		bestBusiness = aBusiness;
+	}
+	
+	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		GESTIONE REPORT
