@@ -205,7 +205,7 @@ public class foodvibes{
 	
 	public static void editUserInfo(user aUser, String newName, String newSurname, String newNationality, String newEmail, String newUsername, String newPassword) {
 		for(int i = 0; i<userList.size(); i++) {
-			if(userList.get(i).getUsername().equals(newUsername)) {
+			if(userList.get(i).getUsername().equals(newUsername) && !aUser.getUsername().equals(newUsername)) {
 				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
 				return;
 			}
