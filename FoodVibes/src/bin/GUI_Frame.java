@@ -932,6 +932,10 @@ public class GUI_Frame extends JFrame {
 		}
 	}
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		CONTENITORE PER REPORT
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public void foundReport(report aReport) {
 		JPanel foundReport = new JPanel();
 		foundReport.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -974,6 +978,10 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		FINESTRA USER INFO
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void showUserInfo(user aUser) {
 		JLabel titleLabel_userInfo = new JLabel("Informazioni sull'account");
@@ -1078,6 +1086,10 @@ public class GUI_Frame extends JFrame {
 			}
 		});
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		FINESTRA POP-UP MODIFICA USER INFO
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void editUserInfo(user aUser) {
 		

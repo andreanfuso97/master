@@ -26,7 +26,10 @@ public class user {
 		state = new userLoggedOut(this);
 	}
 	
-	//get
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public String getName() {
 		return Name;
 	}
@@ -51,11 +54,14 @@ public class user {
 	public userState getState() {
 		return state;
 	}
-	public ArrayList getLikedReviews() {
+	public ArrayList<review> getLikedReviews() {
 		return likedReviews;
 	}
 	
-	//set
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI SET
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public void setName(String newName) {
 		Name = newName;
 	}

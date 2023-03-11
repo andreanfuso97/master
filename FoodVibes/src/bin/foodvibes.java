@@ -31,21 +31,27 @@ public class foodvibes{
 		});
 	}
 	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public static user getUser() {
 		return currentUser;
 	}
-	
-	public static void setUser(user newCurrentUser) {
-		currentUser = newCurrentUser;
-	}
-
-	
 	public static business getBestBusiness() {
 		return bestBusiness;
 	}
 	
 	public static GUI_Frame getMainFrame() {
 		return mainFrame;
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI SET
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	public static void setUser(user newCurrentUser) {
+		currentUser = newCurrentUser;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -82,7 +88,6 @@ public class foodvibes{
 	//		REGISTRAZIONE NUOVA ATTIVITÀ
 	//-------------------------------------------------------------------------------------------------------------------
 	
-	
 	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
@@ -94,7 +99,6 @@ public class foodvibes{
 			mainFrame.newBusinessPanel(newBusiness);
 		}
 	}
-	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		RICERCA ATTIVITÀ
@@ -183,7 +187,7 @@ public class foodvibes{
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
-	//		OPERAZIONI DI LOGGING
+	//		OPERAZIONI DI AUTENTICAZIONE
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static boolean login(String username, String password) {
@@ -260,9 +264,7 @@ public class foodvibes{
 
 	//-------------------------------------------------------------------------------------------------------------------
 	//		GESTIONE BEST BUSINESSES
-	//-------------------------------------------------------------------------------------------------------------------
-	
-	
+	//-------------------------------------------------------------------------------------------------------------------	
 	
 	public static void checkBusinessTier(business aBusiness) {
 		int reviewsNumber = aBusiness.getReviewList().size();
@@ -294,8 +296,6 @@ public class foodvibes{
 	public static void setBestBusiness(business aBusiness) {
 		bestBusiness = aBusiness;
 	}
-	
-	
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		GESTIONE REPORT
