@@ -569,12 +569,12 @@ public class GUI_Frame extends JFrame {
 		
 		ImageIcon businessIcon = new ImageIcon(System.getProperty("user.dir") + "\\Images\\pasticceria.jpg");
 		Image businessImage = businessIcon.getImage();
-		Image modImage = businessImage.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		Image modImage = businessImage.getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);
 		businessIcon = new ImageIcon(businessImage);
 		JLabel imageLabel_businessPanel = new JLabel();
 		imageLabel_businessPanel.setIcon(businessIcon);
 		//imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
-		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
+		imageLabel_businessPanel.setBounds(310, 50, 280, 140);
 		businessPanel.add(imageLabel_businessPanel);
 		
 		reviewsScrollPane_businessPanel = new JScrollPane();
@@ -966,12 +966,12 @@ public class GUI_Frame extends JFrame {
 	
 	public void showUserInfo(user aUser) {
 		JLabel titleLabel_userInfo = new JLabel("Informazioni sull'account");
-		titleLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 25));
+		titleLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 25));
 		titleLabel_userInfo.setBounds(198, 11, 300, 50);
 		userInfoPanel.add(titleLabel_userInfo);
 		
 		JLabel userNameLabel_userInfo = new JLabel("Nome");
-		userNameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		userNameLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		userNameLabel_userInfo.setBounds(108, 73, 107, 24);
 		userInfoPanel.add(userNameLabel_userInfo);
 		
@@ -981,8 +981,8 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(nameTextField_userInfo);
 		nameTextField_userInfo.setText(aUser.getName());
 		
-		JLabel surnameLabel_userInfo = new JLabel("Cognome");
-		surnameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel surnameLabel_userInfo = new JLabel("Cognome:");
+		surnameLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		surnameLabel_userInfo.setBounds(108, 108, 107, 24);
 		userInfoPanel.add(surnameLabel_userInfo);
 		
@@ -992,8 +992,8 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(surnameTextField_userInfo);
 		surnameTextField_userInfo.setText(aUser.getSurname());
 		
-		JLabel nationalityLabel_userInfo = new JLabel("Nazionalità");
-		nationalityLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel nationalityLabel_userInfo = new JLabel("Nazionalità:");
+		nationalityLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		nationalityLabel_userInfo.setBounds(108, 143, 107, 24);
 		userInfoPanel.add(nationalityLabel_userInfo);
 		
@@ -1003,13 +1003,13 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(nationalityTextField_userInfo);
 		nationalityTextField_userInfo.setText(aUser.getNationality());
 		
-		JLabel birthdateLabel_userInfo = new JLabel("Data di nascità");
-		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel birthdateLabel_userInfo = new JLabel("Data di nascita:");
+		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		birthdateLabel_userInfo.setBounds(108, 178, 107, 24);
 		userInfoPanel.add(birthdateLabel_userInfo);
 		
-		JLabel emailLabel_userInfo = new JLabel("Email");
-		emailLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel emailLabel_userInfo = new JLabel("Email:");
+		emailLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		emailLabel_userInfo.setBounds(108, 213, 107, 24);
 		userInfoPanel.add(emailLabel_userInfo);
 		
@@ -1019,8 +1019,8 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(emailTextField_userInfo);
 		emailTextField_userInfo.setText(aUser.getEmail());
 		
-		JLabel usernameLabel_userInfo = new JLabel("Username");
-		usernameLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel usernameLabel_userInfo = new JLabel("Username:");
+		usernameLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		usernameLabel_userInfo.setBounds(108, 248, 107, 24);
 		userInfoPanel.add(usernameLabel_userInfo);
 		
@@ -1030,8 +1030,8 @@ public class GUI_Frame extends JFrame {
 		userInfoPanel.add(usernameTextField_userInfo);
 		usernameTextField_userInfo.setText(aUser.getUsername());
 		
-		JLabel passwordLabel_userInfo = new JLabel("Password");
-		passwordLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel passwordLabel_userInfo = new JLabel("Password:");
+		passwordLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		passwordLabel_userInfo.setBounds(108, 283, 107, 24);
 		userInfoPanel.add(passwordLabel_userInfo);
 		
