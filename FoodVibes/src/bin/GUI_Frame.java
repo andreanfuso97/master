@@ -413,6 +413,13 @@ public class GUI_Frame extends JFrame {
 				dateInfo.set(Calendar.DAY_OF_MONTH, 10);
 				Date bDate = dateInfo.getTime();
 				if(foodvibes.registerNewUser(nameTextField_register.getText(), surnameTextField_register.getText(), nationalityTextField_register.getText(),bDate , emailTextField_register.getText(), usernameTextField_register.getText(), passwordTextField_register.getText())) {
+					user currentUser = foodvibes.getUser();
+					if(currentUser instanceof admin) {
+						currentUser.setUserState(new adminLogged(currentUser));
+						reportList.setVisible(true);
+					} else {
+						currentUser.setUserState(new userLogged(currentUser));
+					}
 					cardLayout.show(layeredPane, "searchBusinessPanel");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + usernameTextField_register.getText() + "</html>");
 					logUserButton.setText("Logout");
