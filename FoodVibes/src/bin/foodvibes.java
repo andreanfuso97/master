@@ -53,33 +53,17 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 
 	public static void init() {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 2000);
-		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 1);
-		Date bDate = dateInfo.getTime();
-		admin nUser = new admin("", "", "", bDate, "", "guest", "");
+		admin nUser = new admin("", "", "", "", "", "guest", "");
 		currentUser = nUser;
 		
-		dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 1997);
-		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-		bDate = dateInfo.getTime();
-		nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
+		nUser = new admin("Sebastiano", "Brischetto", "Italiano", "30/09/95", "seby@gmail.com", "sebrisch", "nonna");
 		userList.add(nUser);
-		//currentUser = userList.get(0);
 		test();
 	}
 	
 	public static void test() {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 1997);
-		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
-		Date bDate = dateInfo.getTime();
-		user nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "andreanfuso", "nonna");
-		userList.add(nUser);dateInfo.set(Calendar.YEAR, 1997);
+		user nUser = new user("Andrea", "Anfuso", "Italiano", "02/02/2000", "aanfuso97@gmail.com", "andreanfuso", "nonna");
+		userList.add(nUser);
 		
 		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", nUser);
 		review R = new review(nUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
@@ -87,16 +71,10 @@ public class foodvibes{
 		B.updateAvgVote();
 		catalog.getInstance().add(B);
 		
-		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
-		bDate = dateInfo.getTime();
-		nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "a", "a");
+		nUser = new user("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "a", "a");
 		userList.add(nUser);
 		
-		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
-		bDate = dateInfo.getTime();
-		nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "b", "b");
+		nUser = new user("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "b", "b");
 		userList.add(nUser);
 	}
 	
@@ -108,10 +86,10 @@ public class foodvibes{
 	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
+			System.out.println("Campi non riempiti");
 		}else {
 			business newBusiness = new business(name, address, openingHours, image, currentUser);
 			catalog.getInstance().add(newBusiness);
-			
 			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
 			mainFrame.newBusinessPanel(newBusiness);
 		}
@@ -159,7 +137,7 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void showReviews(business aBusiness) {
-		ArrayList<review> businessReviews = aBusiness.getBusinessReviews();
+		ArrayList<review> businessReviews = aBusiness.getReviewList();
 		for(int i = 0; i<businessReviews.size(); i++) {
 			if(businessReviews.get(i).getUser()==currentUser) {
 				mainFrame.newReviewPanel(businessReviews.get(i), true, aBusiness);
@@ -222,12 +200,7 @@ public class foodvibes{
 	}
 	
 	public static void logout() {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 2000);
-		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 1);
-		Date bDate = dateInfo.getTime();
-		admin nUser = new admin("", "", "", bDate, "", "guest", "");
+		admin nUser = new admin("", "", "", "", "", "guest", "");
 		currentUser = nUser;
 		JOptionPane.showMessageDialog(mainFrame, "Logout effettuato.");
 	}
@@ -236,7 +209,7 @@ public class foodvibes{
 	//		GESTIONE ACCOUNT
 	//-------------------------------------------------------------------------------------------------------------------
 	
-	public static boolean registerNewUser(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
+	public static boolean registerNewUser(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
 		for(int i = 0; i<userList.size(); i++) {
 			if(userList.get(i).getUsername().equals(newUsername)) {
 				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");

@@ -67,7 +67,7 @@ public class catalog implements Observer{
 			public int compare(business o1, business o2) {
 				return Float.compare(o1.getAvgVote(), o2.getAvgVote());
 			}
-		});
+		}.reversed());
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------

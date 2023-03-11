@@ -407,12 +407,7 @@ public class GUI_Frame extends JFrame {
 		registerPanel.add(registerButton_register);
 		registerButton_register.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
-				Calendar dateInfo = Calendar.getInstance();
-				dateInfo.set(Calendar.YEAR, 1997);
-				dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-				dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-				Date bDate = dateInfo.getTime();
-				if(foodvibes.registerNewUser(nameTextField_register.getText(), surnameTextField_register.getText(), nationalityTextField_register.getText(),bDate , emailTextField_register.getText(), usernameTextField_register.getText(), passwordTextField_register.getText())) {
+				if(foodvibes.registerNewUser(nameTextField_register.getText(), surnameTextField_register.getText(), nationalityTextField_register.getText(),birthdate.getText() , emailTextField_register.getText(), usernameTextField_register.getText(), passwordTextField_register.getText())) {
 					user currentUser = foodvibes.getUser();
 					if(currentUser instanceof admin) {
 						currentUser.setUserState(new adminLogged(currentUser));

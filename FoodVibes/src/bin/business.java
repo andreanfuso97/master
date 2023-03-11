@@ -47,9 +47,6 @@ public class business extends Observable{
 	public user getOwner() {
 		return owner;
 	}
-	public ArrayList<review> getBusinessReviews(){
-		return reviewList;
-	}
 	public float getAvgVote() {
 		return avgVote;
 	}
@@ -63,6 +60,7 @@ public class business extends Observable{
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI SET
 	//-------------------------------------------------------------------------------------------------------------------
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -98,7 +96,9 @@ public class business extends Observable{
 	}
 	public void removeReview(review aReview) {
 		reviewList.remove(aReview);
+		System.out.println("Recensione rimossa");
 	}
+	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		UPDATE VOTO MEDIO
 	//-------------------------------------------------------------------------------------------------------------------
