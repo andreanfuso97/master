@@ -473,7 +473,7 @@ public class GUI_Frame extends JFrame {
 		JPanel searchResultPanel = new JPanel();
 		searchResultPanel.setBounds(30, 40, 300, 50);
 		foundBusinessPanel_searchBusiness.add(searchResultPanel);
-		searchResultPanel.setMaximumSize(new Dimension(570, 50));
+		searchResultPanel.setMaximumSize(new Dimension(570, 70));
 		searchResultPanel.setBackground(new Color(204, 255, 204));
 		searchResultPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -481,7 +481,6 @@ public class GUI_Frame extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 0.1;
-		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.insets = new Insets(5, 10, 5, 5);
 		gbc.fill = GridBagConstraints.BOTH;
@@ -495,7 +494,6 @@ public class GUI_Frame extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.weightx = 0.4;
-		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.insets = new Insets(5, 5, 5, 5);
 		JLabel searchedBusinessNameLabel_searchResultPanel = new JLabel(foundBusiness.getName(), SwingConstants.LEFT);
@@ -506,7 +504,6 @@ public class GUI_Frame extends JFrame {
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		gbc.weightx = 0.5;
-		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.insets = new Insets(5, 5, 5, 10);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -530,17 +527,29 @@ public class GUI_Frame extends JFrame {
 			tierPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
 
 			if(foundBusiness == foodvibes.getBestBusiness()) {
-				JLabel bestLabel = new JLabel("Best");
-				bestLabel.setFont(new Font("Calibri", Font.BOLD, 14));
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				gbc.weightx = 0.1;
+				gbc.anchor = GridBagConstraints.WEST;
+				gbc.insets = new Insets(5, 10, 5, 10);
+				JLabel bestLabel = new JLabel("BEST ACTIVITY");
+				bestLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 				bestLabel.setForeground(Color.blue);
-				bestLabel.setBounds(20, 11, 198, 25);
-				tierPanel.add(bestLabel);
+				//bestLabel.setBounds(20, 11, 198, 25);
+				//tierPanel.add(bestLabel);
+				searchResultPanel.add(bestLabel, gbc);
 			}
 			
-			JLabel tierLabel = new JLabel(foundBusiness.getTier().toString());
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			gbc.weightx = 0.1;
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.insets = new Insets(5, 5, 5, 10);
+			JLabel tierLabel = new JLabel("  " + foundBusiness.getTier().toString() + "  ");
 			tierLabel.setFont(new Font("Calibri", Font.BOLD, 14));
-			tierLabel.setBounds(11, 11, 198, 25);
-			tierPanel.add(tierLabel);	
+			//tierLabel.setBounds(11, 11, 198, 25);
+			//tierPanel.add(tierLabel);	
+			searchResultPanel.add(tierLabel, gbc);
 		}
 	}
 	
