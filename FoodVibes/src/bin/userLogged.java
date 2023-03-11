@@ -17,6 +17,7 @@ public class userLogged extends userState{
 	public void logButton() {
 		foodvibes.getMainFrame().setRegisterButton();
 		foodvibes.getMainFrame().setLoginButton();
+		foodvibes.getMainFrame().setWelcomeGuest();
 		foodvibes.logout();
 		currentUser.setUserState(new userLoggedOut(currentUser));
 	}

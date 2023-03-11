@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.ImageIcon;
 
 public class GUI_Frame extends JFrame {
 	
@@ -272,11 +273,11 @@ public class GUI_Frame extends JFrame {
 		loginPanel.setLayout(null);
 		
 		JLabel titleLabel_login = new JLabel("Effettua il login");
-		titleLabel_login.setFont(new Font("Calibri", Font.PLAIN, 25));
-		titleLabel_login.setBounds(213, 11, 155, 43);
+		titleLabel_login.setFont(new Font("Calibri:", Font.BOLD, 25));
+		titleLabel_login.setBounds(213, 11, 200, 43);
 		loginPanel.add(titleLabel_login);
 		
-		JLabel userNameLabel_login = new JLabel("Nome utente");
+		JLabel userNameLabel_login = new JLabel("Nome utente:");
 		userNameLabel_login.setFont(new Font("Calibri", Font.PLAIN, 15));
 		userNameLabel_login.setBounds(108, 73, 107, 24);
 		loginPanel.add(userNameLabel_login);
@@ -286,12 +287,12 @@ public class GUI_Frame extends JFrame {
 		loginPanel.add(userNameTextField_login);
 		userNameTextField_login.setColumns(10);
 		
-		JLabel passwordLabel_login = new JLabel("Password");
+		JLabel passwordLabel_login = new JLabel("Password:");
 		passwordLabel_login.setFont(new Font("Calibri", Font.PLAIN, 15));
 		passwordLabel_login.setBounds(108, 108, 107, 24);
 		loginPanel.add(passwordLabel_login);
 		
-		JTextField passwordTextField_login = new JTextField();
+		JPasswordField passwordTextField_login = new JPasswordField();
 		passwordTextField_login.setColumns(10);
 		passwordTextField_login.setBounds(272, 106, 241, 24);
 		loginPanel.add(passwordTextField_login);
@@ -305,14 +306,14 @@ public class GUI_Frame extends JFrame {
 					user currentUser = foodvibes.getUser();
 					if(currentUser instanceof admin) {
 						currentUser.setUserState(new adminLogged(currentUser));
-						showReportListButton();
+						reportList.setVisible(true);
 					} else {
 						currentUser.setUserState(new userLogged(currentUser));
 					}
-					setProfileButton();
-					setLogoutButton();
+					registerButton.setText("Profilo");
 					titleLabel_sidebar.setText("<html>Benvenuto<br>" + userNameTextField_login.getText() + "</html>");
-					showSearchPanel();
+					logUserButton.setText("Logout");
+					cardLayout.show(layeredPane, "searchBusinessPanel");
 				}
 			}
 		});
@@ -396,7 +397,7 @@ public class GUI_Frame extends JFrame {
 		passwordLabel_register.setBounds(108, 283, 107, 24);
 		registerPanel.add(passwordLabel_register);
 		
-		JTextField passwordTextField_register = new JTextField();
+		JPasswordField passwordTextField_register = new JPasswordField();
 		passwordTextField_register.setColumns(10);
 		passwordTextField_register.setBounds(272, 283, 241, 24);
 		registerPanel.add(passwordTextField_register);
@@ -465,29 +466,46 @@ public class GUI_Frame extends JFrame {
 		JPanel searchResultPanel = new JPanel();
 		searchResultPanel.setBounds(30, 40, 300, 50);
 		foundBusinessPanel_searchBusiness.add(searchResultPanel);
-		searchResultPanel.setMaximumSize(new Dimension(578, 40));
+		searchResultPanel.setMaximumSize(new Dimension(570, 50));
 		searchResultPanel.setBackground(new Color(204, 255, 204));
-		searchResultPanel.setLayout(new GridLayout(0, 3));
-		//searchResultPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+		searchResultPanel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		
-		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel(Float.toString(foundBusiness.getAvgVote()));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 0.1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(5, 10, 5, 5);
+		gbc.fill = GridBagConstraints.BOTH;
+		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel(Float.toString(foundBusiness.getAvgVote()), SwingConstants.CENTER);
 		searchedBusinessVoteLabel_searchResultPanel.setBackground(Color.green);
 		searchedBusinessVoteLabel_searchResultPanel.setOpaque(true);
 		searchedBusinessVoteLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 30, 25);
-		searchResultPanel.add(searchedBusinessVoteLabel_searchResultPanel);				
+		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 40, 40);			
+		searchResultPanel.add(searchedBusinessVoteLabel_searchResultPanel, gbc);
 		
-		
-		JLabel searchedBusinessNameLabel_searchResultPanel = new JLabel(foundBusiness.getName());
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 0.4;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(5, 5, 5, 5);
+		JLabel searchedBusinessNameLabel_searchResultPanel = new JLabel(foundBusiness.getName(), SwingConstants.LEFT);
 		searchedBusinessNameLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		searchedBusinessNameLabel_searchResultPanel.setBounds(10, 11, 198, 25);
-		searchResultPanel.add(searchedBusinessNameLabel_searchResultPanel);
+		searchedBusinessNameLabel_searchResultPanel.setBounds(10, 11, 198, 25);	
+		searchResultPanel.add(searchedBusinessNameLabel_searchResultPanel, gbc);
 		
-		
-		JButton searchedBusinessButton_searchResultPanel = new JButton("seleziona");
-		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.PLAIN, 12));
-		searchResultPanel.add(searchedBusinessButton_searchResultPanel);
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		gbc.weightx = 0.5;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(5, 5, 5, 10);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		JButton searchedBusinessButton_searchResultPanel = new JButton("Seleziona");
+		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 14));
+		searchResultPanel.add(searchedBusinessButton_searchResultPanel, gbc);
 
 		searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
 			public void actionPerformed(ActionEvent e){ 
@@ -531,26 +549,31 @@ public class GUI_Frame extends JFrame {
 		nameLabel_businessPanel.setBounds(10, 10, 290, 43);
 		businessPanel.add(nameLabel_businessPanel);
 		
-		JLabel businessAvgVote = new JLabel("" + aBusiness.getAvgVote(), SwingConstants.CENTER);
+		JLabel businessAvgVote = new JLabel(Float.toString(aBusiness.getAvgVote()), SwingConstants.CENTER);
 		businessAvgVote.setBackground(Color.green);
 		businessAvgVote.setOpaque(true);
 		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 15));
-		businessAvgVote.setBounds(400, 10, 43, 43);
+		businessAvgVote.setBounds(10, 44, 32, 32);
 		businessPanel.add(businessAvgVote);
 		
-		JLabel addressLabel_businessPanel = new JLabel("Indirizzo: " + aBusiness.getAddress());
-		addressLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
-		addressLabel_businessPanel.setBounds(10, 65, 291, 43);
+		JLabel addressLabel_businessPanel = new JLabel("<html>Indirizzo: <br> <b>" + aBusiness.getAddress() + "</b></html>");
+		addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		addressLabel_businessPanel.setBounds(10, 72, 291, 60);
 		businessPanel.add(addressLabel_businessPanel);
 		
 		
-		JLabel openingHours_businessPanel = new JLabel("Orari di apertura: " + aBusiness.getOpeningHours());
-		openingHours_businessPanel.setFont(new Font("Calibri", Font.BOLD, 15));
-		openingHours_businessPanel.setBounds(10, 119, 291, 43);
+		JLabel openingHours_businessPanel = new JLabel("<html>Orari di apertura: <br> <b>" + aBusiness.getOpeningHours() + "</b></html>");
+		openingHours_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		openingHours_businessPanel.setBounds(10, 111, 291, 60);
 		businessPanel.add(openingHours_businessPanel);
 		
-		JLabel imageLabel_businessPanel = new JLabel("Immagine attività");
-		imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
+		ImageIcon businessIcon = new ImageIcon(System.getProperty("user.dir") + "\\Images\\pasticceria.jpg");
+		Image businessImage = businessIcon.getImage();
+		Image modImage = businessImage.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		businessIcon = new ImageIcon(businessImage);
+		JLabel imageLabel_businessPanel = new JLabel();
+		imageLabel_businessPanel.setIcon(businessIcon);
+		//imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
 		imageLabel_businessPanel.setBounds(311, 11, 281, 151);
 		businessPanel.add(imageLabel_businessPanel);
 		
@@ -565,8 +588,9 @@ public class GUI_Frame extends JFrame {
 		
 		if(!(foodvibes.getUser().getState() instanceof userLoggedOut)) {
 			if(foodvibes.getUser() == aBusiness.getOwner()) {
-				JButton editBusinessButton_businessPanel = new JButton("Modifica informazioni");
-				editBusinessButton_businessPanel.setBounds(10, 162, 183, 23);
+				JButton editBusinessButton_businessPanel = new JButton("Modifica");
+				editBusinessButton_businessPanel.setBounds(400, 20, 90, 20);
+				//editBusinessButton_businessPanel.setBackground(Color.green);
 				businessPanel.add(editBusinessButton_businessPanel);
 				editBusinessButton_businessPanel.addActionListener(new ActionListener(){  
 					public void actionPerformed(ActionEvent e){
@@ -575,8 +599,9 @@ public class GUI_Frame extends JFrame {
 					}
 				});
 				
-				JButton removeBusinessButton_businessPanel = new JButton("Rimuovi Attività");
-				removeBusinessButton_businessPanel.setBounds(193, 162, 183, 23);
+				JButton removeBusinessButton_businessPanel = new JButton("Rimuovi");
+				removeBusinessButton_businessPanel.setBounds(490, 20, 90, 20);
+				//removeBusinessButton_businessPanel.setBackground(Color.green);
 				businessPanel.add(removeBusinessButton_businessPanel);
 				removeBusinessButton_businessPanel.addActionListener(new ActionListener(){  
 					public void actionPerformed(ActionEvent e){
@@ -595,7 +620,7 @@ public class GUI_Frame extends JFrame {
 				
 			} else {		
 				JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
-				newReviewButton_businessPanel.setBounds(10, 162, 153, 23);
+				newReviewButton_businessPanel.setBounds(10, 170, 160, 23);
 				businessPanel.add(newReviewButton_businessPanel);
 				newReviewButton_businessPanel.addActionListener(new ActionListener(){  
 					public void actionPerformed(ActionEvent e){
@@ -627,7 +652,7 @@ public class GUI_Frame extends JFrame {
 		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(570, 150));
-		foundReviewPanel_businessPanel.setBounds(30, 40, 280, 50);
+		foundReviewPanel_businessPanel.setBounds(30, 50, 280, 50);
 		reviewsPanel_businessPanel.add(foundReviewPanel_businessPanel);
 		foundReviewPanel_businessPanel.setLayout(null);
 		
@@ -1032,6 +1057,7 @@ public class GUI_Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(userInfoPanel, "Vuoi eliminare il tuo account", "Elimina account", JOptionPane.YES_NO_OPTION) == 0) {
 					foodvibes.removeUser(aUser);
+					foodvibes.logout();
 					reportList.setVisible(false);
 					logUserButton.setText("Login");
 					registerButton.setText("Registrazione");
@@ -1134,17 +1160,13 @@ public class GUI_Frame extends JFrame {
 		}
 	}
 	
-	public void showReportListButton() {
-		reportList.setVisible(true);
-	}
+
+	//-------------------------------------------------------------------------------------------------------------------
+	// FUNZIONI USATE DALLE CLASSI CHE GESTISCONO LO STATO PER ACCEDERE AGLI ELEMENTI GUI 
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public void hideReportListButton() {
 		reportList.setVisible(false);
-	}
-	
-	public void setLogoutButton() {
-		logUserButton.setText("Logout");
-		cardLayout.show(layeredPane, "searchBusinessPanel");
 	}
 	
 	public void setLoginButton() {
@@ -1152,12 +1174,12 @@ public class GUI_Frame extends JFrame {
 		cardLayout.show(layeredPane, "searchBusinessPanel");
 	}
 	
-	public void setProfileButton() {
-		registerButton.setText("Profilo");
-	}
-	
 	public void setRegisterButton() {
 		registerButton.setText("Registrati");
+	}
+	
+	public void setWelcomeGuest() {
+		titleLabel_sidebar.setText("Benvenuto");
 	}
 	
 	public void showRegisterPanel() {
@@ -1168,17 +1190,9 @@ public class GUI_Frame extends JFrame {
 		cardLayout.show(layeredPane, "loginPanel");
 	}
 	
-	public void showProfilePanel() {
-		cardLayout.show(layeredPane, "userInfoPanel");
-	}
-	
-	public void showSearchPanel() {
-		cardLayout.show(layeredPane, "searchBusinessPanel");
-	}
-	
 	public void showEditUserPanel() {
-		System.out.println("Show Profile");
 		showUserInfo(foodvibes.getUser());
 		cardLayout.show(layeredPane, "userInfoPanel");
 	}
+	
 }

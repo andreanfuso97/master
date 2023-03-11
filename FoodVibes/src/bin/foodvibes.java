@@ -101,8 +101,6 @@ public class foodvibes{
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
-	
-	//-------------------------------------------------------------------------------------------------------------------
 	//		REGISTRAZIONE NUOVA ATTIVITÀ
 	//-------------------------------------------------------------------------------------------------------------------
 	
@@ -113,6 +111,7 @@ public class foodvibes{
 		}else {
 			business newBusiness = new business(name, address, openingHours, image, currentUser);
 			catalog.getInstance().add(newBusiness);
+			
 			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
 			mainFrame.newBusinessPanel(newBusiness);
 		}
@@ -206,7 +205,7 @@ public class foodvibes{
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
-	//		OPERAZIONI DI ACCESSO
+	//		OPERAZIONI DI LOGGING
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static boolean login(String username, String password) {

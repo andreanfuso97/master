@@ -17,6 +17,7 @@ public class adminLogged extends userState{
 		foodvibes.getMainFrame().setRegisterButton();
 		foodvibes.getMainFrame().setLoginButton();
 		foodvibes.getMainFrame().hideReportListButton();
+		foodvibes.getMainFrame().setWelcomeGuest();
 		foodvibes.logout();
 		currentUser.setUserState(new userLoggedOut(currentUser));
 	}
