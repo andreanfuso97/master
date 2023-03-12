@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import bin.business;
+import bin.businessTiers;
+import bin.foodvibes;
 import bin.review;
 import bin.user;
 
@@ -73,6 +75,18 @@ class businessTest {
 		aBusiness.addNewReview(aReview);
 		aBusiness.removeReview(aReview);
 		assertTrue(aBusiness.getReviewList().isEmpty());
+	}
+	
+	@Test
+	@DisplayName("test assegnazione del premio ad un business")
+	void checkBusinessTierTest() {
+		for(int i = 0; i < 100; i++) {
+			aBusiness.addNewReview(aReview);
+		}
+		
+		foodvibes.setBusinessTier(aBusiness);
+		
+		assertEquals(businessTiers.SILVER, aBusiness.getTier());
 	}
 	
 
