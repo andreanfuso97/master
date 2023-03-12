@@ -575,12 +575,13 @@ public class GUI_Frame extends JFrame {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.weightx = 0.1;
+		gbc.weightx = 0;
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.insets = new Insets(5, 10, 5, 5);
 		gbc.fill = GridBagConstraints.BOTH;
 		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel(Float.toString(foundBusiness.getAvgVote()), SwingConstants.CENTER);
 		searchedBusinessVoteLabel_searchResultPanel.setBackground(new Color(10, 184, 114));
+		searchedBusinessVoteLabel_searchResultPanel.setPreferredSize(new Dimension(40, 40));
 		searchedBusinessVoteLabel_searchResultPanel.setOpaque(true);
 		searchedBusinessVoteLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
 		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 40, 40);			
@@ -605,7 +606,8 @@ public class GUI_Frame extends JFrame {
 		JButton searchedBusinessButton_searchResultPanel = new JButton("Seleziona");
 		searchedBusinessButton_searchResultPanel.setForeground(new Color(255, 245, 238));
 		searchedBusinessButton_searchResultPanel.setBackground(new Color(10, 184, 114));
-		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 14));
+		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 16));
+		searchedBusinessButton_searchResultPanel.setPreferredSize(new Dimension(150, 40));
 		searchResultPanel.add(searchedBusinessButton_searchResultPanel, gbc);
 
 		searchedBusinessButton_searchResultPanel.addActionListener(new ActionListener(){						
@@ -661,13 +663,13 @@ public class GUI_Frame extends JFrame {
 		JLabel businessAvgVote = new JLabel(Float.toString(aBusiness.getAvgVote()), SwingConstants.CENTER);
 		businessAvgVote.setBackground(new Color(10, 184, 114));
 		businessAvgVote.setOpaque(true);
-		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 15));
-		businessAvgVote.setBounds(10, 44, 32, 32);
+		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 16));
+		businessAvgVote.setBounds(10, 44, 38, 38);
 		businessPanel.add(businessAvgVote);
 		
 		JLabel ownerLabel = new JLabel("<html>Proprietario: <b>" + aBusiness.getOwner().getUsername() + "</b></html>", SwingConstants.CENTER);
 		ownerLabel.setFont(new Font("Calibri", Font.PLAIN, 15));
-		ownerLabel.setBounds(40, 34, 150, 32);
+		ownerLabel.setBounds(50, 34, 150, 32);
 		businessPanel.add(ownerLabel);
 		
 		JLabel addressLabel_businessPanel = new JLabel("<html>Indirizzo: <br> <b>" + aBusiness.getAddress() + "</b></html>");
