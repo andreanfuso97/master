@@ -61,10 +61,10 @@ public class foodvibes{
 
 	public static void init() {
 		
-		registerNewUserNoMess("Mario", "Rossi", "Italiano", "30/09/95", "mariorossi@gmail.com", "mario", "pizza");
-		registerNewUserNoMess("Luca", "Nicotra", "Italiano", "02/02/2000", "lucanicotra@gmail.com", "lunca", "pasta");
-		registerNewUserNoMess("Giovanni", "Verdi", "Italiano", "01/02/2000", "gioverdi@gmail.com", "giovanni", "formaggio");
-		registerNewAdminNoMess("Marco", "Mattarella", "Italiano", "01/02/2000", "marcomatt@gmail.com", "marco", "cipolla");
+		registerNewUserNoMess("Mario", "Rossi", "Italiano", "30/09/95", "mariorossi@gmail.com", "mario60", "pizza");
+		registerNewUserNoMess("Luca", "Nicotra", "Italiano", "02/02/2000", "lucanicotra@gmail.com", "luca82", "pasta");
+		registerNewUserNoMess("Giovanni", "Verdi", "Italiano", "01/02/2000", "gioverdi@gmail.com", "giovanni93", "formaggio");
+		registerNewAdminNoMess("Marco", "Mattarella", "Italiano", "01/02/2000", "marcomatt@gmail.com", "marco91", "cipolla");
 		registerNewUserNoMess("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "b", "b");
 		registerNewUserNoMess("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "a", "a");
 
