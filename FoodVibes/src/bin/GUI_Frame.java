@@ -1,11 +1,15 @@
 package bin;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.*;
+import java.io.FilenameFilter;
 
 public class GUI_Frame extends JFrame {
 	
@@ -235,14 +239,33 @@ public class GUI_Frame extends JFrame {
 		newOpeningHoursTextArea_registerBusiness.setBounds(214, 186, 200, 22);
 		registerBusinessPanel.add(newOpeningHoursTextArea_registerBusiness);
 		
-		JLabel newImageLabel_registerBusiness = new JLabel("Link immagini");
+		JLabel newImageLabel_registerBusiness = new JLabel("Immagine");
 		newImageLabel_registerBusiness.setFont(new Font("Calibri", Font.PLAIN, 14));
 		newImageLabel_registerBusiness.setBounds(10, 233, 103, 15);
 		registerBusinessPanel.add(newImageLabel_registerBusiness);
 		
-		JTextArea newImageTextArea_registerBusiness = new JTextArea();
-		newImageTextArea_registerBusiness.setBounds(214, 226, 200, 22);
-		registerBusinessPanel.add(newImageTextArea_registerBusiness);
+
+		JTextArea imageFilePath = new JTextArea();
+		
+		JButton selectedImage = new JButton("Scegli Immagine");
+		selectedImage.setFont(new Font("Calibri", Font.PLAIN, 14));
+		selectedImage.setBounds(214, 226, 130, 22);
+		registerBusinessPanel.add(selectedImage);
+		selectedImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Images\\"));
+				int res = fileChooser.showOpenDialog(null);
+				
+				if(res == JFileChooser.APPROVE_OPTION) {
+					File imageFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
+					System.out.println(imageFile);
+					
+					imageFilePath.setText(imageFile.toString());
+					
+				}
+			}
+		});
 		
 		JButton btnRegistra = new JButton("Registra");
 		btnRegistra.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -251,7 +274,7 @@ public class GUI_Frame extends JFrame {
 		registerBusinessPanel.add(btnRegistra);
 		btnRegistra.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				foodvibes.insertBusinessInfo(newNameTextArea_registerBusiness.getText(), newAddressTextArea_registerBusiness.getText(), newOpeningHoursTextArea_registerBusiness.getText(), newImageTextArea_registerBusiness.getText());
+				foodvibes.insertBusinessInfo(newNameTextArea_registerBusiness.getText(), newAddressTextArea_registerBusiness.getText(), newOpeningHoursTextArea_registerBusiness.getText(), imageFilePath.getText());
 			}
 		});
 		
@@ -625,13 +648,12 @@ public class GUI_Frame extends JFrame {
 		openingHours_businessPanel.setBounds(10, 111, 291, 60);
 		businessPanel.add(openingHours_businessPanel);
 		
-		ImageIcon businessIcon = new ImageIcon(System.getProperty("user.dir") + "\\Images\\pasticceria.jpg");
+		ImageIcon businessIcon = new ImageIcon(aBusiness.getImage());
 		Image businessImage = businessIcon.getImage();
 		Image modImage = businessImage.getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);
 		businessIcon = new ImageIcon(businessImage);
 		JLabel imageLabel_businessPanel = new JLabel();
 		imageLabel_businessPanel.setIcon(businessIcon);
-		//imageLabel_businessPanel.setIcon(new ImageIcon(aBusiness.getImage()));
 		imageLabel_businessPanel.setBounds(310, 50, 280, 140);
 		businessPanel.add(imageLabel_businessPanel);
 		
@@ -648,7 +670,6 @@ public class GUI_Frame extends JFrame {
 			if(foodvibes.getUser() == aBusiness.getOwner()) {
 				JButton editBusinessButton_businessPanel = new JButton("Modifica");
 				editBusinessButton_businessPanel.setBounds(400, 20, 90, 20);
-				//editBusinessButton_businessPanel.setBackground(Color.green);
 				businessPanel.add(editBusinessButton_businessPanel);
 				editBusinessButton_businessPanel.addActionListener(new ActionListener(){  
 					public void actionPerformed(ActionEvent e){
@@ -659,7 +680,6 @@ public class GUI_Frame extends JFrame {
 				
 				JButton removeBusinessButton_businessPanel = new JButton("Rimuovi");
 				removeBusinessButton_businessPanel.setBounds(490, 20, 90, 20);
-				//removeBusinessButton_businessPanel.setBackground(Color.green);
 				businessPanel.add(removeBusinessButton_businessPanel);
 				removeBusinessButton_businessPanel.addActionListener(new ActionListener(){  
 					public void actionPerformed(ActionEvent e){
@@ -832,7 +852,7 @@ public class GUI_Frame extends JFrame {
 			
 		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, newReviewPanel, "Nuova recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
 			foodvibes.insertNewReview(aBusiness,titleTextField.getText(),Float.parseFloat(comboBox.getSelectedItem().toString()),descriptionTextArea.getText());
-		}else {
+		} else {
 			foodvibes.showReviews(aBusiness);
 		}
 	}
@@ -967,15 +987,30 @@ public class GUI_Frame extends JFrame {
 		imageLabel.setBounds(10, 104, 96, 14);
 		editBusinessPanel.add(imageLabel);
 		
-		JTextField imageTextField = new JTextField();
-		imageTextField.setBounds(116, 101, 288, 20);
-		editBusinessPanel.add(imageTextField);
-		imageTextField.setColumns(10);
-		imageTextField.setText(aBusiness.getImage());
-
+		JTextArea imageFilePath = new JTextArea();
+		
+		JButton selectedImage = new JButton("Scegli Immagine");
+		selectedImage.setFont(new Font("Calibri", Font.PLAIN, 14));
+		selectedImage.setBounds(116, 104, 130, 14);
+		editBusinessPanel.add(selectedImage);
+		selectedImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Images\\"));
+				int res = fileChooser.showOpenDialog(null);
+				
+				if(res == JFileChooser.APPROVE_OPTION) {
+					File imageFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
+					System.out.println(imageFile);
+					
+					imageFilePath.setText(imageFile.toString());
+					
+				}
+			}
+		});
 			
 		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Modifica informazioni attività", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
-			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageTextField.getText());
+			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), selectedImage.getText());
 		}
 	}
 	

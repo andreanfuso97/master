@@ -281,26 +281,19 @@ public class foodvibes{
 	public static void setBusinessTier(business aBusiness) {
 		int reviewsNumber = aBusiness.getReviewList().size();
 		
-		//if(reviewsNumber >= 50 && reviewsNumber < 100) {
 		if(reviewsNumber >= 50 && reviewsNumber < 100) {
 			aBusiness.setTier(businessTiers.BRONZE);
-			System.out.println("BRONZE");
-		//} else if(reviewsNumber >= 100 && reviewsNumber < 250) {
 		} else if(reviewsNumber >= 100 && reviewsNumber < 250) {
 			aBusiness.setTier(businessTiers.SILVER);
-			System.out.println("SILVER");
 		} else if(reviewsNumber >= 250 && reviewsNumber < 500) {
 			aBusiness.setTier(businessTiers.GOLD);
-			System.out.println("GOLD");
 		} else if(reviewsNumber >= 500) {
 			aBusiness.setTier(businessTiers.PLAT);
-			System.out.println("PLAT");
 		} else {
 			aBusiness.setTier(businessTiers.NONE);
-			System.out.println("NONE");
 		}
 		
-		if(bestBusiness == null || reviewsNumber > bestBusiness.getReviewList().size()) {
+		if(bestBusiness == null || (reviewsNumber > bestBusiness.getReviewList().size() && aBusiness.getAvgVote() >= 4)) {
 			bestBusiness = aBusiness;
 		}
 	}
