@@ -29,8 +29,8 @@ class businessTest {
 	}	
 	
 	@Test
-	@DisplayName("test dei metodi get")
-	void getTest() {
+	@DisplayName("test costruttore e get")
+	void getAndConstructorTest() {
 		assertEquals("nome",aBusiness.getName());
 		assertEquals("indirizzo",aBusiness.getAddress());
 		assertEquals("orari",aBusiness.getOpeningHours());
@@ -73,7 +73,7 @@ class businessTest {
 	@DisplayName("test rimozione recensioni alla lista")
 	void removeReviewTest() {
 		aBusiness.addNewReview(aReview);
-		aBusiness.removeReview(aReview);
+		aBusiness.removeReviewFromBusiness(aReview);
 		assertTrue(aBusiness.getReviewList().isEmpty());
 	}
 	

@@ -16,7 +16,7 @@ class userTest {
 	}
 	
 	@Test
-	void getTest() {
+	void getAndConstructorTest() {
 		assertEquals("Sebastiano", aUser.getName());
 		assertEquals("Brischetto", aUser.getSurname());
 		assertEquals("Italiano", aUser.getNationality());

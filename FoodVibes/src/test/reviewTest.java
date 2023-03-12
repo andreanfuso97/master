@@ -20,7 +20,7 @@ class reviewTest {
 	}
 	
 	@Test
-	void getTest() {
+	void getAndConstructorTest() {
 		assertEquals(aReview.getUser(),aUser);
 		assertEquals(aReview.getTitle(),"title");
 		assertEquals(aReview.getVote(),5);
