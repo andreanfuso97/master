@@ -237,7 +237,7 @@ public class foodvibes{
 		return true;
 	}
 	
-	public static void editUserInfo(user aUser, String newName, String newSurname, String newNationality, String newEmail, String newUsername, String newPassword) {
+	public static void editUserInfo(user aUser, String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
 		for(int i = 0; i<userList.size(); i++) {
 			if(userList.get(i).getUsername().equals(newUsername) && !aUser.getUsername().equals(newUsername)) {
 				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
@@ -248,6 +248,7 @@ public class foodvibes{
 		aUser.setSurname(newSurname);
 		aUser.setNationality(newNationality);
 		aUser.setEmail(newEmail);
+		aUser.setBirthDate(newBirthDate);
 		aUser.setUsername(newUsername);
 		aUser.setPassword(newPassword);
 		return;

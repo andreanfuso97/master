@@ -1,6 +1,7 @@
 package bin;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -328,12 +329,12 @@ public class GUI_Frame extends JFrame {
 		registerPanel.setLayout(null);
 		
 		JLabel titleLabel_register = new JLabel("Inserisci i tuoi dati");
-		titleLabel_register.setFont(new Font("Calibri", Font.PLAIN, 25));
-		titleLabel_register.setBounds(198, 11, 186, 43);
+		titleLabel_register.setFont(new Font("Calibri", Font.BOLD, 25));
+		titleLabel_register.setBounds(198, 11, 190, 43);
 		registerPanel.add(titleLabel_register);
 		
-		JLabel userNameLabel_register = new JLabel("Nome");
-		userNameLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel userNameLabel_register = new JLabel("Nome:");
+		userNameLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		userNameLabel_register.setBounds(108, 73, 107, 24);
 		registerPanel.add(userNameLabel_register);
 		
@@ -342,8 +343,8 @@ public class GUI_Frame extends JFrame {
 		nameTextField_register.setBounds(272, 71, 241, 24);
 		registerPanel.add(nameTextField_register);
 		
-		JLabel surnameLabel_register = new JLabel("Cognome");
-		surnameLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel surnameLabel_register = new JLabel("Cognome:");
+		surnameLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		surnameLabel_register.setBounds(108, 108, 107, 24);
 		registerPanel.add(surnameLabel_register);
 		
@@ -352,8 +353,8 @@ public class GUI_Frame extends JFrame {
 		surnameTextField_register.setBounds(272, 106, 241, 24);
 		registerPanel.add(surnameTextField_register);
 		
-		JLabel nationalityLabel_register = new JLabel("Nazionalità");
-		nationalityLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel nationalityLabel_register = new JLabel("Nazionalità:");
+		nationalityLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		nationalityLabel_register.setBounds(108, 143, 107, 24);
 		registerPanel.add(nationalityLabel_register);
 		
@@ -362,18 +363,62 @@ public class GUI_Frame extends JFrame {
 		nationalityTextField_register.setBounds(272, 141, 241, 24);
 		registerPanel.add(nationalityTextField_register);
 		
-		JLabel birthdateLabel_register = new JLabel("Data di nascità");
-		birthdateLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel birthdateLabel_register = new JLabel("Data di nascita:");
+		birthdateLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		birthdateLabel_register.setBounds(108, 178, 107, 24);
 		registerPanel.add(birthdateLabel_register);
 		
-		JTextField birthdate = new JTextField();
-		birthdate.setFont(new Font("Calibri", Font.PLAIN, 15));
-		birthdate.setBounds(272, 178, 241, 24);
-		registerPanel.add(birthdate);
+		String[] monthDays = new String[31];
+		for(int i = 0; i < 31; i++) {
+			monthDays[i] = Integer.toString(i+1);
+		}
 		
-		JLabel emailLabel_register = new JLabel("Email");
-		emailLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JComboBox birthDay = new JComboBox(monthDays);
+		birthDay.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthDay.setBounds(272, 178, 50, 24);
+		registerPanel.add(birthDay);
+		
+		
+		String[] month = {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novemrbe", "Dicembre"};
+		ArrayList<String> thirtyDaysMonths = new ArrayList<>();
+		thirtyDaysMonths.add("Aprile");
+		thirtyDaysMonths.add("Giugno");
+		thirtyDaysMonths.add("Settembre");
+		thirtyDaysMonths.add("Novembre");
+		JComboBox birthMonth = new JComboBox(month);
+		birthMonth.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthMonth.setBounds(330, 178, 100, 24);
+		registerPanel.add(birthMonth);
+		birthMonth.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				if(birthMonth.getSelectedItem().toString().equals("Febbraio") && 
+				   Integer.parseInt(birthDay.getSelectedItem().toString())  > 28) {
+					birthDay.setSelectedIndex(27);
+					registerPanel.validate();
+					registerPanel.repaint();				
+					} else if (thirtyDaysMonths.contains(birthMonth.getSelectedItem().toString()) &&
+							Integer.parseInt(birthDay.getSelectedItem().toString())  > 30) {
+						birthDay.setSelectedIndex(29);
+						registerPanel.validate();
+						registerPanel.repaint();	
+					}
+			}
+		});
+		
+		String[] years = new String[100];
+		int j = 2023;
+		for(int i = 0; i < 100; i++) {
+			years[i] = Integer.toString(j);
+			j--;
+		}
+		
+		JComboBox birthYear = new JComboBox(years);
+		birthYear.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthYear.setBounds(440, 178, 70, 24);
+		registerPanel.add(birthYear);
+		
+		JLabel emailLabel_register = new JLabel("Email:");
+		emailLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		emailLabel_register.setBounds(108, 213, 107, 24);
 		registerPanel.add(emailLabel_register);
 		
@@ -382,8 +427,8 @@ public class GUI_Frame extends JFrame {
 		emailTextField_register.setBounds(272, 213, 241, 24);
 		registerPanel.add(emailTextField_register);
 		
-		JLabel usernameLabel_register = new JLabel("Username");
-		usernameLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel usernameLabel_register = new JLabel("Username:");
+		usernameLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		usernameLabel_register.setBounds(108, 248, 107, 24);
 		registerPanel.add(usernameLabel_register);
 		
@@ -392,8 +437,8 @@ public class GUI_Frame extends JFrame {
 		usernameTextField_register.setBounds(272, 248, 241, 24);
 		registerPanel.add(usernameTextField_register);
 		
-		JLabel passwordLabel_register = new JLabel("Password");
-		passwordLabel_register.setFont(new Font("Calibri", Font.PLAIN, 15));
+		JLabel passwordLabel_register = new JLabel("Password:");
+		passwordLabel_register.setFont(new Font("Calibri", Font.BOLD, 15));
 		passwordLabel_register.setBounds(108, 283, 107, 24);
 		registerPanel.add(passwordLabel_register);
 		
@@ -407,7 +452,9 @@ public class GUI_Frame extends JFrame {
 		registerPanel.add(registerButton_register);
 		registerButton_register.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
-				if(foodvibes.registerNewUser(nameTextField_register.getText(), surnameTextField_register.getText(), nationalityTextField_register.getText(),birthdate.getText() , emailTextField_register.getText(), usernameTextField_register.getText(), passwordTextField_register.getText())) {
+				String birthdate = birthDay.getSelectedItem() + " " + birthMonth.getSelectedItem() + " " + birthYear.getSelectedItem();
+				System.out.println(birthdate);
+				if(foodvibes.registerNewUser(nameTextField_register.getText(), surnameTextField_register.getText(), nationalityTextField_register.getText(), birthdate, emailTextField_register.getText(), usernameTextField_register.getText(), passwordTextField_register.getText())) {
 					user currentUser = foodvibes.getUser();
 					if(currentUser instanceof admin) {
 						currentUser.setUserState(new adminLogged(currentUser));
@@ -1026,6 +1073,12 @@ public class GUI_Frame extends JFrame {
 		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
 		birthdateLabel_userInfo.setBounds(108, 178, 107, 24);
 		userInfoPanel.add(birthdateLabel_userInfo);
+
+		JLabel birthDateTextField_userInfo = new JLabel();
+		birthDateTextField_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthDateTextField_userInfo.setBounds(272, 178, 241, 24);
+		userInfoPanel.add(birthDateTextField_userInfo);
+		birthDateTextField_userInfo.setText(aUser.getBirthDate());
 		
 		JLabel emailLabel_userInfo = new JLabel("Email:");
 		emailLabel_userInfo.setFont(new Font("Calibri", Font.BOLD, 15));
@@ -1136,10 +1189,59 @@ public class GUI_Frame extends JFrame {
 		editBusinessPanel.add(nationalityTextField_userInfo);
 		nationalityTextField_userInfo.setText(aUser.getNationality());
 		
-		JLabel birthdateLabel_userInfo = new JLabel("Data di nascità");
+		JLabel birthdateLabel_userInfo = new JLabel("Data di nascita");
 		birthdateLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
 		birthdateLabel_userInfo.setBounds(108, 178, 107, 24);
 		editBusinessPanel.add(birthdateLabel_userInfo);
+		
+		String[] monthDays = new String[31];
+		for(int i = 0; i < 31; i++) {
+			monthDays[i] = Integer.toString(i+1);
+		}
+		
+		JComboBox birthDay = new JComboBox(monthDays);
+		birthDay.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthDay.setBounds(272, 178, 50, 24);
+		editBusinessPanel.add(birthDay);
+		
+		
+		String[] month = {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novemrbe", "Dicembre"};
+		ArrayList<String> thirtyDaysMonths = new ArrayList<>();
+		thirtyDaysMonths.add("Aprile");
+		thirtyDaysMonths.add("Giugno");
+		thirtyDaysMonths.add("Settembre");
+		thirtyDaysMonths.add("Novembre");
+		JComboBox birthMonth = new JComboBox(month);
+		birthMonth.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthMonth.setBounds(330, 178, 100, 24);
+		editBusinessPanel.add(birthMonth);
+		birthMonth.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				if(birthMonth.getSelectedItem().toString().equals("Febbraio") && 
+				   Integer.parseInt(birthDay.getSelectedItem().toString())  > 28) {
+					birthDay.setSelectedIndex(27);
+					editBusinessPanel.validate();
+					editBusinessPanel.repaint();				
+					} else if (thirtyDaysMonths.contains(birthMonth.getSelectedItem().toString()) &&
+							Integer.parseInt(birthDay.getSelectedItem().toString())  > 30) {
+						birthDay.setSelectedIndex(29);
+						editBusinessPanel.validate();
+						editBusinessPanel.repaint();	
+					}
+			}
+		});
+		
+		String[] years = new String[100];
+		int j = 2023;
+		for(int i = 0; i < 100; i++) {
+			years[i] = Integer.toString(j);
+			j--;
+		}
+		
+		JComboBox birthYear = new JComboBox(years);
+		birthYear.setFont(new Font("Calibri", Font.PLAIN, 15));
+		birthYear.setBounds(440, 178, 70, 24);
+		editBusinessPanel.add(birthYear);
 		
 		JLabel emailLabel_userInfo = new JLabel("Email");
 		emailLabel_userInfo.setFont(new Font("Calibri", Font.PLAIN, 15));
@@ -1176,7 +1278,8 @@ public class GUI_Frame extends JFrame {
 		
 		int result = JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Segnala recensione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			foodvibes.editUserInfo(aUser, nameTextField_userInfo.getText(), surnameTextField_userInfo.getText(), nationalityTextField_userInfo.getText(), emailTextField_userInfo.getText(), usernameTextField_userInfo.getText(), passwordTextField_userInfo.getText());
+			String birthDate = birthDay.getSelectedItem().toString() + " " + birthMonth.getSelectedItem().toString() + " " + birthYear.getSelectedItem().toString();
+			foodvibes.editUserInfo(aUser, nameTextField_userInfo.getText(), surnameTextField_userInfo.getText(), nationalityTextField_userInfo.getText(), birthDate, emailTextField_userInfo.getText(), usernameTextField_userInfo.getText(), passwordTextField_userInfo.getText());
 			userInfoPanel.removeAll();
 			showUserInfo(aUser);
 			cardLayout.show(layeredPane, "userInfoPanel");
