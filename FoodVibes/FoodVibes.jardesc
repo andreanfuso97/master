@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/andry/Desktop/FoodVibes/FoodVibes.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/FoodVibes/FoodVibes.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/FoodVibes/Images"/>
+        <javaElement handleIdentifier="=FoodVibes/src"/>
+        <file path="/FoodVibes/.project"/>
+        <file path="/FoodVibes/.classpath"/>
+        <file path="/FoodVibes/.gitignore"/>
+        <file path="/FoodVibes/miglayout-src.zip"/>
+        <file path="/FoodVibes/jgoodies-forms-1.8.0-sources.jar"/>
+    </selectedElements>
+</jardesc>

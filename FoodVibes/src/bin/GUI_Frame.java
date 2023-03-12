@@ -665,6 +665,11 @@ public class GUI_Frame extends JFrame {
 		businessAvgVote.setBounds(10, 44, 32, 32);
 		businessPanel.add(businessAvgVote);
 		
+		JLabel ownerLabel = new JLabel("<html>Proprietario: <b>" + aBusiness.getOwner().getUsername() + "</b></html>", SwingConstants.CENTER);
+		ownerLabel.setFont(new Font("Calibri", Font.PLAIN, 15));
+		ownerLabel.setBounds(40, 34, 150, 32);
+		businessPanel.add(ownerLabel);
+		
 		JLabel addressLabel_businessPanel = new JLabel("<html>Indirizzo: <br> <b>" + aBusiness.getAddress() + "</b></html>");
 		addressLabel_businessPanel.setFont(new Font("Calibri", Font.PLAIN, 15));
 		addressLabel_businessPanel.setBounds(10, 72, 291, 60);
@@ -773,7 +778,14 @@ public class GUI_Frame extends JFrame {
 		
 		JLabel voteReviewLabel_businessPanel = new JLabel(Float.toString(aReview.getVote()));
 		voteReviewLabel_businessPanel.setBounds(10, 10, 89, 14);
+		voteReviewLabel_businessPanel.setVerticalAlignment(JLabel.CENTER);
 		foundReviewPanel_businessPanel.add(voteReviewLabel_businessPanel);
+		
+		JLabel authorLabel = new JLabel("<html>scritta da: <b>" + aReview.getUser().getUsername() + "</b></html>");
+		authorLabel.setFont(new Font("Calibri", Font.PLAIN, 14));
+		authorLabel.setBounds(40, 10, 200, 14);
+		foundReviewPanel_businessPanel.add(authorLabel);
+		authorLabel.setVerticalAlignment(JLabel.CENTER);
 		
 		JLabel reviewTitleLabel_businessPanel = new JLabel(aReview.getTitle());
 		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 17));
