@@ -113,9 +113,11 @@ public class GUI_Frame extends JFrame {
 		SideBar.add(reportList);
 		reportList.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
-				reportsPanel.removeAll();
 				cardLayout.show(layeredPane, "reportListPanel");
+				reportsPanel.removeAll();
 				foodvibes.showAllReports();
+				reportsPanel.validate();
+				reportsPanel.repaint();
 			}
 		});
 		reportList.setVisible(false);
@@ -259,7 +261,7 @@ public class GUI_Frame extends JFrame {
 		
 		JButton selectedImage = new JButton("Scegli Immagine");
 		selectedImage.setForeground(new Color(255, 245, 238));
-		selectedImage.setBackground(new Color(156, 250, 180));
+		selectedImage.setBackground(new Color(20, 131, 108));
 		selectedImage.setFont(new Font("Calibri", Font.PLAIN, 14));
 		selectedImage.setBounds(146, 226, 130, 22);
 		registerBusinessPanel.add(selectedImage);
@@ -281,7 +283,7 @@ public class GUI_Frame extends JFrame {
 		
 		JButton btnRegistra = new JButton("Registra");
 		btnRegistra.setForeground(new Color(255, 245, 238));
-		btnRegistra.setBackground(new Color(156, 250, 180));
+		btnRegistra.setBackground(new Color(20, 131, 108));
 		btnRegistra.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnRegistra.setFont(new Font("Calibri", Font.BOLD, 20));
 		btnRegistra.setBounds(10, 293, 200, 33);
@@ -537,12 +539,13 @@ public class GUI_Frame extends JFrame {
 		reportListPanel.add(titlereportList);
 		
 		JScrollPane reportListScrollPane = new JScrollPane();
+		reportListScrollPane.setBackground(new Color(255, 245, 238));
 		reportListScrollPane.setBounds(10, 50, 580, 380);
 		reportListScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 		reportListPanel.add(reportListScrollPane);
 		
 		reportsPanel = new JPanel();
-		reportsPanel.setBackground(new Color(204, 255, 204));
+		reportsPanel.setBackground(new Color(255, 245, 238));
 		reportListScrollPane.setViewportView(reportsPanel);
 		reportsPanel.setLayout(new BoxLayout(reportsPanel, BoxLayout.Y_AXIS));
 		
@@ -595,7 +598,7 @@ public class GUI_Frame extends JFrame {
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		gbc.weightx = 0.5;
+		gbc.weightx = 0;
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.insets = new Insets(5, 5, 5, 10);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -629,8 +632,6 @@ public class GUI_Frame extends JFrame {
 				JLabel bestLabel = new JLabel("BEST ACTIVITY");
 				bestLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 				bestLabel.setForeground(Color.blue);
-				//bestLabel.setBounds(20, 11, 198, 25);
-				//tierPanel.add(bestLabel);
 				searchResultPanel.add(bestLabel, gbc);
 			}
 			
@@ -641,8 +642,6 @@ public class GUI_Frame extends JFrame {
 			gbc.insets = new Insets(5, 5, 5, 10);
 			JLabel tierLabel = new JLabel("  " + foundBusiness.getTier().toString() + "  ");
 			tierLabel.setFont(new Font("Calibri", Font.BOLD, 14));
-			//tierLabel.setBounds(11, 11, 198, 25);
-			//tierPanel.add(tierLabel);	
 			searchResultPanel.add(tierLabel, gbc);
 		}
 	}
@@ -1058,7 +1057,13 @@ public class GUI_Frame extends JFrame {
 		});
 			
 		if (JOptionPane.showConfirmDialog(reviewsPanel_businessPanel, editBusinessPanel, "Modifica informazioni attività", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
-			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), selectedImage.getText());
+			foodvibes.editBusinessInfo(aBusiness, nameTextField.getText(), addressTextField.getText(), openingHoursTextField.getText(), imageFilePath.getText());
+			System.out.println(aBusiness.getImage());
+			foundBusinessPanel_searchBusiness.validate();
+			foundBusinessPanel_searchBusiness.repaint();
+			foundBusinessScrollPane_searchBusiness.validate();
+			foundBusinessScrollPane_searchBusiness.repaint();
+			foodvibes.showBusinessInfo(aBusiness);
 		}
 	}
 	
@@ -1068,6 +1073,7 @@ public class GUI_Frame extends JFrame {
 	
 	public void foundReport(report aReport) {
 		JPanel foundReport = new JPanel();
+		foundReport.setBackground(new Color(255, 245, 238));
 		foundReport.setAlignmentX(Component.LEFT_ALIGNMENT);
 		foundReport.setPreferredSize(new Dimension(580, 150));
 		foundReport.setMaximumSize(new Dimension(580, 150));
@@ -1077,7 +1083,7 @@ public class GUI_Frame extends JFrame {
 		
 		JLabel reviewTitleLabel_businessPanel = new JLabel(aReport.getReview().getTitle());
 		reviewTitleLabel_businessPanel.setFont(new Font("Calibri", Font.BOLD, 20));
-		reviewTitleLabel_businessPanel.setBounds(10, 11, 100, 20);
+		reviewTitleLabel_businessPanel.setBounds(10, 11, 130, 20);
 		foundReport.add(reviewTitleLabel_businessPanel);
 		
 		JLabel descriptionReviewLabel_businessPanel = new JLabel("<html><p>" + aReport.getReview().getDescription() + "</p></html>");
@@ -1092,13 +1098,13 @@ public class GUI_Frame extends JFrame {
 		
 		JLabel reportedBy = new JLabel("<html>Segnalato da: <b>" + aReport.getAuthor().getUsername() + "</b> per: <b>" + aReport.getType() + "</b></html>" );
 		reportedBy.setFont(new Font("Calibri", Font.PLAIN, 14));
-		reportedBy.setBounds(167, 13, 393, 14);
+		reportedBy.setBounds(180, 11, 393, 20);
 		foundReport.add(reportedBy);
 		
 		JButton removeReportedReview = new JButton("Rimuovi recensione");
 		removeReportedReview.setForeground(new Color(255, 245, 238));
 		removeReportedReview.setBackground(new Color(20, 131, 108));
-		removeReportedReview.setBounds(419, 127, 141, 23);
+		removeReportedReview.setBounds(410, 125, 150, 23);
 		foundReport.add(removeReportedReview);
 		removeReportedReview.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
