@@ -19,7 +19,6 @@ public class foodvibes{
 	
 	
 	public static void main(String[] args) {
-		init();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -30,6 +29,7 @@ public class foodvibes{
 				}
 			}
 		});
+		init();
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -60,28 +60,27 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 
 	public static void init() {
+		
+		registerNewUser("Mario", "Rossi", "Italiano", "30/09/95", "mariorossi@gmail.com", "mario", "pizza");
+		registerNewUser("Luca", "Nicotra", "Italiano", "02/02/2000", "lucanicotra@gmail.com", "lunca", "pasta");
+		registerNewUser("Giovanni", "Verdi", "Italiano", "01/02/2000", "gioverdi@gmail.com", "giovanni", "formaggio");
+		registerNewAdmin("Marco", "Mattarella", "Italiano", "01/02/2000", "marcomatt@gmail.com", "marco", "cipolla");
+		registerNewUser("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "b", "b");
+		registerNewUser("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "a", "a");
+
+		currentUser = userList.get(0);
+		insertBusinessInfo("Pasticceria Rossi", "via Rossoni 27, Catania (CT)", "07:00 - 22:00", "Immagine");
+		currentUser = userList.get(1);
+		insertBusinessInfo("Pasticceria Nicotra", "via Niconi 28, Messina (CT)", "07:00 - 22:00", "Immagine");
+		currentUser = userList.get(2);
+		insertBusinessInfo("Pasticceria Verdi", "via Verdoni 29, Siracusa (CT)", "07:00 - 22:00", "Immagine");
+		currentUser = userList.get(0);
+		insertNewReview(catalog.getInstance().getBusinessList().get(0), "Non va bene", 2, "I prodotti sono buoni il locale è sporco.");
+		currentUser = userList.get(1);
+		insertNewReview(catalog.getInstance().getBusinessList().get(1), "Buono", 3, "Posto carino cibo buono.");
+		currentUser = userList.get(2);
+		insertNewReview(catalog.getInstance().getBusinessList().get(2), "Meraviglioso", 5, "Tutto buonissimo prezzi accessibili.");
 		currentUser = guestUser;
-		
-		user adminUser = new admin("Sebastiano", "Brischetto", "Italiano", "30/09/95", "seby@gmail.com", "sebrisch", "nonna");
-		userList.add(adminUser);
-		test();
-	}
-	
-	public static void test() {
-		user aUser = new user("Andrea", "Anfuso", "Italiano", "02/02/2000", "aanfuso97@gmail.com", "andreanfuso", "nonna");
-		userList.add(aUser);
-		
-		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", aUser);
-		review R = new review(aUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
-		B.addNewReview(R);
-		B.updateAvgVote();
-		catalog.getInstance().add(B);
-		
-		aUser = new user("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "a", "a");
-		userList.add(aUser);
-		
-		aUser = new user("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "b", "b");
-		userList.add(aUser);
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -232,6 +231,19 @@ public class foodvibes{
 			}
 		}
 		userList.add(new user(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
+		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
+		login(newUsername, newPassword);
+		return true;
+	}
+	
+	public static boolean registerNewAdmin(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return false;
+			}
+		}
+		userList.add(new admin(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
 		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
 		login(newUsername, newPassword);
 		return true;

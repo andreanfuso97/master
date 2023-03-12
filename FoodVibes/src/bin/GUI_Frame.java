@@ -40,13 +40,13 @@ public class GUI_Frame extends JFrame {
 		setBounds(100, 100, 850, 490);
 		
 		JPanel contentPane = new JPanel();
-		contentPane.setBackground(new Color(102, 204, 102));
+		contentPane.setBackground(new Color(176, 224, 230));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBackground(new Color(204, 255, 204));
-		layeredPane.setBounds(227, 5, 602, 441);
+		layeredPane.setBounds(217, 0, 617, 451);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		cardLayout = (CardLayout)(layeredPane.getLayout());
@@ -56,22 +56,25 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel SideBar = new JPanel();
-		SideBar.setBackground(new Color(204, 255, 204));
-		SideBar.setBounds(5, 5, 212, 441);
+		SideBar.setForeground(new Color(134, 249, 163));
+		SideBar.setBackground(new Color(10, 184, 114));
+		SideBar.setBounds(0, 0, 217, 451);
 		contentPane.add(SideBar);
 		SideBar.setLayout(null);
 		
 		titleLabel_sidebar = new JLabel("Benvenuto");
+		titleLabel_sidebar.setForeground(new Color(255, 245, 238));
 		titleLabel_sidebar.setBackground(new Color(240, 248, 255));
 		titleLabel_sidebar.setHorizontalAlignment(SwingConstants.LEFT);
-		titleLabel_sidebar.setBounds(10, 11, 192, 50);
+		titleLabel_sidebar.setBounds(10, 0, 192, 71);
 		titleLabel_sidebar.setFont(new Font("Calibri", Font.BOLD, 25));
 		SideBar.add(titleLabel_sidebar);
 		
 		JButton searchButton_sidebar = new JButton("Cerca");
-		searchButton_sidebar.setBackground(new Color(51, 204, 51));
+		searchButton_sidebar.setForeground(new Color(255, 245, 238));
+		searchButton_sidebar.setBackground(new Color(20, 131, 108));
 		searchButton_sidebar.setFont(new Font("Calibri", Font.BOLD, 20));
-		searchButton_sidebar.setBounds(0, 72, 212, 40);
+		searchButton_sidebar.setBounds(0, 72, 217, 40);
 		SideBar.add(searchButton_sidebar);
 		
 		searchButton_sidebar.addActionListener(new ActionListener(){  
@@ -87,9 +90,10 @@ public class GUI_Frame extends JFrame {
 		});
 		
 		JButton registerBusinessButton_sidebar = new JButton("Registra attività");
-		registerBusinessButton_sidebar.setBackground(new Color(51, 204, 51));
+		registerBusinessButton_sidebar.setForeground(new Color(255, 245, 238));
+		registerBusinessButton_sidebar.setBackground(new Color(20, 131, 108));
 		registerBusinessButton_sidebar.setFont(new Font("Calibri", Font.BOLD, 20));
-		registerBusinessButton_sidebar.setBounds(0, 111, 212, 40);
+		registerBusinessButton_sidebar.setBounds(0, 111, 217, 40);
 		SideBar.add(registerBusinessButton_sidebar);
 		registerBusinessButton_sidebar.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
@@ -102,9 +106,10 @@ public class GUI_Frame extends JFrame {
 		});
 		
 		reportList = new JButton("Segnalazioni");
+		reportList.setForeground(new Color(255, 245, 238));
 		reportList.setFont(new Font("Calibri", Font.BOLD, 20));
-		reportList.setBackground(new Color(51, 204, 51));
-		reportList.setBounds(0, 151, 212, 40);
+		reportList.setBackground(new Color(20, 131, 108));
+		reportList.setBounds(0, 151, 217, 40);
 		SideBar.add(reportList);
 		reportList.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
@@ -116,9 +121,10 @@ public class GUI_Frame extends JFrame {
 		reportList.setVisible(false);
 
 		registerButton = new JButton("Registrazione");
+		registerButton.setForeground(new Color(255, 245, 238));
 		registerButton.setFont(new Font("Calibri", Font.BOLD, 20));
-		registerButton.setBackground(new Color(51, 204, 51));
-		registerButton.setBounds(0, 360, 212, 40);
+		registerButton.setBackground(new Color(20, 131, 108));
+		registerButton.setBounds(0, 372, 217, 40);
 		SideBar.add(registerButton);
 		registerButton.addActionListener(new ActionListener(){ 
 			public void actionPerformed(ActionEvent e){
@@ -127,9 +133,10 @@ public class GUI_Frame extends JFrame {
 			}
 		);
 		logUserButton = new JButton("Login");
+		logUserButton.setForeground(new Color(255, 245, 238));
 		logUserButton.setFont(new Font("Calibri", Font.BOLD, 20));
-		logUserButton.setBackground(new Color(51, 204, 51));
-		logUserButton.setBounds(0, 401, 212, 40);
+		logUserButton.setBackground(new Color(20, 131, 108));
+		logUserButton.setBounds(0, 411, 217, 40);
 		SideBar.add(logUserButton);
 		logUserButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
@@ -142,7 +149,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		searchBusinessPanel = new JPanel();
-		searchBusinessPanel.setBackground(new Color(204, 255, 204));
+		searchBusinessPanel.setBackground(new Color(255, 245, 238));
 		searchBusinessPanel.setLayout(null);
 		layeredPane.add(searchBusinessPanel, "searchBusinessPanel");
 		
@@ -159,6 +166,8 @@ public class GUI_Frame extends JFrame {
 		searchBusinessPanel.add(searchTextArea_searchBusiness);
 		
 		JButton button_searchBusiness = new JButton("🔎︎");
+		button_searchBusiness.setForeground(new Color(255, 245, 238));
+		button_searchBusiness.setBackground(new Color(10, 184, 114));
 		button_searchBusiness.setBounds(371, 47, 49, 25);
 		searchBusinessPanel.add(button_searchBusiness);
 		button_searchBusiness.addActionListener(new ActionListener() {
@@ -177,7 +186,8 @@ public class GUI_Frame extends JFrame {
 		searchBusinessPanel.add(separator_searchBusiness);
 		
 		foundBusinessPanel_searchBusiness = new JPanel();
-		foundBusinessPanel_searchBusiness.setBackground(new Color(204, 255, 204));
+		foundBusinessPanel_searchBusiness.setBorder(null);
+		foundBusinessPanel_searchBusiness.setBackground(new Color(255, 245, 238));
 		foundBusinessPanel_searchBusiness.setBounds(10, 96, 578, 330);
 
 		foundBusinessScrollPane_searchBusiness = new JScrollPane(foundBusinessPanel_searchBusiness);
@@ -191,7 +201,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel registerBusinessPanel = new JPanel();
-		registerBusinessPanel.setBackground(new Color(204, 255, 204));
+		registerBusinessPanel.setBackground(new Color(255, 245, 238));
 		registerBusinessPanel.setLayout(null);
 		layeredPane.add(registerBusinessPanel, "registerBusinessPanel");
 		
@@ -212,35 +222,35 @@ public class GUI_Frame extends JFrame {
 		separator_registerBusiness.setBounds(10, 89, 404, 2);
 		registerBusinessPanel.add(separator_registerBusiness);
 		
-		JLabel newNameLabel_registerBusiness = new JLabel("Nome Attività");
-		newNameLabel_registerBusiness.setFont(new Font("Calibri", Font.PLAIN, 14));
+		JLabel newNameLabel_registerBusiness = new JLabel("Nome Attività:");
+		newNameLabel_registerBusiness.setFont(new Font("Calibri", Font.BOLD, 14));
 		newNameLabel_registerBusiness.setBounds(10, 118, 103, 15);
 		registerBusinessPanel.add(newNameLabel_registerBusiness);
 		
 		JTextArea newNameTextArea_registerBusiness = new JTextArea();
-		newNameTextArea_registerBusiness.setBounds(214, 113, 200, 22);
+		newNameTextArea_registerBusiness.setBounds(146, 113, 200, 22);
 		registerBusinessPanel.add(newNameTextArea_registerBusiness);
 		
-		JLabel newAddressLabel_registerBusiness = new JLabel("Indirizzo");
-		newAddressLabel_registerBusiness.setFont(new Font("Calibri", Font.PLAIN, 14));
+		JLabel newAddressLabel_registerBusiness = new JLabel("Indirizzo:");
+		newAddressLabel_registerBusiness.setFont(new Font("Calibri", Font.BOLD, 14));
 		newAddressLabel_registerBusiness.setBounds(10, 156, 90, 15);
 		registerBusinessPanel.add(newAddressLabel_registerBusiness);
 		
 		JTextArea newAddressTextArea_registerBusiness = new JTextArea();
-		newAddressTextArea_registerBusiness.setBounds(214, 149, 200, 22);
+		newAddressTextArea_registerBusiness.setBounds(146, 149, 200, 22);
 		registerBusinessPanel.add(newAddressTextArea_registerBusiness);
 		
-		JLabel newOpeningHoursLabel_registerBusiness = new JLabel("Orari di apertura");
-		newOpeningHoursLabel_registerBusiness.setFont(new Font("Calibri", Font.PLAIN, 14));
+		JLabel newOpeningHoursLabel_registerBusiness = new JLabel("Orari di apertura:");
+		newOpeningHoursLabel_registerBusiness.setFont(new Font("Calibri", Font.BOLD, 14));
 		newOpeningHoursLabel_registerBusiness.setBounds(10, 193, 103, 15);
 		registerBusinessPanel.add(newOpeningHoursLabel_registerBusiness);
 		
 		JTextArea newOpeningHoursTextArea_registerBusiness = new JTextArea();
-		newOpeningHoursTextArea_registerBusiness.setBounds(214, 186, 200, 22);
+		newOpeningHoursTextArea_registerBusiness.setBounds(146, 186, 200, 22);
 		registerBusinessPanel.add(newOpeningHoursTextArea_registerBusiness);
 		
-		JLabel newImageLabel_registerBusiness = new JLabel("Immagine");
-		newImageLabel_registerBusiness.setFont(new Font("Calibri", Font.PLAIN, 14));
+		JLabel newImageLabel_registerBusiness = new JLabel("Immagine:");
+		newImageLabel_registerBusiness.setFont(new Font("Calibri", Font.BOLD, 14));
 		newImageLabel_registerBusiness.setBounds(10, 233, 103, 15);
 		registerBusinessPanel.add(newImageLabel_registerBusiness);
 		
@@ -248,8 +258,10 @@ public class GUI_Frame extends JFrame {
 		JTextArea imageFilePath = new JTextArea();
 		
 		JButton selectedImage = new JButton("Scegli Immagine");
+		selectedImage.setForeground(new Color(255, 245, 238));
+		selectedImage.setBackground(new Color(156, 250, 180));
 		selectedImage.setFont(new Font("Calibri", Font.PLAIN, 14));
-		selectedImage.setBounds(214, 226, 130, 22);
+		selectedImage.setBounds(146, 226, 130, 22);
 		registerBusinessPanel.add(selectedImage);
 		selectedImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -268,6 +280,8 @@ public class GUI_Frame extends JFrame {
 		});
 		
 		JButton btnRegistra = new JButton("Registra");
+		btnRegistra.setForeground(new Color(255, 245, 238));
+		btnRegistra.setBackground(new Color(156, 250, 180));
 		btnRegistra.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnRegistra.setFont(new Font("Calibri", Font.BOLD, 20));
 		btnRegistra.setBounds(10, 293, 200, 33);
@@ -283,7 +297,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		businessPanel = new JPanel();
-		businessPanel.setBackground(new Color(204, 255, 204));
+		businessPanel.setBackground(new Color(255, 245, 238));
 		layeredPane.add(businessPanel, "businessPanel");
 		businessPanel.setLayout(null);
 		
@@ -292,7 +306,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel loginPanel = new JPanel();
-		loginPanel.setBackground(new Color(204, 255, 204));
+		loginPanel.setBackground(new Color(255, 245, 238));
 		layeredPane.add(loginPanel, "loginPanel");
 		loginPanel.setLayout(null);
 		
@@ -322,7 +336,10 @@ public class GUI_Frame extends JFrame {
 		loginPanel.add(passwordTextField_login);
 		
 		JButton loginButton = new JButton("Login");
-		loginButton.setBounds(247, 158, 89, 23);
+		loginButton.setBackground(new Color(10, 184, 114));
+		loginButton.setForeground(new Color(255, 245, 238));
+		loginButton.setFont(new Font("Calibri", Font.BOLD, 18));
+		loginButton.setBounds(272, 158, 97, 32);
 		loginPanel.add(loginButton);
 		loginButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
@@ -347,13 +364,13 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel registerPanel = new JPanel();
-		registerPanel.setBackground(new Color(204, 255, 204));
+		registerPanel.setBackground(new Color(255, 245, 238));
 		layeredPane.add(registerPanel, "registerPanel");
 		registerPanel.setLayout(null);
 		
 		JLabel titleLabel_register = new JLabel("Inserisci i tuoi dati");
 		titleLabel_register.setFont(new Font("Calibri", Font.BOLD, 25));
-		titleLabel_register.setBounds(198, 11, 190, 43);
+		titleLabel_register.setBounds(247, 11, 190, 43);
 		registerPanel.add(titleLabel_register);
 		
 		JLabel userNameLabel_register = new JLabel("Nome:");
@@ -363,7 +380,7 @@ public class GUI_Frame extends JFrame {
 		
 		JTextField nameTextField_register = new JTextField();
 		nameTextField_register.setColumns(10);
-		nameTextField_register.setBounds(272, 71, 241, 24);
+		nameTextField_register.setBounds(247, 71, 241, 24);
 		registerPanel.add(nameTextField_register);
 		
 		JLabel surnameLabel_register = new JLabel("Cognome:");
@@ -373,7 +390,7 @@ public class GUI_Frame extends JFrame {
 		
 		JTextField surnameTextField_register = new JTextField();
 		surnameTextField_register.setColumns(10);
-		surnameTextField_register.setBounds(272, 106, 241, 24);
+		surnameTextField_register.setBounds(247, 106, 241, 24);
 		registerPanel.add(surnameTextField_register);
 		
 		JLabel nationalityLabel_register = new JLabel("Nazionalità:");
@@ -383,7 +400,7 @@ public class GUI_Frame extends JFrame {
 		
 		JTextField nationalityTextField_register = new JTextField();
 		nationalityTextField_register.setColumns(10);
-		nationalityTextField_register.setBounds(272, 141, 241, 24);
+		nationalityTextField_register.setBounds(247, 141, 241, 24);
 		registerPanel.add(nationalityTextField_register);
 		
 		JLabel birthdateLabel_register = new JLabel("Data di nascita:");
@@ -397,8 +414,10 @@ public class GUI_Frame extends JFrame {
 		}
 		
 		JComboBox birthDay = new JComboBox(monthDays);
+		birthDay.setForeground(new Color(255, 245, 238));
+		birthDay.setBackground(new Color(10, 184, 114));
 		birthDay.setFont(new Font("Calibri", Font.PLAIN, 15));
-		birthDay.setBounds(272, 178, 50, 24);
+		birthDay.setBounds(247, 178, 50, 24);
 		registerPanel.add(birthDay);
 		
 		
@@ -409,8 +428,10 @@ public class GUI_Frame extends JFrame {
 		thirtyDaysMonths.add("Settembre");
 		thirtyDaysMonths.add("Novembre");
 		JComboBox birthMonth = new JComboBox(month);
+		birthMonth.setForeground(new Color(255, 245, 238));
+		birthMonth.setBackground(new Color(10, 184, 114));
 		birthMonth.setFont(new Font("Calibri", Font.PLAIN, 15));
-		birthMonth.setBounds(330, 178, 100, 24);
+		birthMonth.setBounds(305, 178, 100, 24);
 		registerPanel.add(birthMonth);
 		birthMonth.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
@@ -436,8 +457,10 @@ public class GUI_Frame extends JFrame {
 		}
 		
 		JComboBox birthYear = new JComboBox(years);
+		birthYear.setForeground(new Color(255, 245, 238));
+		birthYear.setBackground(new Color(10, 184, 114));
 		birthYear.setFont(new Font("Calibri", Font.PLAIN, 15));
-		birthYear.setBounds(440, 178, 70, 24);
+		birthYear.setBounds(415, 178, 70, 24);
 		registerPanel.add(birthYear);
 		
 		JLabel emailLabel_register = new JLabel("Email:");
@@ -447,7 +470,7 @@ public class GUI_Frame extends JFrame {
 		
 		JTextField emailTextField_register = new JTextField();
 		emailTextField_register.setColumns(10);
-		emailTextField_register.setBounds(272, 213, 241, 24);
+		emailTextField_register.setBounds(247, 213, 241, 24);
 		registerPanel.add(emailTextField_register);
 		
 		JLabel usernameLabel_register = new JLabel("Username:");
@@ -457,7 +480,7 @@ public class GUI_Frame extends JFrame {
 		
 		JTextField usernameTextField_register = new JTextField();
 		usernameTextField_register.setColumns(10);
-		usernameTextField_register.setBounds(272, 248, 241, 24);
+		usernameTextField_register.setBounds(247, 248, 241, 24);
 		registerPanel.add(usernameTextField_register);
 		
 		JLabel passwordLabel_register = new JLabel("Password:");
@@ -467,11 +490,14 @@ public class GUI_Frame extends JFrame {
 		
 		JPasswordField passwordTextField_register = new JPasswordField();
 		passwordTextField_register.setColumns(10);
-		passwordTextField_register.setBounds(272, 283, 241, 24);
+		passwordTextField_register.setBounds(247, 283, 241, 24);
 		registerPanel.add(passwordTextField_register);
 		
 		JButton registerButton_register = new JButton("Registrati");
-		registerButton_register.setBounds(247, 400, 89, 23);
+		registerButton_register.setBackground(new Color(10, 184, 114));
+		registerButton_register.setForeground(new Color(255, 245, 238));
+		registerButton_register.setFont(new Font("Calibri", Font.BOLD, 18));
+		registerButton_register.setBounds(247, 331, 115, 35);
 		registerPanel.add(registerButton_register);
 		registerButton_register.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e) {
@@ -499,11 +525,12 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		JPanel reportListPanel = new JPanel();
-		reportListPanel.setBackground(new Color(204, 255, 204));
+		reportListPanel.setBackground(new Color(255, 245, 238));
 		layeredPane.add(reportListPanel, "reportListPanel");
 		reportListPanel.setLayout(null);
 		
 		JLabel titlereportList = new JLabel("Recensioni Segnalate");
+		titlereportList.setBackground(new Color(255, 245, 238));
 		titlereportList.setHorizontalAlignment(SwingConstants.CENTER);
 		titlereportList.setFont(new Font("Calibri", Font.BOLD, 25));
 		titlereportList.setBounds(10, 11, 582, 40);
@@ -539,7 +566,7 @@ public class GUI_Frame extends JFrame {
 		searchResultPanel.setBounds(30, 40, 300, 50);
 		foundBusinessPanel_searchBusiness.add(searchResultPanel);
 		searchResultPanel.setMaximumSize(new Dimension(570, 70));
-		searchResultPanel.setBackground(new Color(204, 255, 204));
+		searchResultPanel.setBackground(new Color(255, 245, 238));
 		searchResultPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -550,7 +577,7 @@ public class GUI_Frame extends JFrame {
 		gbc.insets = new Insets(5, 10, 5, 5);
 		gbc.fill = GridBagConstraints.BOTH;
 		JLabel searchedBusinessVoteLabel_searchResultPanel = new JLabel(Float.toString(foundBusiness.getAvgVote()), SwingConstants.CENTER);
-		searchedBusinessVoteLabel_searchResultPanel.setBackground(Color.green);
+		searchedBusinessVoteLabel_searchResultPanel.setBackground(new Color(10, 184, 114));
 		searchedBusinessVoteLabel_searchResultPanel.setOpaque(true);
 		searchedBusinessVoteLabel_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 20));
 		searchedBusinessVoteLabel_searchResultPanel.setBounds(10, 11, 40, 40);			
@@ -573,6 +600,8 @@ public class GUI_Frame extends JFrame {
 		gbc.insets = new Insets(5, 5, 5, 10);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JButton searchedBusinessButton_searchResultPanel = new JButton("Seleziona");
+		searchedBusinessButton_searchResultPanel.setForeground(new Color(255, 245, 238));
+		searchedBusinessButton_searchResultPanel.setBackground(new Color(10, 184, 114));
 		searchedBusinessButton_searchResultPanel.setFont(new Font("Calibri", Font.BOLD, 14));
 		searchResultPanel.add(searchedBusinessButton_searchResultPanel, gbc);
 
@@ -631,7 +660,7 @@ public class GUI_Frame extends JFrame {
 		businessPanel.add(nameLabel_businessPanel);
 		
 		JLabel businessAvgVote = new JLabel(Float.toString(aBusiness.getAvgVote()), SwingConstants.CENTER);
-		businessAvgVote.setBackground(Color.green);
+		businessAvgVote.setBackground(new Color(10, 184, 114));
 		businessAvgVote.setOpaque(true);
 		businessAvgVote.setFont(new Font("Calibri", Font.BOLD, 15));
 		businessAvgVote.setBounds(10, 44, 32, 32);
@@ -659,16 +688,20 @@ public class GUI_Frame extends JFrame {
 		
 		reviewsScrollPane_businessPanel = new JScrollPane();
 		reviewsScrollPane_businessPanel.setBounds(10, 196, 580, 234);
+		reviewsScrollPane_businessPanel.setBackground(new Color(255, 245, 238));
 		reviewsScrollPane_businessPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 		businessPanel.add(reviewsScrollPane_businessPanel);
 		
 		reviewsPanel_businessPanel = new JPanel();
+		reviewsPanel_businessPanel.setBackground(new Color(255, 245, 238));
 		reviewsScrollPane_businessPanel.setViewportView(reviewsPanel_businessPanel);
 		reviewsPanel_businessPanel.setLayout(new BoxLayout(reviewsPanel_businessPanel, BoxLayout.Y_AXIS));
 		
 		if(!(foodvibes.getUser().getState() instanceof userLoggedOut)) {
 			if(foodvibes.getUser() == aBusiness.getOwner()) {
 				JButton editBusinessButton_businessPanel = new JButton("Modifica");
+				editBusinessButton_businessPanel.setBackground(new Color(10, 184, 114));
+				editBusinessButton_businessPanel.setForeground(new Color(255, 245, 238));
 				editBusinessButton_businessPanel.setBounds(400, 20, 90, 20);
 				businessPanel.add(editBusinessButton_businessPanel);
 				editBusinessButton_businessPanel.addActionListener(new ActionListener(){  
@@ -679,6 +712,8 @@ public class GUI_Frame extends JFrame {
 				});
 				
 				JButton removeBusinessButton_businessPanel = new JButton("Rimuovi");
+				removeBusinessButton_businessPanel.setBackground(new Color(10, 184, 114));
+				removeBusinessButton_businessPanel.setForeground(new Color(255, 245, 238));
 				removeBusinessButton_businessPanel.setBounds(490, 20, 90, 20);
 				businessPanel.add(removeBusinessButton_businessPanel);
 				removeBusinessButton_businessPanel.addActionListener(new ActionListener(){  
@@ -698,6 +733,8 @@ public class GUI_Frame extends JFrame {
 				
 			} else {		
 				JButton newReviewButton_businessPanel = new JButton("Aggiungi Recensione");
+				newReviewButton_businessPanel.setForeground(new Color(255, 245, 238));
+				newReviewButton_businessPanel.setBackground(new Color(10, 184, 114));
 				newReviewButton_businessPanel.setBounds(10, 170, 160, 23);
 				businessPanel.add(newReviewButton_businessPanel);
 				newReviewButton_businessPanel.addActionListener(new ActionListener(){  
@@ -727,6 +764,7 @@ public class GUI_Frame extends JFrame {
 	
 	public void newReviewPanel(review aReview, Boolean isCreator, business aBusiness) {	
 		JPanel foundReviewPanel_businessPanel = new JPanel();
+		foundReviewPanel_businessPanel.setBackground(new Color(255, 245, 238));
 		foundReviewPanel_businessPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		foundReviewPanel_businessPanel.setPreferredSize(new Dimension(570, 150));
 		foundReviewPanel_businessPanel.setMaximumSize(new Dimension(570, 150));
@@ -754,6 +792,8 @@ public class GUI_Frame extends JFrame {
 		
 		if(isCreator) {
 			JButton modifyButton = new JButton("✎");
+			modifyButton.setBackground(new Color(10, 184, 114));
+			modifyButton.setForeground(new Color(255, 245, 238));
 			modifyButton.setBounds(460, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(modifyButton);
 			modifyButton.addActionListener(new ActionListener(){  
@@ -768,6 +808,8 @@ public class GUI_Frame extends JFrame {
 			});
 			
 			JButton removeButton = new JButton("🗑");
+			removeButton.setBackground(new Color(10, 184, 114));
+			removeButton.setForeground(new Color(255, 245, 238));
 			removeButton.setBounds(511, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
@@ -784,6 +826,8 @@ public class GUI_Frame extends JFrame {
 			});
 		} else if(!(foodvibes.getUser().getState() instanceof userLoggedOut)){
 			JButton upVoteButton = new JButton("👍 " + aReview.getLikes());
+			upVoteButton.setBackground(new Color(10, 184, 114));
+			upVoteButton.setForeground(new Color(255, 245, 238));
 			upVoteButton.setBounds(446, 4, 65, 29);
 			foundReviewPanel_businessPanel.add(upVoteButton);
 			upVoteButton.addActionListener(new ActionListener(){  
@@ -799,6 +843,8 @@ public class GUI_Frame extends JFrame {
 			});
 			
 			JButton removeButton = new JButton("!");
+			removeButton.setBackground(new Color(10, 184, 114));
+			removeButton.setForeground(new Color(255, 245, 238));
 			removeButton.setBounds(511, 4, 51, 29);
 			foundReviewPanel_businessPanel.add(removeButton);
 			removeButton.addActionListener(new ActionListener(){  
@@ -990,6 +1036,8 @@ public class GUI_Frame extends JFrame {
 		JTextArea imageFilePath = new JTextArea();
 		
 		JButton selectedImage = new JButton("Scegli Immagine");
+		selectedImage.setForeground(new Color(255, 245, 238));
+		selectedImage.setBackground(new Color(20, 131, 108));
 		selectedImage.setFont(new Font("Calibri", Font.PLAIN, 14));
 		selectedImage.setBounds(116, 104, 130, 14);
 		editBusinessPanel.add(selectedImage);
@@ -1048,6 +1096,8 @@ public class GUI_Frame extends JFrame {
 		foundReport.add(reportedBy);
 		
 		JButton removeReportedReview = new JButton("Rimuovi recensione");
+		removeReportedReview.setForeground(new Color(255, 245, 238));
+		removeReportedReview.setBackground(new Color(20, 131, 108));
 		removeReportedReview.setBounds(419, 127, 141, 23);
 		foundReport.add(removeReportedReview);
 		removeReportedReview.addActionListener(new ActionListener(){  
@@ -1149,6 +1199,8 @@ public class GUI_Frame extends JFrame {
 		passwordTextField_userInfo.setText(aUser.getPassword());
 		
 		JButton editUserInfoButton = new JButton("Modifica");
+		editUserInfoButton.setForeground(new Color(255, 245, 238));
+		editUserInfoButton.setBackground(new Color(20, 131, 108));
 		editUserInfoButton.setBounds(187, 400, 120, 23);
 		userInfoPanel.add(editUserInfoButton);
 		editUserInfoButton.addActionListener(new ActionListener(){  
@@ -1158,6 +1210,8 @@ public class GUI_Frame extends JFrame {
 		});
 		
 		JButton removeUserButton = new JButton("Rimuovi");
+		removeUserButton.setForeground(new Color(255, 245, 238));
+		removeUserButton.setBackground(new Color(20, 131, 108));
 		removeUserButton.setBounds(307, 400, 120, 23);
 		userInfoPanel.add(removeUserButton);
 		removeUserButton.addActionListener(new ActionListener(){  
