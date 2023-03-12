@@ -12,7 +12,7 @@ import bin.user;
 class reportTest {
 
 	@Test
-	void GetTest() {
+	void getAndConstructorTest() {
 		user aUser = new user("Sebastiano", "Brischetto", "Italiano", "30/09/95", "seby@gmail.com", "sebrisch", "nonna");
 		business aBusiness = new business ("nome","indirizzo","orari","immagine",aUser);
 		review aReview = new review(aUser, "title", 5, "description");

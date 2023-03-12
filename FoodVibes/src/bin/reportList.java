@@ -49,7 +49,7 @@ public class reportList {
 				iterator.remove();
 			}
 		}
-		aReport.getBusiness().removeReview(aReport.getReview());;
+		aReport.getBusiness().removeReviewFromBusiness(aReport.getReview());;
 		aReport.getBusiness().updateAvgVote();
 	}
 	//-------------------------------------------------------------------------------------------------------------------

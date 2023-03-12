@@ -94,7 +94,7 @@ public class business extends Observable{
 		reviewList.add(newReview);
 		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
 	}
-	public void removeReview(review aReview) {
+	public void removeReviewFromBusiness(review aReview) {
 		reviewList.remove(aReview);
 		System.out.println("Recensione rimossa");
 	}
