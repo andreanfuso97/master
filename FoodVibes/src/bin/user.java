@@ -1,15 +1,19 @@
 package bin;
+import java.util.ArrayList;
 import java.util.Date;
+
 public class user {
 	private String Name;
 	private String Surname;
 	private String Nationality;
-	private Date birthDate;
+	private String birthDate;
 	private String email;
 	private String username;
 	private String password;
+	private ArrayList<review> likedReviews;
+	private userState state;
 	
-	public user(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
+	public user(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
 		super();
 		Name = newName;
 		Surname = newSurname;
@@ -18,9 +22,14 @@ public class user {
 		email = newEmail;
 		username = newUsername;
 		password = newPassword;
+		likedReviews = new ArrayList<>();
+		state = new userLoggedOut(this);
 	}
 	
-	//get
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public String getName() {
 		return Name;
 	}
@@ -30,7 +39,7 @@ public class user {
 	public String getNationality() {
 		return Nationality;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 	public String getEmail() {
@@ -42,8 +51,17 @@ public class user {
 	public String getPassword() {
 		return password;
 	}
+	public userState getState() {
+		return state;
+	}
+	public ArrayList<review> getLikedReviews() {
+		return likedReviews;
+	}
 	
-	//set
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI SET
+	//-------------------------------------------------------------------------------------------------------------------
+	
 	public void setName(String newName) {
 		Name = newName;
 	}
@@ -53,7 +71,7 @@ public class user {
 	public void setNationality(String newNationality) {
 		Nationality = newNationality;
 	}
-	public void setBirthDate(Date newBirthDate) {
+	public void setBirthDate(String newBirthDate) {
 		this.birthDate = newBirthDate;
 	}
 	public void setEmail(String newEmail) {
@@ -65,7 +83,13 @@ public class user {
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
 	}
-
+	public void setUserState(userState state) {
+		this.state = state;
+	}
+	public void addLikedReview(review aReview) {
+		likedReviews.add(aReview);
+	}
+	
 	@Override
 	public String toString() {
 		return "user [Name=" + Name + ", Surname=" + Surname + ", Nationality=" + Nationality + ", birthDate="

@@ -10,11 +10,15 @@ public class foodvibes{
 	private static GUI_Frame mainFrame;
 	private static List<user> userList = new ArrayList<>();
 	private static user currentUser;
+	private static List<business> bronzeList = new ArrayList<>();
+	private static List<business> silverList = new ArrayList<>();
+	private static List<business> goldList = new ArrayList<>();
+	private static List<business> platList = new ArrayList<>();
+	private static business bestBusiness;
+	private static user guestUser = new user("", "", "", "", "", "guest", "");
 	
 	
 	public static void main(String[] args) {
-		init();
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -25,11 +29,27 @@ public class foodvibes{
 				}
 			}
 		});
+		init();
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI GET
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static user getUser() {
 		return currentUser;
 	}
+	public static business getBestBusiness() {
+		return bestBusiness;
+	}
+	
+	public static GUI_Frame getMainFrame() {
+		return mainFrame;
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	//		METODI SET
+	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void setUser(user newCurrentUser) {
 		currentUser = newCurrentUser;
@@ -40,73 +60,79 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 
 	public static void init() {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 1997);
-		dateInfo.set(Calendar.MONTH, Calendar.JANUARY);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 10);
-		Date bDate = dateInfo.getTime();
-		admin nUser = new admin("Sebastiano", "Brischetto", "Italiano", bDate, "seby@gmail.com", "sebrisch", "nonna");
-		userList.add(nUser);
-		//currentUser = userList.get(0);
-		test();
+		
+		registerNewUserNoMess("Mario", "Rossi", "Italiano", "30/09/95", "mariorossi@gmail.com", "mario", "pizza");
+		registerNewUserNoMess("Luca", "Nicotra", "Italiano", "02/02/2000", "lucanicotra@gmail.com", "lunca", "pasta");
+		registerNewUserNoMess("Giovanni", "Verdi", "Italiano", "01/02/2000", "gioverdi@gmail.com", "giovanni", "formaggio");
+		registerNewAdminNoMess("Marco", "Mattarella", "Italiano", "01/02/2000", "marcomatt@gmail.com", "marco", "cipolla");
+		registerNewUserNoMess("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "b", "b");
+		registerNewUserNoMess("Andrea", "Anfuso", "Italiano", "01/02/2000", "aanfuso97@gmail.com", "a", "a");
+
+		currentUser = userList.get(0);
+		insertBusinessInfoNoMess("Pasticceria Rossi", "via Rossoni 27, Catania (CT)", "07:00 - 22:00", System.getProperty("user.dir") + "\\Images\\pasticceria1.jpg");
+		currentUser = userList.get(1);
+		insertBusinessInfoNoMess("Pasticceria Nicotra", "via Niconi 28, Messina (CT)", "07:00 - 22:00", System.getProperty("user.dir") + "\\Images\\pasticceria2.jpg");
+		currentUser = userList.get(2);
+		insertBusinessInfoNoMess("Pasticceria Verdi", "via Verdoni 29, Siracusa (CT)", "07:00 - 22:00", System.getProperty("user.dir") + "\\Images\\pasticceria3.jpg");
+		currentUser = userList.get(3);
+		insertNewReviewInit(catalog.getInstance().getBusinessList().get(0), "Non va bene", 2, "I prodotti sono buoni il locale è sporco.");
+		currentUser = userList.get(2);
+		insertNewReviewInit(catalog.getInstance().getBusinessList().get(1), "Buono", 3, "Posto carino cibo buono.");
+		currentUser = userList.get(1);
+		insertNewReviewInit(catalog.getInstance().getBusinessList().get(2), "Meraviglioso", 5, "Tutto buonissimo prezzi accessibili.");
+		logoutNoMess();
 	}
-	
-	public static void test() {
-		Calendar dateInfo = Calendar.getInstance();
-		dateInfo.set(Calendar.YEAR, 1997);
-		dateInfo.set(Calendar.MONTH, Calendar.JUNE);
-		dateInfo.set(Calendar.DAY_OF_MONTH, 6);
-		Date bDate = dateInfo.getTime();
-		user nUser = new user("Andrea", "Anfuso", "Italiano", bDate, "aanfuso97@gmail.com", "andreanfuso", "nonna");
-		userList.add(nUser);
-		business B = new business("Pasticceria Brischero", "via Briscone 27, Acireale (CT)", "07:00 - 22:00", "Immagine", nUser);
-		review R = new review(nUser, "Non va bene", 2, "I prodotti sono buoni ma non trovo mai discord attivato quando entro nel locale.");
-		B.addNewReview(R);
-		B.updateAvgVote();
-		catalog.getInstance().add(B);
-	}
-	
-	//-------------------------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		REGISTRAZIONE NUOVA ATTIVITÀ
 	//-------------------------------------------------------------------------------------------------------------------
 	
+	public static boolean insertBusinessInfo(String name, String address, String openingHours, String image) {
+		for(int i = 0; i<catalog.getInstance().getBusinessList().size(); i++) {
+			if(catalog.getInstance().getBusinessList().get(i).getName().equals(name)) {
+				JOptionPane.showMessageDialog(mainFrame, "Attività con lo stesso nome già presente, perfavore cambiare nome.");
+				System.out.println("Attività con lo stesso nome già presente");
+				return false;
+			}
+		}
 	
-	public static void insertBusinessInfo(String name, String address, String openingHours, String image) {
+		
 		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
-		}else {
-			business newBusiness = new business(name, address, openingHours, image, currentUser);
-			catalog.getInstance().add(newBusiness);
-			JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
-			mainFrame.newBusinessPanel(newBusiness);
+			System.out.println("Campi non riempiti");
+			return false;
 		}
+		business newBusiness = new business(name, address, openingHours, image, currentUser);
+		catalog.getInstance().add(newBusiness);
+		JOptionPane.showMessageDialog(mainFrame, "Attività registrata correttamente.");
+		//mainFrame.newBusinessPanel(newBusiness);
+		return true;
 	}
-	
+		
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		RICERCA ATTIVITÀ
 	//-------------------------------------------------------------------------------------------------------------------
 	
-	public static ArrayList<business> searchBusiness(String businessName) {
+	public static ArrayList<business> searchBusinessByName(String businessName) {
 		return catalog.getInstance().getBusinessesByName(businessName);		
 	}
 	
-	public static void showSearchResult(String aBusinessName) {
+	public static boolean showSearchResult(String aBusinessName) {
 		if(aBusinessName.isBlank()) {
 			JOptionPane.showMessageDialog(mainFrame, "Compila il campo di ricerca.");
-			return;
+			return false;
 		}
-		ArrayList<business> searchedBusinessList = foodvibes.searchBusiness(aBusinessName);
+		ArrayList<business> searchedBusinessList = foodvibes.searchBusinessByName(aBusinessName);
 		if(searchedBusinessList.isEmpty()) {
 			JOptionPane.showMessageDialog(mainFrame, "Nessuna attività trovata con il nome corrispondente.");
-			return;
+			return false;
 		}
 		for (int i = 0; i<searchedBusinessList.size(); i++) {
 			business foundBusiness = searchedBusinessList.get(i);
-			mainFrame.newSearchResult(foundBusiness);
+			//mainFrame.newSearchResult(foundBusiness);
 		}
+		return true;
 	}
 	
 	public static void showAllBusinesses() {
@@ -126,7 +152,7 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void showReviews(business aBusiness) {
-		ArrayList<review> businessReviews = aBusiness.getBusinessReviews();
+		ArrayList<review> businessReviews = aBusiness.getReviewList();
 		for(int i = 0; i<businessReviews.size(); i++) {
 			if(businessReviews.get(i).getUser()==currentUser) {
 				mainFrame.newReviewPanel(businessReviews.get(i), true, aBusiness);
@@ -139,8 +165,12 @@ public class foodvibes{
 	public static void insertNewReview(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
 		aBusiness.addNewReview(new review(currentUser, reviewTitle, reviewVote, reviewDescription));
 		aBusiness.updateAvgVote();
+		setBusinessTier(aBusiness);
+		showBusinessInfo(aBusiness);
+		setBusinessTier(aBusiness);
 		showBusinessInfo(aBusiness);
 	}	
+	
 	
 	public static void editReview(String title, float vote, String description, review aReview, business aBusiness) {
 		aReview.setTitle(title);
@@ -150,7 +180,7 @@ public class foodvibes{
 		showBusinessInfo(aBusiness);
 	}
 	public static void removeReview(business aBusiness, review aReview) {
-		aBusiness.removeReview(aReview);
+		aBusiness.removeReviewFromBusiness(aReview);
 		aBusiness.updateAvgVote();
 		showBusinessInfo(aBusiness);
 	}
@@ -160,12 +190,18 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void upVoteReview(business aBusiness, review aReview) {
-		aReview.upVote();
-		showReviews(aBusiness);
+		if(!(currentUser.getLikedReviews().contains(aReview))) {
+			aReview.upVote();
+			currentUser.addLikedReview(aReview);
+		} else {
+			aReview.removeVote();
+			currentUser.getLikedReviews().remove(aReview);
+		}
+		showReviews(aBusiness);	
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
-	//		OPERAZIONI DI ACCESSO
+	//		OPERAZIONI DI AUTENTICAZIONE
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static boolean login(String username, String password) {
@@ -181,16 +217,19 @@ public class foodvibes{
 		return false;
 	}
 	
+	
 	public static void logout() {
-		currentUser = null;
+		currentUser = guestUser;
 		JOptionPane.showMessageDialog(mainFrame, "Logout effettuato.");
 	}
 	
+
+	
 	//-------------------------------------------------------------------------------------------------------------------
-	//		REGISTRAZIONE NUOVO ACCOUNT
+	//		GESTIONE ACCOUNT
 	//-------------------------------------------------------------------------------------------------------------------
 	
-	public static boolean registerNewUser(String newName, String newSurname, String newNationality, Date newBirthDate, String newEmail, String newUsername, String newPassword) {
+	public static boolean registerNewUser(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
 		for(int i = 0; i<userList.size(); i++) {
 			if(userList.get(i).getUsername().equals(newUsername)) {
 				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
@@ -201,6 +240,43 @@ public class foodvibes{
 		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
 		login(newUsername, newPassword);
 		return true;
+	}
+	
+	
+	public static boolean registerNewAdmin(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return false;
+			}
+		}
+		userList.add(new admin(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
+		JOptionPane.showMessageDialog(mainFrame, "Registrazione effettuata con successo.");
+		login(newUsername, newPassword);
+		return true;
+	}
+	
+	
+	public static void editUserInfo(user aUser, String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername) && !aUser.getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return;
+			}
+		}
+		aUser.setName(newName);
+		aUser.setSurname(newSurname);
+		aUser.setNationality(newNationality);
+		aUser.setEmail(newEmail);
+		aUser.setBirthDate(newBirthDate);
+		aUser.setUsername(newUsername);
+		aUser.setPassword(newPassword);
+		return;
+	}
+	
+	public static void removeUser(user aUser) {
+		userList.remove(aUser);
+		currentUser = guestUser;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
@@ -217,10 +293,39 @@ public class foodvibes{
 	public static void removeBusiness(business aBusiness) {
 		catalog.getInstance().removeFromList(aBusiness);
 	}
+
+	//-------------------------------------------------------------------------------------------------------------------
+	//		GESTIONE BEST BUSINESSES
+	//-------------------------------------------------------------------------------------------------------------------	
+	
+	public static void setBusinessTier(business aBusiness) {
+		int reviewsNumber = aBusiness.getReviewList().size();
+		
+		if(reviewsNumber >= 50 && reviewsNumber < 100) {
+			aBusiness.setTier(businessTiers.BRONZE);
+		} else if(reviewsNumber >= 100 && reviewsNumber < 250) {
+			aBusiness.setTier(businessTiers.SILVER);
+		} else if(reviewsNumber >= 250 && reviewsNumber < 500) {
+			aBusiness.setTier(businessTiers.GOLD);
+		} else if(reviewsNumber >= 500) {
+			aBusiness.setTier(businessTiers.PLAT);
+		} else {
+			aBusiness.setTier(businessTiers.NONE);
+		}
+		
+		if(bestBusiness == null || (reviewsNumber > bestBusiness.getReviewList().size() && aBusiness.getAvgVote() >= 4)) {
+			bestBusiness = aBusiness;
+		}
+	}
+	
+	public static void setBestBusiness(business aBusiness) {
+		bestBusiness = aBusiness;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		GESTIONE REPORT
 	//-------------------------------------------------------------------------------------------------------------------
+	
 	public static void addReportedReview(review aReview, business aBusiness, String type) {
 		reportList.getInstance().addReport(aReview, aBusiness, type, currentUser);
 		System.out.println("Segnalata: " + aReview + ", " + type);
@@ -237,4 +342,82 @@ public class foodvibes{
 		}
 	}
 	
+
+	//-------------------------------------------------------------------------------------------------------------------
+	//SOLO PER TESTING (Usate per evitare la comparsa ripetuta di messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+		public static boolean registerNewAdminNoMess(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
+			for(int i = 0; i<userList.size(); i++) {
+				if(userList.get(i).getUsername().equals(newUsername)) {
+					JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+					return false;
+				}
+			}
+			userList.add(new admin(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
+			loginNoMess(newUsername, newPassword);
+			return true;
+		}
+	
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	public static boolean registerNewUserNoMess(String newName, String newSurname, String newNationality, String newBirthDate, String newEmail, String newUsername, String newPassword) {
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(newUsername)) {
+				JOptionPane.showMessageDialog(mainFrame, "Nome utente in uso.");
+				return false;
+			}
+		}
+		userList.add(new user(newName,newSurname,newNationality, newBirthDate, newEmail, newUsername, newPassword));
+		loginNoMess(newUsername, newPassword);
+		return true;
+	}
+
+
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	public static void logoutNoMess() {
+		currentUser = guestUser;
+	}
+	
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	public static boolean loginNoMess(String username, String password) {
+		for(int i = 0; i<userList.size(); i++) {
+			user aUser = userList.get(i);
+			if(aUser.getUsername().equals(username) && aUser.getPassword().equals(password)) {
+				setUser(aUser);
+				return true;
+			}
+		}
+		JOptionPane.showMessageDialog(mainFrame, "Username e/o password errati.");
+		return false;
+	}
+	
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	public static void insertNewReviewInit(business aBusiness, String reviewTitle, float reviewVote, String reviewDescription) {
+		aBusiness.addNewReview(new review(currentUser, reviewTitle, reviewVote, reviewDescription));
+		aBusiness.updateAvgVote();
+	}	
+
+	//SOLO PER TESTING (Usata per evitare i messaggi durante la creazione delle instanze già presenti all'avvio del programma)
+	public static boolean insertBusinessInfoNoMess(String name, String address, String openingHours, String image) {
+		for(int i = 0; i<catalog.getInstance().getBusinessList().size(); i++) {
+			if(catalog.getInstance().getBusinessList().get(i).getName().equals(name)) {
+				JOptionPane.showMessageDialog(mainFrame, "Attività con lo stesso nome già presente, perfavore cambiare nome.");
+				System.out.println("Attività con lo stesso nome già presente");
+				return false;
+			}
+		}
+	
+		
+		if(name.isBlank()||address.isBlank()||openingHours.isBlank()||image.isBlank()) {
+			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
+			System.out.println("Campi non riempiti");
+			return false;
+		}
+		
+		business newBusiness = new business(name, address, openingHours, image, currentUser);
+		catalog.getInstance().add(newBusiness);
+		return true;
+	}
 }
+

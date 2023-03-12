@@ -11,6 +11,7 @@ public class business extends Observable{
 	private user owner;
 	private float avgVote;
 	private ArrayList<review> reviewList = new ArrayList<>();
+	private businessTiers tier;
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		COSTRUTTORE
@@ -22,12 +23,15 @@ public class business extends Observable{
 		openingHours = newOpeningHours;
 		image = newImage;
 		owner = newOwner;
-		avgVote = 0;
+		avgVote = 0; 
+		tier = businessTiers.NONE;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI GET
 	//-------------------------------------------------------------------------------------------------------------------
+	
+	
 	public String getName() {
 		return this.name;
 	}
@@ -43,19 +47,20 @@ public class business extends Observable{
 	public user getOwner() {
 		return owner;
 	}
-	public ArrayList<review> getBusinessReviews(){
-		return reviewList;
-	}
 	public float getAvgVote() {
 		return avgVote;
 	}
 	public ArrayList<review> getReviewList() {
 		return reviewList;
 	}
+	public businessTiers getTier() {
+		return tier;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		METODI SET
 	//-------------------------------------------------------------------------------------------------------------------
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -77,6 +82,9 @@ public class business extends Observable{
 	public void setReviewList(ArrayList<review> reviewList) {
 		this.reviewList = reviewList;
 	}
+	public void setTier(businessTiers newTier) {
+		tier = newTier;
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		AGGIUNGI NUOVA RECENSIONE ALLA LISTA 
@@ -86,9 +94,11 @@ public class business extends Observable{
 		reviewList.add(newReview);
 		System.out.println("aggiunta nuova recensione (titolo: " + newReview.getTitle() + ", voto: " + newReview.getVote() + ", descrizione: " + newReview.getDescription() + ")");
 	}
-	public void removeReview(review aReview) {
+	public void removeReviewFromBusiness(review aReview) {
 		reviewList.remove(aReview);
+		System.out.println("Recensione rimossa");
 	}
+	
 	//-------------------------------------------------------------------------------------------------------------------
 	//		UPDATE VOTO MEDIO
 	//-------------------------------------------------------------------------------------------------------------------
