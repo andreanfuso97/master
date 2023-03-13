@@ -284,6 +284,17 @@ public class foodvibes{
 	//-------------------------------------------------------------------------------------------------------------------
 	
 	public static void editBusinessInfo(business aBusiness, String name, String address, String openingHours, String image) {
+		if(name.isBlank() || address.isBlank() || openingHours.isBlank()) {
+			JOptionPane.showMessageDialog(mainFrame, "Riempi tutti i campi.");
+			return;
+		}
+		for(int i=0; i<catalog.getInstance().getBusinessList().size(); i++) {
+			business checkBusiness = catalog.getInstance().getBusinessList().get(i);
+			if(checkBusiness.getName().equals(name) && !aBusiness.getName().equals(name)) {
+				JOptionPane.showMessageDialog(mainFrame, "Attività con lo stesso nome già presente.");
+				return;
+			}
+		}
 		aBusiness.setName(name);
 		aBusiness.setAddress(address);
 		aBusiness.setOpeningHours(openingHours);
