@@ -130,7 +130,7 @@ public class foodvibes{
 		}
 		for (int i = 0; i<searchedBusinessList.size(); i++) {
 			business foundBusiness = searchedBusinessList.get(i);
-			//mainFrame.newSearchResult(foundBusiness);
+			mainFrame.newSearchResult(foundBusiness);
 		}
 		return true;
 	}

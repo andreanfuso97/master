@@ -554,7 +554,7 @@ public class GUI_Frame extends JFrame {
 		//-------------------------------------------------------------------------------------------------------------------
 		
 		userInfoPanel = new JPanel();
-		userInfoPanel.setBackground(new Color(204, 255, 204));
+		userInfoPanel.setBackground(new Color(255, 245, 238));
 		layeredPane.add(userInfoPanel, "userInfoPanel");
 		userInfoPanel.setLayout(null);
 	
@@ -1412,6 +1412,7 @@ public class GUI_Frame extends JFrame {
 	}
 	
 	public void showEditUserPanel() {
+		userInfoPanel.removeAll();
 		showUserInfo(foodvibes.getUser());
 		cardLayout.show(layeredPane, "userInfoPanel");
 	}
